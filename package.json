@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "tape tests.js | tap-min"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -11,7 +12,10 @@
     "ejs": "~2.5.7",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
-    "morgan": "~1.9.0"
+    "morgan": "~1.9.0",
+    "supertest": "^3.1.0",
+    "tap-min": "^1.2.2",
+    "tape": "^4.9.1"
   },
   "devDependencies": {
     "eslint": "^5.4.0",
