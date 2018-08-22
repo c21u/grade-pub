@@ -2,6 +2,7 @@ let config = {
   trustProxy: process.env.TRUST_PROXY || 'loopback',
   auth: {
     strategy: 'lti',
+    jwtSecret: process.env.JWT_SECRET || 'CHANGE_ME',
   },
 };
 
