@@ -3,10 +3,14 @@ let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
+const config = require('./config');
+const passport = require('./passport');
 
 let indexRouter = require('./routes/index');
 
 let app = express();
+
+app.set('trust proxy', config.trustProxy);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -17,6 +21,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(passport.initialize());
 
 app.use('/', indexRouter);
 
