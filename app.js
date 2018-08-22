@@ -4,7 +4,6 @@ let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 const config = require('./config');
-const passport = require('./passport');
 
 let indexRouter = require('./routes/index');
 
@@ -22,7 +21,6 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(passport.initialize());
 
 app.use('/', indexRouter);
 

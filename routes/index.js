@@ -1,7 +1,8 @@
 let express = require('express');
 // eslint-disable-next-line new-cap
 let router = express.Router();
-const passport = require('../passport');
+const passport = require('../lib/passport');
+const authStrategy = require('../config').auth.strategy;
 
 router.get(
   '/',
@@ -10,11 +11,16 @@ router.get(
   }
 );
 
+router.use(passport.initialize());
 router.post(
   '/',
-  passport.authenticate('lti', {session: false}),
+  passport.authenticate(authStrategy, {session: false}),
   (req, res, next) => {
-    res.redirect('/secret');
+    if (req.user) {
+      res.redirect('/secret');
+    } else {
+      res.sendStatus(401);
+    }
   }
 );
 
