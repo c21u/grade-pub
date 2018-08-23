@@ -1,4 +1,7 @@
 let config = {
+  db: {
+    connectionURI: 'postgres://localhost',
+  },
   trustProxy: process.env.TRUST_PROXY || 'loopback',
   auth: {
     strategy: 'lti',
