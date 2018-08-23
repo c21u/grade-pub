@@ -1,15 +1,16 @@
 const request = require('supertest');
 const test = require('tape');
+const fakeAuth = require('./config').auth.fake;
 
 const app = require('./app');
 
 test('Can POST to get authenticated', (assert) => {
   request(app)
   .post('/')
-  .send('username=admin')
-  .send('password=1234')
+  .send(`username=${fakeAuth.username}`)
+  .send(`password=${fakeAuth.password}`)
   .expect(302)
-  .expect('Location', '/secret')
+  .expect('Location', /\/secret\?token=.+\..+\..+$/)
   .end((err, res) => {
     assert.error(err, 'No error');
     assert.end();
