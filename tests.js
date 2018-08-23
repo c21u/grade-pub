@@ -17,6 +17,18 @@ test('Can POST to get authenticated', (assert) => {
   });
 });
 
+test('Should not authenticate with bad credentials', (assert) => {
+  request(app)
+  .post('/')
+  .send(`username=incorrect`)
+  .send(`password=password`)
+  .expect(401)
+  .end((err, res) => {
+    assert.error(err, 'No error');
+    assert.end();
+  });
+});
+
 test('GET / should be protected', (assert) => {
   request(app)
   .get('/')
