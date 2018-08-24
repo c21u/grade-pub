@@ -10,7 +10,7 @@ test('Can POST to get authenticated', (assert) => {
   .send(`username=${fakeAuth.username}`)
   .send(`password=${fakeAuth.password}`)
   .expect(302)
-  .expect('Location', /\/secret\?token=.+\..+\..+$/)
+  .expect('Location', /^\/\?token=.+\..+\..+$/)
   .end((err, res) => {
     assert.error(err, 'No error');
     assert.end();
