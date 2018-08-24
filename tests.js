@@ -4,7 +4,11 @@ const fakeAuth = require('./config').auth.fake;
 
 const app = require('./app');
 
-test('Can POST to get authenticated', (assert) => {
+test('Can POST to be authenticated', (assert) => {
+  if (!fakeAuth.username || !fakeAuth.password) {
+    assert.comment('Fake testing credentials were not found.');
+  }
+
   request(app)
   .post('/')
   .send(`username=${fakeAuth.username}`)
