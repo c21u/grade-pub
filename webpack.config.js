@@ -4,6 +4,13 @@ let HTMLWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: 'development',
   devtool: 'source-map',
+  devServer: {
+    proxy: {
+      '/': {
+        target: 'http://localhost:3000',
+      },
+    },
+  },
   entry: './client/src/index.js',
   output: {
     path: path.join(__dirname, '/dist'),
