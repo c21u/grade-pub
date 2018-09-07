@@ -42,3 +42,13 @@ test('GET / should be protected', (assert) => {
     assert.end();
   });
 });
+
+test('/api routes should be protected', (assert) => {
+  assert.plan(1);
+  request(app)
+  .get('/api')
+  .expect(401)
+  .end((err, res) => {
+    assert.error(err, 'No error');
+  });
+});
