@@ -1,7 +1,18 @@
 module.exports = {
-    "extends": "google",
+    "extends": [
+        "google",
+        "plugin:react/recommended"
+    ],
     "env": {
         "es6": true,
         "node": true
+    },
+    "plugins": [
+        "react"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
     }
 };
