@@ -29,8 +29,6 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
-    new HTMLWebpackPlugin({
-      title: 'Production --',
-    }),
+    new HTMLWebpackPlugin(),
   ],
 };
