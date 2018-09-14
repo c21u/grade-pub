@@ -4,9 +4,9 @@ const app = require("./server");
 const fakeAuth = require("./config").auth.fake;
 
 test("Can POST to be authenticated", () => {
-  if (!fakeAuth.username || !fakeAuth.password) {
-    console.warn("Fake testing credentials not set.");
-  }
+  // Expect the fake credentials to exist.
+  expect(fakeAuth.username).toBeDefined();
+  expect(fakeAuth.password).toBeDefined();
 
   request(app)
     .post("/")
