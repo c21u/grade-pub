@@ -1,7 +1,7 @@
 const request = require('supertest');
 const test = require('tape');
 
-const app = require('./app');
+const app = require('./server');
 const fakeAuth = require('./config').auth.fake;
 
 test('Can POST to be authenticated', (assert) => {
