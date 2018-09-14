@@ -3,8 +3,9 @@ let createError = require('http-errors');
 let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
-let logger = require('morgan');
+let httpLogger = require('morgan');
 const config = require('./config');
+const logger = require('./lib/logger');
 
 let indexRouter = require('./routes');
 let apiRouter = require('./routes/api');
@@ -17,7 +18,8 @@ app.set('trust proxy', config.trustProxy);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
+// TODO use 'dev' for dev, otherwise 'combined'
+app.use(httpLogger('dev', {stream: logger.stream}));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
