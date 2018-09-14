@@ -6,7 +6,9 @@ let jwt = require('jsonwebtoken');
 const passport = require('../lib/passport');
 const cfg = require('../config').auth;
 
+// initialized here but actually used as passport.authenticate()
 router.use(passport.initialize());
+
 router.post(
   '/',
   passport.authenticate(cfg.strategy, {session: false}),
@@ -20,6 +22,11 @@ router.post(
     }
   }
 );
+
+// health check endpoint
+router.get('/z', (req, res, next) => {
+  res.sendStatus(200);
+});
 
 router.use(jwtMiddleware);
 

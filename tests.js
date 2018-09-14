@@ -52,3 +52,11 @@ test('/api routes should be protected', (assert) => {
       assert.error(err, 'No error');
     });
 });
+
+test('Health check returns 200', (assert) => {
+  assert.plan(1);
+  request(app)
+  .get('/z')
+  .expect(200)
+  .end((err, res) => assert.error(err, 'No error'));
+});
