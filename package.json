@@ -5,8 +5,14 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "dev-client": "webpack-dev-server --config webpack.dev.js",
+    "lint": "precise-commits",
     "start": "node ./bin/www",
     "test": "NODE_ENV=test tape tests.js | tap-spec"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint && yarn test"
+    }
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -44,7 +50,9 @@
     "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-react": "^7.11.1",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^1.0.0-rc.14",
     "passport-local": "^1.0.0",
+    "precise-commits": "^1.0.2",
     "prettier": "^1.14.2",
     "tap-min": "^1.2.2",
     "tap-spec": "^5.0.0",
