@@ -6,11 +6,12 @@
     "build": "webpack --config webpack.prod.js",
     "dev-client": "webpack-dev-server --config webpack.dev.js",
     "start": "node ./bin/www",
-    "test": "NODE_ENV=testing tape tests.js | tap-spec"
+    "test": "NODE_ENV=test tape tests.js | tap-spec"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
+    "dotenv": "^6.0.0",
     "ejs": "~2.5.7",
     "express": "~4.16.0",
     "express-jwt": "^5.3.1",

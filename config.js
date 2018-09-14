@@ -9,7 +9,7 @@ let config = {
   },
 };
 
-if (process.env.NODE_ENV === 'testing') {
+if (process.env.NODE_ENV === 'test') {
   config.auth.strategy = 'fake';
 
   // TODO complain if these are not set in Testing environment
