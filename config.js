@@ -1,21 +1,32 @@
+let getEnvVarOrDefault = (envVar, defaultValue) => {
+  defaultValue = defaultValue || "CHANGEME";
+  if (!!process.env[envVar]) {
+    return process.env[envVar];
+  } else {
+    console.warn(`${envVar} not set: using default ${defaultValue}`);
+    return defaultValue;
+  }
+};
+
 let config = {
   auth: {
-    jwtSecret: process.env.JWT_SECRET,
+    jwtSecret: getEnvVarOrDefault("JWT_SECRET"),
     strategy: "lti"
   },
   database: {
-    url: process.env.DATABASE_URL || "postgres://localhost"
+    url: getEnvVarOrDefault("DATABASE_URL", "postgres://localhost")
   },
   httpLogsFormat: "combined",
-  trustProxy: process.env.TRUST_PROXY || "loopback"
+  trustProxy: getEnvVarOrDefault("TRUST_PROXY", "loopback")
 };
 
 if (process.env.NODE_ENV === "development") {
-  config.httpLogsFormat = "dev";
+  config["httpLogsFormat"] = "dev";
 }
 
 if (process.env.NODE_ENV === 'test') {
-  config.auth.strategy = 'fake';
+  console.warn(`Fake auth strategy enabled!`);
+  config["auth"]["strategy"] = "fake";
 
   config.auth.fake = {
     username: process.env.FAKE_USERNAME,
