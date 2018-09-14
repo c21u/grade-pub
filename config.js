@@ -1,25 +1,22 @@
 let config = {
-  logging: {
-    morganFormat: "combined"
-  },
-  db: {
-    connectionURI: "postgres://localhost"
-  },
-  trustProxy: process.env.TRUST_PROXY || "loopback",
   auth: {
-    strategy: "lti",
-    jwtSecret: process.env.JWT_SECRET || "CHANGE_ME"
-  }
+    jwtSecret: process.env.JWT_SECRET,
+    strategy: "lti"
+  },
+  database: {
+    url: process.env.DATABASE_URL || "postgres://localhost"
+  },
+  httpLogsFormat: "combined",
+  trustProxy: process.env.TRUST_PROXY || "loopback"
 };
 
 if (process.env.NODE_ENV === "development") {
-  config.logging.morganFormat = "dev";
+  config.httpLogsFormat = "dev";
 }
 
 if (process.env.NODE_ENV === 'test') {
   config.auth.strategy = 'fake';
 
-  // TODO complain if these are not set in Testing environment
   config.auth.fake = {
     username: process.env.FAKE_USERNAME,
     password: process.env.FAKE_PASSWORD,

@@ -18,7 +18,7 @@ app.set('trust proxy', config.trustProxy);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(httpLogger(config.logging.morganFormat, { stream: logger.stream }));
+app.use(httpLogger(config.httpLogsFormat, { stream: logger.stream }));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
