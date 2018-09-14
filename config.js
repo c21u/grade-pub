@@ -1,13 +1,20 @@
 let config = {
+  logging: {
+    morganFormat: "combined"
+  },
   db: {
-    connectionURI: 'postgres://localhost',
+    connectionURI: "postgres://localhost"
   },
-  trustProxy: process.env.TRUST_PROXY || 'loopback',
+  trustProxy: process.env.TRUST_PROXY || "loopback",
   auth: {
-    strategy: 'lti',
-    jwtSecret: process.env.JWT_SECRET || 'CHANGE_ME',
-  },
+    strategy: "lti",
+    jwtSecret: process.env.JWT_SECRET || "CHANGE_ME"
+  }
 };
+
+if (process.env.NODE_ENV === "development") {
+  config.logging.morganFormat = "dev";
+}
 
 if (process.env.NODE_ENV === 'test') {
   config.auth.strategy = 'fake';
