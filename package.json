@@ -7,7 +7,7 @@
     "dev-client": "webpack-dev-server --config webpack.dev.js",
     "lint": "precise-commits",
     "start": "node ./bin/www",
-    "test": "NODE_ENV=test tape tests.js | tap-spec"
+    "test": "jest"
   },
   "husky": {
     "hooks": {
@@ -34,7 +34,6 @@
     "sequelize": "^4.38.0",
     "sequelize-cli": "^4.1.1",
     "supertest": "^3.1.0",
-    "tape": "^4.9.1",
     "winston": "^3.1.0"
   },
   "devDependencies": {
@@ -51,11 +50,10 @@
     "eslint-plugin-react": "^7.11.1",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^1.0.0-rc.14",
+    "jest": "^23.6.0",
     "passport-local": "^1.0.0",
     "precise-commits": "^1.0.2",
     "prettier": "^1.14.2",
-    "tap-min": "^1.2.2",
-    "tap-spec": "^5.0.0",
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0",
     "webpack-dev-middleware": "^3.2.0",
