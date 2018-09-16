@@ -4,7 +4,6 @@ let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let httpLogger = require('morgan');
-const config = require('./config');
 const logger = require('./lib/logger');
 
 let indexRouter = require('./routes');
@@ -12,13 +11,15 @@ let apiRouter = require('./routes/api');
 
 let app = express();
 
-app.set('trust proxy', config.trustProxy);
+app.set("trust proxy", require("./config")["trustProxy"]);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(httpLogger(config.httpLogsFormat, { stream: logger.stream }));
+app.use(
+  httpLogger(require("./config")["httpLogsFormat"], { stream: logger.stream })
+);
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());

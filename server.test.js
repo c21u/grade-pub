@@ -1,7 +1,7 @@
 const request = require("supertest");
 
 const app = require("./server");
-const fakeAuth = require("./config").auth.fake;
+const fakeAuth = require("./config")["fakeStrategyCredentials"];
 
 test("Can POST to be authenticated", () => {
   // Expect the fake credentials to exist.

@@ -1,21 +1,22 @@
 let express = require('express');
 // eslint-disable-next-line new-cap
 let router = express.Router();
-let jwtMiddleware = require('../lib/jwt');
 let jwt = require('jsonwebtoken');
+let jwtMiddleware = require('../lib/jwt');
 const passport = require('../lib/passport');
-const cfg = require('../config').auth;
 
-// initialized here but actually used as passport.authenticate()
+// Passport initialized here but actually used as passport.authenticate()
 router.use(passport.initialize());
+let passportStrategy = require("../config")["passportStrategy"];
 
 router.post(
-  '/',
-  passport.authenticate(cfg.strategy, {session: false}),
+  "/",
+  passport.authenticate(passportStrategy, {session: false}),
   (req, res, next) => {
     if (req.user) {
+      const jwtSecret = require("../config")["jwtSecret"];
       const expiresIn = 60 * 60 * 24 * 180; // 180 days
-      const token = jwt.sign(req.user, cfg.jwtSecret, {expiresIn});
+      const token = jwt.sign(req.user, require("../config")["jwtSecret"], {expiresIn});
       res.redirect(`/?token=${token}`);
     } else {
       res.sendStatus(401);

@@ -9,13 +9,18 @@ let getEnvVarOrDefault = (envVar, defaultValue) => {
 };
 
 let config = {
-  auth: {
-    jwtSecret: getEnvVarOrDefault("JWT_SECRET"),
-    strategy: "lti"
+  buzzAPI: {
+    appID: getEnvVarOrDefault("BUZZAPI_APP_ID"),
+    password: getEnvVarOrDefault("BUZZAPI_PASSWORD")
   },
-  database: {
-    url: getEnvVarOrDefault("DATABASE_URL", "postgres://localhost")
+  canvas: {
+    token: getEnvVarOrDefault("CANVAS_TOKEN"),
+    url: getEnvVarOrDefault("CANVAS_URL")
   },
+  jwtSecret: getEnvVarOrDefault("JWT_SECRET"),
+  fakeStrategyCredentials: {},
+  passportStrategy: "lti",
+  databaseURL: getEnvVarOrDefault("DATABASE_URL", "postgres://localhost"),
   httpLogsFormat: "combined",
   trustProxy: getEnvVarOrDefault("TRUST_PROXY", "loopback")
 };
@@ -26,11 +31,11 @@ if (process.env.NODE_ENV === "development") {
 
 if (process.env.NODE_ENV === 'test') {
   console.warn(`Fake auth strategy enabled!`);
-  config["auth"]["strategy"] = "fake";
+  config["passportStrategy"] = "fake";
 
-  config.auth.fake = {
-    username: process.env.FAKE_USERNAME,
-    password: process.env.FAKE_PASSWORD,
+  config["fakeStrategyCredentials"] = {
+    username: getEnvVarOrDefault("FAKE_USERNAME"),
+    password: getEnvVarOrDefault("FAKE_PASSWORD")
   };
 }
 
