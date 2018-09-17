@@ -1,7 +1,12 @@
 Steps for the new LTI after cloning this repo
 
-* ensure all env variables are set
- - create .env
- - check config.js for how vars are used
+0. rename project
+ * find and replace `alti` in the project (2 places)
 
-* set up us your database
+1. `yarn install`
+
+2. ensure all env variables are set
+ * create .env
+ * check config.js for which vars to set
+
+3. set up database
