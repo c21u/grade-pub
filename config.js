@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === "development") {
   config["httpLogsFormat"] = "dev";
 }
 
-if (process.env.NODE_ENV === 'test') {
+if (process.env.NODE_ENV === "test") {
   console.warn(`Fake auth strategy enabled!`);
   config["passportStrategy"] = "fake";
 
