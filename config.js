@@ -17,6 +17,7 @@ let config = {
     token: getEnvVarOrDefault("CANVAS_TOKEN"),
     url: getEnvVarOrDefault("CANVAS_URL")
   },
+  clientURL: "/",
   jwtSecret: getEnvVarOrDefault("JWT_SECRET"),
   fakeStrategyCredentials: {},
   passportStrategy: "lti",
@@ -27,6 +28,7 @@ let config = {
 
 if (process.env.NODE_ENV === "development") {
   config["httpLogsFormat"] = "dev";
+  config["clientURL"] = getEnvVarOrDefault("CLIENT_URL", "/");
 }
 
 if (process.env.NODE_ENV === "test") {
