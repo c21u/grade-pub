@@ -1,5 +1,5 @@
-let React = require('react');
-let ReactDOM = require('react-dom');
+let React = require("react");
+let ReactDOM = require("react-dom");
 
 let Greeting = () => {
   return (

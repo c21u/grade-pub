@@ -1,16 +1,16 @@
-const Sequelize = require('sequelize');
-const seq = require('../lib/sequelize.js');
+const Sequelize = require("sequelize");
+const seq = require("../lib/sequelize.js");
 
-const LTISecret = seq.define('LTISecret', {
+const LTISecret = seq.define("LTISecret", {
   key: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true,
+    unique: true
   },
   secret: {
     type: Sequelize.STRING,
-    allowNull: false,
-  },
+    allowNull: false
+  }
 });
 
 module.exports = LTISecret;
