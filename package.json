@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "webpack --config webpack.prod.js",
-    "dev-client": "webpack-dev-server --config webpack.dev.js",
+    "dev": "webpack --watch --config webpack.dev.js",
     "lint": "precise-commits",
     "start": "node ./bin/www",
     "test": "jest"
@@ -56,8 +56,6 @@
     "prettier": "^1.14.2",
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-middleware": "^3.2.0",
-    "webpack-dev-server": "^3.1.7",
     "webpack-merge": "^4.1.4"
   }
 }
