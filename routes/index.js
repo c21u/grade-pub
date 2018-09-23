@@ -22,8 +22,7 @@ router.post(
       const jwtSecret = require("../config")["jwtSecret"];
       const expiresIn = 60 * 60 * 24 * 180; // 180 days
       const token = jwt.sign(req.user, jwtSecret, { expiresIn });
-      let clientURL = require("../config")["clientURL"];
-      res.redirect(`${clientURL}?token=${token}`);
+      res.redirect(`/?token=${token}`);
     } else {
       res.sendStatus(401);
     }
