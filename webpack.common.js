@@ -24,5 +24,10 @@ module.exports = {
       }
     ]
   },
-  plugins: [new CleanWebpackPlugin(["dist"]), new HTMLWebpackPlugin()]
+  plugins: [
+    new CleanWebpackPlugin(["dist"]),
+    new HTMLWebpackPlugin(),
+    require("@instructure/ui-presets/webpack/plugins")
+  ],
+  resolveLoader: require("@instructure/ui-presets/webpack/resolveLoader")
 };

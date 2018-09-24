@@ -15,6 +15,9 @@
     }
   },
   "dependencies": {
+    "@instructure/ui-elements": "^5.28.1",
+    "@instructure/ui-presets": "^5.28.1",
+    "@instructure/ui-themes": "^5.28.1",
     "cookie-parser": "~1.4.3",
     "debug": "~4.0.1",
     "dotenv": "^6.0.0",
