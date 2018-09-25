@@ -13,4 +13,4 @@ let Greeting = () => {
   );
 };
 
-ReactDOM.render(<Greeting />, document.body);
+ReactDOM.render(<Greeting />, document.getElementById("lti_root"));

@@ -26,7 +26,9 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(["dist"]),
-    new HTMLWebpackPlugin(),
+    new HTMLWebpackPlugin({
+      template: "client/src/index.html"
+    }),
     require("@instructure/ui-presets/webpack/plugins")
   ],
   resolveLoader: require("@instructure/ui-presets/webpack/resolveLoader")
