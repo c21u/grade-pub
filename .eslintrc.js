@@ -16,5 +16,6 @@ module.exports = {
       jsx: true
     },
     sourceType: "module"
-  }
+  },
+  parser: "babel-eslint"
 };
