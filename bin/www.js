@@ -5,7 +5,7 @@
  */
 
 let app = require("../server");
-let debug = require("debug")("alti:server");
+let debug = require("debug")("gradepub:server");
 let http = require("http");
 
 /**
