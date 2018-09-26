@@ -9,4 +9,8 @@ router.get("/", (req, res, next) => {
   res.render("index", { title: "Express - api" });
 });
 
+router.get("/demo", (req, res, next) => {
+  res.send({ demo: "some demo json" });
+});
+
 module.exports = router;

@@ -1,7 +1,7 @@
 Steps for the new LTI after cloning this repo
 
 0. rename project
- * find and replace `alti` in the project (2 places)
+ * find and replace `alti` in the project (3 places, including changing the name for the Docker repo, and excluding this readme.)
 
 1. `yarn install`
 
