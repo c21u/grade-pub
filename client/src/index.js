@@ -4,6 +4,7 @@ import theme from "@instructure/ui-themes/lib/canvas";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import qs from "qs";
 import jwtDecode from "jwt-decode";
+import "whatwg-fetch";
 
 theme.use();
 
@@ -41,6 +42,20 @@ let ProtectedRoute = ({ component: Component, ...rest }) => (
 
 let App = () => {
   grabJWT();
+  if (!!context.jwt) {
+    fetch("/api/demo", {
+      headers: {
+        Authorization: `Bearer ${context.jwt}`
+      }
+    })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
   return (
     <Router>
       <div>
