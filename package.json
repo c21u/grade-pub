@@ -19,6 +19,7 @@
     "@instructure/ui-layout": "^5.29.0",
     "@instructure/ui-presets": "^5.28.1",
     "@instructure/ui-themes": "^5.28.1",
+    "canvas-lms-api": "^0.2.1",
     "cookie-parser": "~1.4.3",
     "debug": "~4.0.1",
     "dotenv": "^6.0.0",
