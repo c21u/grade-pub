@@ -128,32 +128,71 @@ let Instructions = () => {
   );
 };
 
-let App = () => {
-  grabJWT();
-  if (!!context.jwt) {
-    fetch("/api/demo", {
-      headers: {
-        Authorization: `Bearer ${context.jwt}`
-      }
-    })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+/** App component */
+class App extends React.Component {
+  /**
+   * App component constructor
+   * @param {Object} props
+   */
+  constructor(props) {
+    super(props);
+    // can grab the jwt from window.location.search here,
+    // why it is not present in componentDidMount(), idk
+    grabJWT();
+    // TODO maybe want to fire off the data request here in constructor, too.
   }
 
-  return (
-    <Router>
-      <div>
-        <Route path="/default" component={defaultRoute} />
-        <ProtectedRoute exact path="/" component={Instructions} />
-      </div>
-    </Router>
-  );
-};
+  /** Send initial data request */
+  componentDidMount() {
+    if (!!context.jwt) {
+      window
+        .fetch("/api/grades", {
+          headers: {
+            Authorization: `Bearer ${context.jwt}`
+          }
+        })
+        .then(checkResponseStatus)
+        .then(response => {
+          return response.json();
+        })
+        .then(json => console.log(json)) // TODO something else.
+        .catch(err => {
+          console.error(`request failed: ${err}`);
+        });
+    }
+  }
+
+  /**
+   * Render the app component with react-router
+   * @return {Object} App component
+   */
+  render() {
+    return (
+      <Router>
+        <div>
+          <Route path="/default" component={defaultRoute} />
+          <ProtectedRoute exact path="/" component={Instructions} />
+        </div>
+      </Router>
+    );
+  }
+}
 
 let defaultRoute = () => <h1>Default unprotected route</h1>;
+
+/**
+ * Check for 200 OK status from response
+ * @param {Object} response
+ * @return {(Object|error)}
+ */
+let checkResponseStatus = response => {
+  if (response.status === 200) {
+    return response;
+  } else {
+    let err = new Error(response.statusText);
+    err.response = response;
+    throw err;
+  }
+};
 
 ReactDOM.render(<App />, document.getElementById("lti_root"));
