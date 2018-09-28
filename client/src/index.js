@@ -48,14 +48,16 @@ let GradesButton = () => {
 };
 
 let GradePublisher = () => {
-  return <div>
+  return (
+    <div>
       <View as="div" padding="large">
         <Instructions />
       </View>
       <View as="div" textAlign="center">
         <GradesButton />
       </View>
-    </div>;
+    </div>
+  );
 };
 
 /** App component */
@@ -87,12 +89,14 @@ class App extends React.Component {
    * @return {Object}
    */
   render() {
-    return <Router>
+    return (
+      <Router>
         <div>
           <Route path="/default" component={defaultRoute} />
           <ProtectedRoute exact path="/" component={GradePublisher} />
         </div>
-      </Router>;
+      </Router>
+    );
   }
 }
 
