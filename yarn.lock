@@ -813,7 +813,7 @@
     keycode "^2"
     prop-types "^15"
 
-"@instructure/ui-buttons@^5":
+"@instructure/ui-buttons@^5", "@instructure/ui-buttons@^5.30.0":
   version "5.30.0"
   resolved "https://registry.yarnpkg.com/@instructure/ui-buttons/-/ui-buttons-5.30.0.tgz#ae0ca16652961b84fb16ca3de535012b81faee92"
   integrity sha512-UwrCRuRQtQqGDf+TUbOLGubX7b5McLpuLruFB8AHL3v4VahrWkUOgyltNkEg4lwelEkeMk/0igcmCI/h2QEfBg==

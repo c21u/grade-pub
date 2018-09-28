@@ -19,6 +19,7 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
+    "@instructure/ui-buttons": "^5.30.0",
     "@instructure/ui-elements": "^5.28.1",
     "@instructure/ui-layout": "^5.29.0",
     "@instructure/ui-presets": "^5.28.1",
