@@ -13,20 +13,18 @@ theme.use();
 
 let context = {};
 
-/**
- * Get the JWT from the `token` query parameter. The jwtDecode() will throw
- * InvalidTokenError if it cannot decode the JWT, otherwise we copy the token
- * and decoded values into the context object.
- */
-let grabJWT = () => {
+let updateContext = () => {
+  let params = window.location.search;
   try {
-    let jwt = qs.parse(window.location.search, {
-      ignoreQueryPrefix: true
-    }).token;
-    context.lti = jwtDecode(jwt);
-    context.jwt = jwt;
+    let jwt = qs.parse(params, { ignoreQueryPrefix: true }).token;
+    jwtDecode(jwt);
+    context.fetchOptions = {
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    };
   } catch (err) {
-    console.error(err);
+    console.error(`updating context failed: ${err}`);
   }
 };
 
@@ -34,7 +32,7 @@ let ProtectedRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      !!context.jwt ? (
+      !!context.fetchOptions ? (
         <Component {...props} />
       ) : (
         <Redirect to={{ pathname: "/default" }} />
@@ -43,22 +41,58 @@ let ProtectedRoute = ({ component: Component, ...rest }) => (
   />
 );
 
-let GradesButton = () => {
-  return <Button>Export grades spreadsheet</Button>;
-};
-
-let GradePublisher = () => {
+let GradesButton = props => {
   return (
-    <div>
-      <View as="div" padding="large">
-        <Instructions />
-      </View>
-      <View as="div" textAlign="center">
-        <GradesButton />
-      </View>
-    </div>
+    <Button disabled={!props.dataReady} size="large">
+      {props.dataReady ? "Export grades spreadsheet" : "Preparing export..."}
+    </Button>
   );
 };
+
+/** Main app component */
+class GradePublisher extends React.Component {
+  /**
+   * @param {Object} props
+   */
+  constructor(props) {
+    super(props);
+    this.state = {
+      dataReady: false
+    };
+  }
+
+  /**
+   * Fetch initial data
+   */
+  componentDidMount() {
+    if (!context.fetchOptions)
+      throw new Error("mounting App failed: no fetchOptions");
+
+    window
+      .fetch("/api/grades", context.fetchOptions)
+      .then(checkResponseStatus)
+      .then(response => response.json())
+      .then(json => console.log(json))
+      .then(() => this.setState({ dataReady: true }))
+      .catch(err => console.error(`fetch failed: ${err}`));
+  }
+
+  /**
+   * @return {Object} Render the Gradepub component
+   */
+  render() {
+    return (
+      <div>
+        <View as="div" padding="large">
+          <Instructions />
+        </View>
+        <View as="div" textAlign="center">
+          <GradesButton dataReady={this.state.dataReady} />
+        </View>
+      </div>
+    );
+  }
+}
 
 /** App component */
 class App extends React.Component {
@@ -68,20 +102,7 @@ class App extends React.Component {
    */
   constructor(props) {
     super(props);
-
-    grabJWT();
-    if (!!context.jwt) {
-      window
-        .fetch("/api/grades", {
-          headers: {
-            Authorization: `Bearer ${context.jwt}`
-          }
-        })
-        .then(checkResponseStatus)
-        .then(response => response.json())
-        .then(json => console.log(json))
-        .catch(err => console.error(`fetch failed: ${err}`));
-    }
+    updateContext();
   }
 
   /**
