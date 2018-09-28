@@ -83,9 +83,9 @@ let Instructions = () => {
           If you encounter issues with this step, contact the {"Registrar's"}{" "}
           Office at{" "}
           <Link href="mailto:comments@registrar.gatech.edu">
-            comments.registrar.gatech.edu
+            comments@registrar.gatech.edu
           </Link>
-          . For additional information from the registrar, see{" "}
+          . For additional information from the Registrar, see{" "}
           <Link
             href="https://registrar.gatech.edu/faculty-and-staff/grading-and-grade-entry"
             target="_blank"

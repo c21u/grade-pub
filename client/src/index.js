@@ -9,6 +9,7 @@ import qs from "qs";
 import xlsx from "xlsx";
 import "whatwg-fetch";
 import Instructions from "./Instructions";
+import spreadsheetInstructions from "./spreadsheetInstructions";
 
 theme.use();
 
@@ -97,6 +98,8 @@ class GradePublisher extends React.Component {
 
   /** Export the spreadsheet */
   exportHandler() {
+    let courseID = this.state.grades.data[0].sisSectionID;
+    let courseName = this.state.grades.data[0].course;
     this.state.grades.data.forEach(item => {
       const termCode = item.sisSectionID.slice(0, 6);
       const crn = item.sisSectionID.slice(7);
@@ -114,13 +117,15 @@ class GradePublisher extends React.Component {
       ]);
     });
 
-    // TODO: get formatted instructions from js as in other version
-    // const instructionSheet = xlsx.utils.aoa_to_sheet()
+    const instructionSheet = xlsx.utils.aoa_to_sheet(spreadsheetInstructions);
     const workSheet = xlsx.utils.aoa_to_sheet(context.data);
     const workBook = xlsx.utils.book_new();
     xlsx.utils.book_append_sheet(workBook, workSheet, "Grades");
-    // xlsx.utils.book_append_sheet(workBook, instructionSheet, "Instructions");
-    let filename = `canvas_grades_2018_fall_midterm.xlsx`; // TODO change file name
+    xlsx.utils.book_append_sheet(workBook, instructionSheet, "Instructions");
+
+    courseID = courseID.replace(/[^\w.]/g, "_");
+    courseName = courseName.replace(/[^\w. ]/g, "").replace(/ /g, "_");
+    let filename = `grades_${courseID}_${courseName}.xlsx`;
     xlsx.writeFile(workBook, filename);
   }
 
