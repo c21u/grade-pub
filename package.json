@@ -23,6 +23,7 @@
     "@instructure/ui-presets": "^5.28.1",
     "@instructure/ui-themes": "^5.28.1",
     "babel-loader": "^8.0.2",
+    "canvas-lms-api": "^0.2.1",
     "clean-webpack-plugin": "^0.1.19",
     "cookie-parser": "~1.4.3",
     "debug": "~4.0.1",
@@ -47,10 +48,10 @@
     "react-router-dom": "^4.3.1",
     "sequelize": "^4.38.0",
     "sequelize-cli": "^4.1.1",
-    "whatwg-fetch": "^3.0.0",
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0",
     "webpack-merge": "^4.1.4",
+    "whatwg-fetch": "^3.0.0",
     "winston": "^3.1.0"
   },
   "devDependencies": {

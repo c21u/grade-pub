@@ -13,10 +13,7 @@ let config = {
     appID: getEnvVarOrDefault("BUZZAPI_APP_ID"),
     password: getEnvVarOrDefault("BUZZAPI_PASSWORD")
   },
-  canvas: {
-    token: getEnvVarOrDefault("CANVAS_TOKEN"),
-    url: getEnvVarOrDefault("CANVAS_URL")
-  },
+  canvasToken: getEnvVarOrDefault("CANVAS_TOKEN"),
   jwtSecret: getEnvVarOrDefault("JWT_SECRET"),
   fakeStrategyCredentials: {},
   passportStrategy: "lti",
