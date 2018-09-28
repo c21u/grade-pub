@@ -61,7 +61,7 @@ let Instructions = () => {
               In order to use this tool, you will first need to enable and set a
               grading scheme for the final course grade in Canvas.{" "}
               <Link
-                href="http://canvas.gatech.edu/set-canvas-final-grade-reporting"
+                href="http://canvas.gatech.edu/grade-submission"
                 target="_blank"
               >
                 Click here to find the grading scheme instructions.
@@ -94,24 +94,15 @@ let Instructions = () => {
         <List itemSpacing="small" margin="small">
           <ListItem>
             <Text>
-              Go to{" "}
-              <Link href="https://buzzport.gatech.edu/" target="_blank">
-                BuzzPort
-              </Link>{" "}
-              and login using your GT Account.
+              Go to the{" "}
+              <Link
+                href="https://fge.sis.gatech.edu/StudentFacultyGradeEntry"
+                target="_blank"
+              >
+                Banner Faculty Grade Entry (FGE) module
+              </Link>
+              .
             </Text>
-          </ListItem>
-          <ListItem>
-            <Text>
-              Click {"Registration - OSCAR"} in the{" "}
-              {"Registration and Student Services"} section.
-            </Text>
-          </ListItem>
-          <ListItem>
-            <Text>Click {"Faculty Services."}</Text>
-          </ListItem>
-          <ListItem>
-            <Text>Select the new Faculty Grade Entry option.</Text>
           </ListItem>
           <ListItem>
             <Text>
