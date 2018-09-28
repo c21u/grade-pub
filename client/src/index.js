@@ -6,6 +6,7 @@ import Button from "@instructure/ui-buttons/lib/components/Button";
 import View from "@instructure/ui-layout/lib/components/View";
 import jwtDecode from "jwt-decode";
 import qs from "qs";
+import xlsx from "xlsx";
 import "whatwg-fetch";
 import Instructions from "./Instructions";
 
@@ -23,6 +24,18 @@ let updateContext = () => {
         Authorization: `Bearer ${jwt}`
       }
     };
+    context.data = [
+      [
+        "Term Code",
+        "CRN",
+        "Full Name",
+        "Student ID",
+        "Confidential",
+        "Course",
+        "Grade",
+        "Last Attended Date"
+      ]
+    ];
   } catch (err) {
     console.error(`updating context failed: ${err}`);
   }
@@ -43,7 +56,11 @@ let ProtectedRoute = ({ component: Component, ...rest }) => (
 
 let GradesButton = props => {
   return (
-    <Button disabled={!props.dataReady} size="large">
+    <Button
+      onClick={props.clickHandler}
+      disabled={!props.dataReady}
+      size="large"
+    >
       {props.dataReady ? "Export grades spreadsheet" : "Preparing export..."}
     </Button>
   );
@@ -59,6 +76,7 @@ class GradePublisher extends React.Component {
     this.state = {
       dataReady: false
     };
+    this.exportHandler = this.exportHandler.bind(this);
   }
 
   /**
@@ -72,9 +90,38 @@ class GradePublisher extends React.Component {
       .fetch("/api/grades", context.fetchOptions)
       .then(checkResponseStatus)
       .then(response => response.json())
-      .then(json => console.log(json))
+      .then(json => this.setState({ grades: json }))
       .then(() => this.setState({ dataReady: true }))
       .catch(err => console.error(`fetch failed: ${err}`));
+  }
+
+  /** Export the spreadsheet */
+  exportHandler() {
+    this.state.grades.data.forEach(item => {
+      const termCode = item.sisSectionID.slice(0, 6);
+      const crn = item.sisSectionID.slice(7);
+      const confidential = item.name === "Confidential" ? "Yes" : "No";
+      const lastAttended = ""; // data is in SIS, so punt here
+      context.data.push([
+        termCode,
+        crn,
+        item.name,
+        item.gtID,
+        confidential,
+        item.course,
+        item.currentGrade, // TODO make it dynamic for miterms and finals
+        lastAttended
+      ]);
+    });
+
+    // TODO: get formatted instructions from js as in other version
+    // const instructionSheet = xlsx.utils.aoa_to_sheet()
+    const workSheet = xlsx.utils.aoa_to_sheet(context.data);
+    const workBook = xlsx.utils.book_new();
+    xlsx.utils.book_append_sheet(workBook, workSheet, "Grades");
+    // xlsx.utils.book_append_sheet(workBook, instructionSheet, "Instructions");
+    let filename = `canvas_grades_2018_fall_midterm.xlsx`; // TODO change file name
+    xlsx.writeFile(workBook, filename);
   }
 
   /**
@@ -87,7 +134,10 @@ class GradePublisher extends React.Component {
           <Instructions />
         </View>
         <View as="div" textAlign="center">
-          <GradesButton dataReady={this.state.dataReady} />
+          <GradesButton
+            clickHandler={this.exportHandler}
+            dataReady={this.state.dataReady}
+          />
         </View>
       </div>
     );
