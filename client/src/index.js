@@ -131,40 +131,30 @@ let Instructions = () => {
 /** App component */
 class App extends React.Component {
   /**
-   * App component constructor
+   * App component constructor.
    * @param {Object} props
    */
   constructor(props) {
     super(props);
-    // can grab the jwt from window.location.search here,
-    // why it is not present in componentDidMount(), idk
-    grabJWT();
-    // TODO maybe want to fire off the data request here in constructor, too.
-  }
 
-  /** Send initial data request */
-  componentDidMount() {
+    grabJWT();
     if (!!context.jwt) {
       window
-        .fetch("/api/grades", {
+        .fetch("/api/demo", {
           headers: {
             Authorization: `Bearer ${context.jwt}`
           }
         })
         .then(checkResponseStatus)
-        .then(response => {
-          return response.json();
-        })
-        .then(json => console.log(json)) // TODO something else.
-        .catch(err => {
-          console.error(`request failed: ${err}`);
-        });
+        .then(response => response.json())
+        .then(json => console.log(json))
+        .catch(err => console.error(`fetch failed: ${err}`));
     }
   }
 
   /**
-   * Render the app component with react-router
-   * @return {Object} App component
+   * Render App component with react-router
+   * @return {Object}
    */
   render() {
     return (

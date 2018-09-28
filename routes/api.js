@@ -2,20 +2,17 @@ let express = require("express");
 // eslint-disable-next-line new-cap
 let router = express.Router();
 let jwtMiddleware = require("../lib/jwt");
-let Canvas = require("canvas-lms-api");
-let canvasToken = require("../config")["canvas"]["token"];
+let canvasAPI = require("../lib/canvas");
 
 router.use(jwtMiddleware);
 
 router.get("/grades", (req, res, next) => {
-  let canvas = new Canvas(req.user.custom_canvas_api_baseurl, {
-    accessToken: canvasToken
-  });
+  let canvas = canvasAPI.getCanvasContext(req);
 
-  canvas
-    .get(`courses/${req.user.custom_canvas_course_id}/enrollments`)
-    .then(users => {
-      return users.filter(u => u.role === "StudentEnrollment");
+  canvas.api
+    .get(`courses/${canvas.courseID}/enrollments`)
+    .then(enrollments => {
+      return enrollments.filter(enr => enr.role === "StudentEnrollment");
     })
     .then(students => {
       return students.filter(s => s.user.sortable_name !== "Student, Test");

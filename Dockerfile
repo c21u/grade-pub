@@ -3,7 +3,7 @@ FROM node:8-alpine
 COPY . /app
 WORKDIR /app
 
-RUN yarn install
+RUN yarn install --non-interactive --no-progress --production
 RUN yarn build
 
 EXPOSE 3000

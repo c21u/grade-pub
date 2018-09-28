@@ -8,22 +8,37 @@ let getEnvVarOrDefault = (envVar, defaultValue) => {
   }
 };
 
-let config = {
-  buzzAPI: {
+let getEnvVarOrThrow = envVar => {
+  if (!!process.env[envVar]) {
+    return process.env[envVar];
+  } else {
+    throw new Error(`Unrecoverable: missing process.env.${envVar}`);
+  }
+};
+
+let config = {};
+try {
+  config.buzzAPI = {
     appID: getEnvVarOrDefault("BUZZAPI_APP_ID"),
     password: getEnvVarOrDefault("BUZZAPI_PASSWORD")
-  },
-  canvas: {
-    token: getEnvVarOrDefault("CANVAS_TOKEN"),
-    url: getEnvVarOrDefault("CANVAS_URL")
-  },
-  jwtSecret: getEnvVarOrDefault("JWT_SECRET"),
-  fakeStrategyCredentials: {},
-  passportStrategy: "lti",
-  databaseURL: getEnvVarOrDefault("DATABASE_URL", "postgres://localhost"),
-  httpLogsFormat: "combined",
-  trustProxy: getEnvVarOrDefault("TRUST_PROXY", "loopback")
-};
+  };
+  config.lti = {
+    key: getEnvVarOrThrow("LTI_KEY"),
+    secret: getEnvVarOrThrow("LTI_SECRET")
+  };
+  config.canvasToken = getEnvVarOrDefault("CANVAS_TOKEN");
+  config.jwtSecret = getEnvVarOrDefault("JWT_SECRET");
+  config.fakeStrategyCredentials = {};
+  config.passportStrategy = "lti";
+  config.databaseURL = getEnvVarOrDefault(
+    "DATABASE_URL",
+    "postgres://localhost"
+  );
+  config.httpLogsFormat = "combined";
+  config.trustProxy = getEnvVarOrDefault("TRUST_PROXY", "loopback");
+} catch (err) {
+  console.error(err);
+}
 
 if (process.env.NODE_ENV === "development") {
   config["httpLogsFormat"] = "dev";
