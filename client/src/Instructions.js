@@ -11,9 +11,7 @@ let Instructions = () => {
       <Heading>Instructions</Heading>
       <View as="div" maxWidth="80%" margin="medium">
         <Text>
-          <strong>Step 1:</strong> Prepare and export the grades spreadsheet. If{" "}
-          you encounter issues with this step, contact the Digital Learning Team{" "}
-          at <Link href="mailto:canvas@gatech.edu">canvas@gatech.edu</Link>.
+          <strong>Step 1:</strong> Export your grades from Canvas.
         </Text>
         <List itemSpacing="small" margin="small">
           <ListItem>
@@ -37,43 +35,65 @@ let Instructions = () => {
             </Text>
           </ListItem>
         </List>
+        <Text>
+          If you encounter issues with this step, contact the Digital Learning{" "}
+          Team at <Link href="mailto:canvas@gatech.edu">canvas@gatech.edu</Link>
+          .
+        </Text>
       </View>
       <View as="div" maxWidth="80%" margin="medium">
         <Text>
-          <strong>Step 2:</strong> Upload your grades to Banner. If you
-          encounter issues with this step, contact the {"Registrar's"} Office.
-          (see{" "}
-          <Link
-            href="https://registrar.gatech.edu/faculty-and-staff/grading-and-grade-entry"
-            target="_blank"
-          >
-            Grading and Grade Entry Information
-          </Link>
-          )
+          <strong>Step 2:</strong> Upload your grades to Banner.
         </Text>
         <List itemSpacing="small" margin="small">
           <ListItem>
             <Text>
-              Go to the{" "}
+              Go to the Banner Faculty Grade Entry (FGE) module at{" "}
               <Link
                 href="https://fge.sis.gatech.edu/StudentFacultyGradeEntry"
                 target="_blank"
               >
-                Banner Faculty Grade Entry (FGE) module
+                https://fge.sis.gatech.edu/StudentFacultyGradeEntry
               </Link>
               .
             </Text>
           </ListItem>
           <ListItem>
             <Text>
-              Upload the grades spreadsheet (see Step 1) to Banner. If your
-              spreadsheet contains multiple sections, you will need to upload it
-              one time for each section. During the upload process, there will
-              be errors about any records in the grades spreadsheet which do not
-              match the current section. This is expected behavior.
+              Upload the Canvas export grades spreadsheet (see Step 1) to
+              Banner. If your spreadsheet contains multiple sections, you will
+              need to upload it one time for each section. During the upload
+              process, there will be errors about any records in the grades
+              spreadsheet which do not match the current section. This is
+              expected behavior.
+            </Text>
+            <Text>
+              More information on this step is available at{" "}
+              <Link
+                href="https://registrar.gatech.edu/info/importing-grades"
+                target="_blank"
+              >
+                https://registrar.gatech.edu/info/importing-grades
+              </Link>
+              .
             </Text>
           </ListItem>
         </List>
+        <Text>
+          If you encounter issues with this step, contact the {"Registrar's"}{" "}
+          Office at{" "}
+          <Link href="mailto:comments@registrar.gatech.edu">
+            comments.registrar.gatech.edu
+          </Link>
+          . For additional information from the registrar, see{" "}
+          <Link
+            href="https://registrar.gatech.edu/faculty-and-staff/grading-and-grade-entry"
+            target="_blank"
+          >
+            Grading and Grade Entry Information
+          </Link>
+          .
+        </Text>
       </View>
     </div>
   );
