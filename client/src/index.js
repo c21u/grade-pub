@@ -15,15 +15,18 @@ let context = {};
  * InvalidTokenError if it cannot decode the JWT, otherwise we copy the token
  * and decoded values into the context object.
  */
-let grabJWT = () => {
+let updateContext = () => {
   try {
-    let jwt = qs.parse(window.location.search, {
-      ignoreQueryPrefix: true
-    }).token;
+    let params = window.location.search;
+    let jwt = qs.parse(params, { ignoreQueryPrefix: true }).token;
     context.lti = jwtDecode(jwt);
-    context.jwt = jwt;
+    context.fetchOptions = {
+      headers: {
+        Authorization: `Bearer ${jwt}`
+      }
+    };
   } catch (err) {
-    console.error(err);
+    console.error(`updating context failed: ${err}`);
   }
 };
 
@@ -31,7 +34,7 @@ let ProtectedRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      !!context.jwt ? (
+      !!context.fetchOptions ? (
         <Component {...props} />
       ) : (
         <Redirect to={{ pathname: "/default" }} />
@@ -48,20 +51,22 @@ class App extends React.Component {
    */
   constructor(props) {
     super(props);
+    updateContext();
+  }
 
-    grabJWT();
-    if (!!context.jwt) {
-      window
-        .fetch("/api/demo", {
-          headers: {
-            Authorization: `Bearer ${context.jwt}`
-          }
-        })
-        .then(checkResponseStatus)
-        .then(response => response.json())
-        .then(json => console.log(json))
-        .catch(err => console.error(`fetch failed: ${err}`));
-    }
+  /**
+   * Fetch initial data
+   */
+  componentDidMount() {
+    if (!context.fetchOptions)
+      throw new Error("mounting App failed: no fetchOptions");
+
+    window
+      .fetch("/api/demo", context.fetchOptions)
+      .then(checkResponseStatus)
+      .then(response => response.json())
+      .then(json => console.log(json))
+      .catch(err => console.error(`fetch failed: ${err}`));
   }
 
   /**
@@ -78,7 +83,7 @@ class App extends React.Component {
       </Router>
     );
   }
-};
+}
 
 let defaultRoute = () => <h1>Default unprotected route</h1>;
 let appRoute = () => <h1>Protected app route</h1>;
