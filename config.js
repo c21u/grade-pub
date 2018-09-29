@@ -38,10 +38,6 @@ try {
   config.jwtSecret = getEnvVarOrDefault("JWT_SECRET");
   config.fakeStrategyCredentials = {};
   config.passportStrategy = "lti";
-  config.databaseURL = getEnvVarOrDefault(
-    "DATABASE_URL",
-    "postgres://localhost"
-  );
   config.httpLogsFormat = "combined";
   config.sentryDSN = getEnvVarOrNull("SENTRY_DSN");
   config.trustProxy = getEnvVarOrDefault("TRUST_PROXY", "loopback");
