@@ -30,15 +30,15 @@ try {
     appID: getEnvVarOrDefault("BUZZAPI_APP_ID"),
     password: getEnvVarOrDefault("BUZZAPI_PASSWORD")
   };
+  config.canvasToken = getEnvVarOrDefault("CANVAS_TOKEN");
+  config.fakeStrategyCredentials = {};
+  config.httpLogsFormat = "combined";
+  config.jwtSecret = getEnvVarOrDefault("JWT_SECRET");
   config.lti = {
     key: getEnvVarOrThrow("LTI_KEY"),
     secret: getEnvVarOrThrow("LTI_SECRET")
   };
-  config.canvasToken = getEnvVarOrDefault("CANVAS_TOKEN");
-  config.jwtSecret = getEnvVarOrDefault("JWT_SECRET");
-  config.fakeStrategyCredentials = {};
   config.passportStrategy = "lti";
-  config.httpLogsFormat = "combined";
   config.sentryDSN = getEnvVarOrNull("SENTRY_DSN");
   config.trustProxy = getEnvVarOrDefault("TRUST_PROXY", "loopback");
 } catch (err) {
@@ -51,12 +51,11 @@ if (process.env.NODE_ENV === "development") {
 
 if (process.env.NODE_ENV === "test") {
   console.warn(`Fake auth strategy enabled!`);
-  config["passportStrategy"] = "fake";
-
   config["fakeStrategyCredentials"] = {
     username: getEnvVarOrDefault("FAKE_USERNAME"),
     password: getEnvVarOrDefault("FAKE_PASSWORD")
   };
+  config["passportStrategy"] = "fake";
 }
 
 module.exports = config;
