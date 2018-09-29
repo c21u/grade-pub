@@ -33,6 +33,7 @@ try {
   config.canvasToken = getEnvVarOrDefault("CANVAS_TOKEN");
   config.fakeStrategyCredentials = {};
   config.httpLogsFormat = "combined";
+  config.googleAnalyticsTrackingID = getEnvVarOrNull("GOOGLE_TRACKING_ID");
   config.jwtSecret = getEnvVarOrDefault("JWT_SECRET");
   config.lti = {
     key: getEnvVarOrThrow("LTI_KEY"),
