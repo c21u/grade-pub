@@ -15,11 +15,16 @@ theme.use();
 
 let context = {};
 
+/**
+ * Get the JWT from the `token` query parameter. The jwtDecode() will throw
+ * InvalidTokenError if it cannot decode the JWT, otherwise we copy the token
+ * and decoded values into the context object.
+ */
 let updateContext = () => {
-  let params = window.location.search;
   try {
+    let params = window.location.search;
     let jwt = qs.parse(params, { ignoreQueryPrefix: true }).token;
-    jwtDecode(jwt);
+    context.lti = jwtDecode(jwt);
     context.fetchOptions = {
       headers: {
         Authorization: `Bearer ${jwt}`

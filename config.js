@@ -8,6 +8,14 @@ let getEnvVarOrDefault = (envVar, defaultValue) => {
   }
 };
 
+let getEnvVarOrNull = envVar => {
+  if (!!process.env[envVar]) {
+    return process.env[envVar];
+  } else {
+    return null;
+  }
+};
+
 let getEnvVarOrThrow = envVar => {
   if (!!process.env[envVar]) {
     return process.env[envVar];
@@ -22,19 +30,17 @@ try {
     appID: getEnvVarOrDefault("BUZZAPI_APP_ID"),
     password: getEnvVarOrDefault("BUZZAPI_PASSWORD")
   };
+  config.canvasToken = getEnvVarOrDefault("CANVAS_TOKEN");
+  config.fakeStrategyCredentials = {};
+  config.httpLogsFormat = "combined";
+  config.googleAnalyticsTrackingID = getEnvVarOrNull("GOOGLE_TRACKING_ID");
+  config.jwtSecret = getEnvVarOrDefault("JWT_SECRET");
   config.lti = {
     key: getEnvVarOrThrow("LTI_KEY"),
     secret: getEnvVarOrThrow("LTI_SECRET")
   };
-  config.canvasToken = getEnvVarOrDefault("CANVAS_TOKEN");
-  config.jwtSecret = getEnvVarOrDefault("JWT_SECRET");
-  config.fakeStrategyCredentials = {};
   config.passportStrategy = "lti";
-  config.databaseURL = getEnvVarOrDefault(
-    "DATABASE_URL",
-    "postgres://localhost"
-  );
-  config.httpLogsFormat = "combined";
+  config.sentryDSN = getEnvVarOrNull("SENTRY_DSN");
   config.trustProxy = getEnvVarOrDefault("TRUST_PROXY", "loopback");
 } catch (err) {
   console.error(err);
@@ -46,12 +52,11 @@ if (process.env.NODE_ENV === "development") {
 
 if (process.env.NODE_ENV === "test") {
   console.warn(`Fake auth strategy enabled!`);
-  config["passportStrategy"] = "fake";
-
   config["fakeStrategyCredentials"] = {
     username: getEnvVarOrDefault("FAKE_USERNAME"),
     password: getEnvVarOrDefault("FAKE_PASSWORD")
   };
+  config["passportStrategy"] = "fake";
 }
 
 module.exports = config;

@@ -24,6 +24,7 @@
     "@instructure/ui-layout": "^5.29.0",
     "@instructure/ui-presets": "^5.28.1",
     "@instructure/ui-themes": "^5.28.1",
+    "@sentry/node": "^4.0.6",
     "babel-loader": "^8.0.2",
     "canvas-lms-api": "^0.2.1",
     "clean-webpack-plugin": "^0.1.19",

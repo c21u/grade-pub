@@ -5,6 +5,12 @@ let path = require("path");
 let cookieParser = require("cookie-parser");
 let httpLogger = require("morgan");
 const logger = require("./lib/logger");
+let sentryDSN = require("./config")["sentryDSN"];
+
+if (sentryDSN) {
+  let Sentry = require("@sentry/node");
+  Sentry.init({ dsn: sentryDSN });
+}
 
 let indexRouter = require("./routes");
 let apiRouter = require("./routes/api");
@@ -12,6 +18,10 @@ let apiRouter = require("./routes/api");
 let app = express();
 
 app.set("trust proxy", require("./config")["trustProxy"]);
+
+if (sentryDSN) {
+  app.use(Sentry.Handlers.requestHandler());
+}
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -41,6 +51,10 @@ app.use("/api/", apiRouter);
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+if (sentryDSN) {
+  app.use(Sentry.Handlers.errorHandler());
+}
 
 // error handler
 app.use(function(err, req, res, next) {
