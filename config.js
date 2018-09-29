@@ -8,6 +8,14 @@ let getEnvVarOrDefault = (envVar, defaultValue) => {
   }
 };
 
+let getEnvVarOrNull = envVar => {
+  if (!!process.env[envVar]) {
+    return process.env[envVar];
+  } else {
+    return null;
+  }
+};
+
 let getEnvVarOrThrow = envVar => {
   if (!!process.env[envVar]) {
     return process.env[envVar];
@@ -35,6 +43,7 @@ try {
     "postgres://localhost"
   );
   config.httpLogsFormat = "combined";
+  config.sentryDSN = getEnvVarOrNull("SENTRY_DSN");
   config.trustProxy = getEnvVarOrDefault("TRUST_PROXY", "loopback");
 } catch (err) {
   console.error(err);
