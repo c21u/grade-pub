@@ -10,5 +10,5 @@ EXPOSE 3000
 USER node
 ENV NODE_ENV production
 
-ENTRYPOINT [ "node" ]
+ENTRYPOINT [ "node", "--max_old_space_size=400" ]
 CMD [ "bin/www" ]
