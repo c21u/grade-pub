@@ -3,7 +3,6 @@ let createError = require("http-errors");
 let express = require("express");
 let path = require("path");
 let cookieParser = require("cookie-parser");
-let httpLogger = require("morgan");
 const logger = require("./lib/logger");
 let sentryDSN = require("./config")["sentryDSN"];
 
@@ -27,9 +26,42 @@ if (sentryDSN) {
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-app.use(
-  httpLogger(require("./config")["httpLogsFormat"], { stream: logger.stream })
-);
+// Log requests
+app.use((req, res, next) => {
+  const log = logger.child(
+    {
+      id: req.id,
+      body: req.body
+    },
+    true
+  );
+  log.info({
+    req
+  });
+  next();
+});
+
+// Log responses
+app.use(function(req, res, next) {
+  /**
+   * Function to cleanup and log the response
+   **/
+  function afterResponse() {
+    res.removeListener("finish", afterResponse);
+    res.removeListener("close", afterResponse);
+    const log = logger.child(
+      {
+        id: req.id
+      },
+      true
+    );
+    log.info({ res: res }, "response");
+  }
+  res.on("finish", afterResponse);
+  res.on("close", afterResponse);
+  next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

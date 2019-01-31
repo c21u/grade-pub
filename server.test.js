@@ -3,7 +3,7 @@ const request = require("supertest");
 const app = require("./server");
 const fakeAuth = require("./config")["fakeStrategyCredentials"];
 
-test("Can POST to be authenticated", () => {
+test("Can POST to be authenticated", done => {
   // Expect the fake credentials to exist.
   expect(fakeAuth.username).toBeDefined();
   expect(fakeAuth.password).toBeDefined();
@@ -16,10 +16,11 @@ test("Can POST to be authenticated", () => {
     .expect("Location", /^\/\?token=.+\..+\..+$/)
     .end((err, res) => {
       if (err) throw err;
+      done();
     });
 });
 
-test("Should not authenticate with bad credentials", () => {
+test("Should not authenticate with bad credentials", done => {
   request(app)
     .post("/")
     .send(`username=incorrect`)
@@ -27,32 +28,36 @@ test("Should not authenticate with bad credentials", () => {
     .expect(401)
     .end((err, res) => {
       if (err) throw err;
+      done();
     });
 });
 
-test("GET / should be protected", () => {
+test("GET / should be protected", done => {
   request(app)
     .get("/")
     .expect(401)
     .end((err, res) => {
       if (err) throw err;
+      done();
     });
 });
 
-test("/api routes should be protected", () => {
+test("/api routes should be protected", done => {
   request(app)
     .get("/api")
     .expect(401)
     .end((err, res) => {
       if (err) throw err;
+      done();
     });
 });
 
-test("Health check returns 200", () => {
+test("Health check returns 200", done => {
   request(app)
     .get("/z")
     .expect(200)
     .end((err, res) => {
       if (err) throw err;
+      done();
     });
 });

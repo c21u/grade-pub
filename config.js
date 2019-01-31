@@ -32,7 +32,6 @@ try {
   };
   config.canvasToken = getEnvVarOrDefault("CANVAS_TOKEN");
   config.fakeStrategyCredentials = {};
-  config.httpLogsFormat = "combined";
   config.googleAnalyticsTrackingID = getEnvVarOrNull("GOOGLE_TRACKING_ID");
   config.jwtSecret = getEnvVarOrDefault("JWT_SECRET");
   config.lti = {
@@ -42,12 +41,9 @@ try {
   config.passportStrategy = "lti";
   config.sentryDSN = getEnvVarOrNull("SENTRY_DSN");
   config.trustProxy = getEnvVarOrDefault("TRUST_PROXY", "loopback");
+  config.logLevel = getEnvVarOrDefault("LOG_LEVEL", "info");
 } catch (err) {
   console.error(err);
-}
-
-if (process.env.NODE_ENV === "development") {
-  config["httpLogsFormat"] = "dev";
 }
 
 if (process.env.NODE_ENV === "test") {
@@ -57,6 +53,7 @@ if (process.env.NODE_ENV === "test") {
     password: getEnvVarOrDefault("FAKE_PASSWORD")
   };
   config["passportStrategy"] = "fake";
+  config.logLevel = getEnvVarOrDefault("LOG_LEVEL", "error");
 }
 
 module.exports = config;
