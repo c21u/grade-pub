@@ -122,7 +122,7 @@ class GradePublisher extends React.Component {
         termCode,
         crn,
         item.name,
-        item.gtID,
+        { v: item.gtID, t: "s" },
         confidential,
         item.course,
         item.currentGrade, // TODO make it dynamic for miterms and finals
