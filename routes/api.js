@@ -10,9 +10,8 @@ router.get("/grades", (req, res, next) => {
   const canvas = canvasAPI.getCanvasContext(req);
 
   canvas.api
-    .get(`courses/${canvas.courseID}/enrollments`)
-    .then(enrollments => {
-      return enrollments.filter(enr => enr.role === "StudentEnrollment");
+    .get(`courses/${canvas.courseID}/enrollments`, {
+      role: ["StudentEnrollment"]
     })
     .then(students => {
       return students.filter(s => s.user.sortable_name !== "Student, Test");
