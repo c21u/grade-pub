@@ -5,7 +5,7 @@ import List, { ListItem } from "@instructure/ui-elements/lib/components/List";
 import Text from "@instructure/ui-elements/lib/components/Text";
 import View from "@instructure/ui-layout/lib/components/View";
 
-let Instructions = () => {
+const Instructions = () => {
   return (
     <div>
       <Heading>Instructions</Heading>

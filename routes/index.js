@@ -1,13 +1,13 @@
-let express = require("express");
+const express = require("express");
 // eslint-disable-next-line new-cap
-let router = express.Router();
-let jwt = require("jsonwebtoken");
-let jwtMiddleware = require("../lib/jwt");
+const router = express.Router();
+const jwt = require("jsonwebtoken");
+const jwtMiddleware = require("../lib/jwt");
 const passport = require("../lib/passport");
 
 // Passport initialized here but actually used as passport.authenticate()
 router.use(passport.initialize());
-let passportStrategy = require("../config")["passportStrategy"];
+const passportStrategy = require("../config")["passportStrategy"];
 
 // health check endpoint
 router.get("/z", (req, res, next) => {

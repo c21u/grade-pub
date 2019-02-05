@@ -1,13 +1,13 @@
-let express = require("express");
+const express = require("express");
 // eslint-disable-next-line new-cap
-let router = express.Router();
-let jwtMiddleware = require("../lib/jwt");
-let canvasAPI = require("../lib/canvas");
+const router = express.Router();
+const jwtMiddleware = require("../lib/jwt");
+const canvasAPI = require("../lib/canvas");
 
 router.use(jwtMiddleware);
 
 router.get("/grades", (req, res, next) => {
-  let canvas = canvasAPI.getCanvasContext(req);
+  const canvas = canvasAPI.getCanvasContext(req);
 
   canvas.api
     .get(`courses/${canvas.courseID}/enrollments`)

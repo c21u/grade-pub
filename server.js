@@ -1,20 +1,20 @@
 require("dotenv").config();
-let createError = require("http-errors");
-let express = require("express");
-let path = require("path");
-let cookieParser = require("cookie-parser");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
 const logger = require("./lib/logger");
-let sentryDSN = require("./config")["sentryDSN"];
+const sentryDSN = require("./config")["sentryDSN"];
 
 if (sentryDSN) {
-  let Sentry = require("@sentry/node");
+  const Sentry = require("@sentry/node");
   Sentry.init({ dsn: sentryDSN });
 }
 
-let indexRouter = require("./routes");
-let apiRouter = require("./routes/api");
+const indexRouter = require("./routes");
+const apiRouter = require("./routes/api");
 
-let app = express();
+const app = express();
 
 app.set("trust proxy", require("./config")["trustProxy"]);
 

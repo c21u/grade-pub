@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import theme from "@instructure/ui-themes/lib/canvas";
 import Button from "@instructure/ui-buttons/lib/components/Button";
@@ -13,17 +14,17 @@ import spreadsheetInstructions from "./spreadsheetInstructions";
 
 theme.use();
 
-let context = {};
+const context = {};
 
 /**
  * Get the JWT from the `token` query parameter. The jwtDecode() will throw
  * InvalidTokenError if it cannot decode the JWT, otherwise we copy the token
  * and decoded values into the context object.
  */
-let updateContext = () => {
+const updateContext = () => {
   try {
-    let params = window.location.search;
-    let jwt = qs.parse(params, { ignoreQueryPrefix: true }).token;
+    const params = window.location.search;
+    const jwt = qs.parse(params, { ignoreQueryPrefix: true }).token;
     context.lti = jwtDecode(jwt);
     context.fetchOptions = {
       headers: {
@@ -47,7 +48,7 @@ let updateContext = () => {
   }
 };
 
-let ProtectedRoute = ({ component: Component, ...rest }) => (
+const ProtectedRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props =>
@@ -59,8 +60,11 @@ let ProtectedRoute = ({ component: Component, ...rest }) => (
     }
   />
 );
+ProtectedRoute.propTypes = {
+  component: PropTypes.func
+};
 
-let GradesButton = props => {
+const GradesButton = props => {
   return (
     <Button
       onClick={props.clickHandler}
@@ -70,6 +74,10 @@ let GradesButton = props => {
       {props.dataReady ? "Export grades spreadsheet" : "Preparing export..."}
     </Button>
   );
+};
+GradesButton.propTypes = {
+  clickHandler: PropTypes.func,
+  dataReady: PropTypes.bool
 };
 
 /** Main app component */
@@ -130,7 +138,7 @@ class GradePublisher extends React.Component {
 
     courseID = courseID.replace(/[^\w.]/g, "_");
     courseName = courseName.replace(/[^\w. ]/g, "").replace(/ /g, "_");
-    let filename = `grades_${courseID}_${courseName}.xlsx`;
+    const filename = `grades_${courseID}_${courseName}.xlsx`;
     xlsx.writeFile(workBook, filename);
   }
 
@@ -181,18 +189,18 @@ class App extends React.Component {
   }
 }
 
-let defaultRoute = () => <h1>Default unprotected route</h1>;
+const defaultRoute = () => <h1>Default unprotected route</h1>;
 
 /**
  * Check for 200 OK status from response
  * @param {Object} response
  * @return {(Object|error)}
  */
-let checkResponseStatus = response => {
+const checkResponseStatus = response => {
   if (response.status === 200) {
     return response;
   } else {
-    let err = new Error(response.statusText);
+    const err = new Error(response.statusText);
     err.response = response;
     throw err;
   }
