@@ -31,18 +31,7 @@ const updateContext = () => {
         Authorization: `Bearer ${jwt}`
       }
     };
-    context.data = [
-      [
-        "Term Code",
-        "CRN",
-        "Full Name",
-        "Student ID",
-        "Confidential",
-        "Course",
-        "Grade",
-        "Last Attended Date"
-      ]
-    ];
+    context.data = [];
   } catch (err) {
     console.error(`updating context failed: ${err}`);
   }
@@ -103,8 +92,13 @@ class GradePublisher extends React.Component {
     window
       .fetch("/api/grades", context.fetchOptions)
       .then(checkResponseStatus)
-      .then(response => response.json())
-      .then(json => this.setState({ grades: json }))
+      .then(responseJson)
+      .then(grades => this.setState({ grades }))
+      .then(() => window.fetch("/api/gradeScheme", context.fetchOptions))
+      .then(checkResponseStatus)
+      .then(responseJson)
+      .then(gradeScheme => this.setState({ gradeScheme }))
+
       .then(() => this.setState({ dataReady: true }))
       .catch(err => console.error(`fetch failed: ${err}`));
   }
@@ -113,6 +107,20 @@ class GradePublisher extends React.Component {
   exportHandler() {
     let courseID = this.state.grades.data[0].sisSectionID;
     let courseName = this.state.grades.data[0].course;
+
+    // Add the "header" row to the sheet
+    context.data.push([
+      "Term Code",
+      "CRN",
+      "Full Name",
+      "Student ID",
+      "Confidential",
+      "Course",
+      this.state.gradeScheme.title,
+      "Last Attended Date"
+    ]);
+
+    // Add a row for each student
     this.state.grades.data.forEach(item => {
       const termCode = item.sisSectionID.slice(0, 6);
       const crn = item.sisSectionID.slice(7);
@@ -130,6 +138,7 @@ class GradePublisher extends React.Component {
       ]);
     });
 
+    // Add the instruction sheet
     const instructionSheet = xlsx.utils.aoa_to_sheet(spreadsheetInstructions);
     const workSheet = xlsx.utils.aoa_to_sheet(context.data);
     const workBook = xlsx.utils.book_new();
@@ -205,5 +214,7 @@ const checkResponseStatus = response => {
     throw err;
   }
 };
+
+const responseJson = response => response.json();
 
 ReactDOM.render(<App />, document.getElementById("lti_root"));
