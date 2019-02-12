@@ -98,16 +98,16 @@ class GradePublisher extends React.Component {
       .then(checkResponseStatus)
       .then(responseJson)
       .then(gradeScheme => this.setState({ gradeScheme }))
-
+      .then(() => window.fetch("/api/sectionTitles", context.fetchOptions))
+      .then(checkResponseStatus)
+      .then(responseJson)
+      .then(sectionTitles => this.setState({ sectionTitles }))
       .then(() => this.setState({ dataReady: true }))
       .catch(err => console.error(`fetch failed: ${err}`));
   }
 
   /** Export the spreadsheet */
   exportHandler() {
-    let courseID = this.state.grades.data[0].sisSectionID;
-    let courseName = this.state.grades.data[0].course;
-
     // Add the "header" row to the sheet
     context.data.push([
       "Term Code",
@@ -116,6 +116,7 @@ class GradePublisher extends React.Component {
       "Student ID",
       "Confidential",
       "Course",
+      "Section",
       this.state.gradeScheme.title,
       "Last Attended Date"
     ]);
@@ -133,6 +134,7 @@ class GradePublisher extends React.Component {
         { v: item.gtID, t: "s" },
         confidential,
         item.course,
+        this.state.sectionTitles[item.sisSectionID],
         item.currentGrade, // TODO make it dynamic for miterms and finals
         lastAttended
       ]);
@@ -145,8 +147,13 @@ class GradePublisher extends React.Component {
     xlsx.utils.book_append_sheet(workBook, workSheet, "Grades");
     xlsx.utils.book_append_sheet(workBook, instructionSheet, "Instructions");
 
-    courseID = courseID.replace(/[^\w.]/g, "_");
-    courseName = courseName.replace(/[^\w. ]/g, "").replace(/ /g, "_");
+    const courseID = this.state.grades.data[0].sisSectionID.replace(
+      /[^\w.]/g,
+      "_"
+    );
+    const courseName = this.state.grades.data[0].course
+      .replace(/[^\w. ]/g, "")
+      .replace(/ /g, "_");
     const filename = `grades_${courseID}_${courseName}.xlsx`;
     xlsx.writeFile(workBook, filename);
   }

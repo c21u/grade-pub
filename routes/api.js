@@ -67,4 +67,21 @@ router.get("/gradeScheme", (req, res, next) => {
     });
 });
 
+router.get("/sectionTitles", (req, res, next) => {
+  const canvas = canvasAPI.getCanvasContext(req);
+
+  canvas.api
+    .get(`courses/${canvas.courseID}/sections`)
+    .then(sections => {
+      sections = sections.reduce((result, section) => {
+        result[section.sis_section_id] = section.name;
+        return result;
+      }, {});
+      return res.send(sections);
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    });
+});
+
 module.exports = router;
