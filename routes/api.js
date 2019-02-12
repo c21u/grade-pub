@@ -3,7 +3,6 @@ const express = require("express");
 const router = express.Router();
 const jwtMiddleware = require("../lib/jwt");
 const canvasAPI = require("../lib/canvas");
-const logger = require("../lib/logger");
 
 router.use(jwtMiddleware);
 
@@ -22,6 +21,8 @@ router.get("/grades", (req, res, next) => {
         name: s.user.sortable_name,
         currentGrade: s.grades.current_grade,
         finalGrade: s.grades.final_grade,
+        unpostedFinalGrade: s.grades.unposted_final_grade,
+        unpostedCurrentGrade: s.grades.unposted_current_grade,
         sisSectionID: s.sis_section_id,
         gtID: s.user.sis_user_id,
         course: req.user.custom_canvas_course_name

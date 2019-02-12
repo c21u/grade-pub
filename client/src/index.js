@@ -108,6 +108,17 @@ class GradePublisher extends React.Component {
 
   /** Export the spreadsheet */
   exportHandler() {
+    const hasMuted = this.state.grades.data.reduce(
+      (result, grade) =>
+        result || grade.currentGrade !== grade.unpostedCurrentGrade,
+      false
+    );
+    if (hasMuted) {
+      alert(
+        "You have muted or unposted gradebook entries that are not included in the grade calculation. This affects the grade of at least one student in your course."
+      );
+    }
+
     // Add the "header" row to the sheet
     context.data.push([
       "Term Code",
