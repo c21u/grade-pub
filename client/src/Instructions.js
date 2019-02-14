@@ -10,42 +10,74 @@ const Instructions = () => {
     <div>
       <Heading>Instructions</Heading>
       <View as="div" maxWidth="80%" margin="medium">
-        <Text>
-          <strong>Step 1:</strong> Export your grades from Canvas.
+        <Heading level="h3">Step 1: Export your grades from Canvas</Heading>
+        <Text weight="bold">
+          In order to use the GT Grade Submission tool, you will first need to
+          enable and set a grading scheme in Canvas:{" "}
         </Text>
-        <List itemSpacing="small" margin="small">
+        <List itemSpacing="small" margin="small" as="ol">
+          <ListItem>
+            <Text>Open your Course in Canvas</Text>
+          </ListItem>
           <ListItem>
             <Text>
-              In order to use this tool, you will first need to enable and set a
-              grading scheme for the final course grade in Canvas.{" "}
-              <Link
-                href="http://canvas.gatech.edu/grade-submission"
-                target="_blank"
-              >
-                Click here to find the grading scheme instructions.
-              </Link>
+              Select <Text weight="bold">&quot;Settings&quot;</Text> from the
+              course navigation menu on the left.
             </Text>
           </ListItem>
           <ListItem>
             <Text>
-              Click the button below to export a Banner-ready spreadsheet of
-              grades and save the file to your computer. Please note: You can
-              reuse the same spreadsheet file to upload grades for multiple
-              sections in Step 2.
+              Under the <Text weight="bold">Course Details</Text> tab, select
+              the check box next to &quot;
+              <Text weight="bold">Enable Course Grading Scheme</Text>&quot;
+            </Text>
+          </ListItem>
+          <ListItem>
+            <Text>
+              Beneath the check box, click &quot;
+              <Text weight="bold">View Grading Scheme</Text>&quot;
+            </Text>
+          </ListItem>
+          <ListItem>
+            <Text>
+              In the <Text weight="bold">View/Edit Grading Scheme</Text> window,
+              click &quot;
+              <Text weight="bold">Select Another Scheme</Text>&quot;
+            </Text>
+          </ListItem>
+          <ListItem>
+            <Text>
+              Select either &quot;<Text weight="bold">Midterm Grade</Text>
+              &quot; or &quot;<Text weight="bold">Final Grade</Text>&quot;
+            </Text>
+          </ListItem>
+          <ListItem>
+            <Text>
+              Click &quot;
+              <Text weight="bold">Use This Grading Standard</Text>&quot;
+            </Text>
+          </ListItem>
+          <ListItem>
+            <Text>
+              Click <Text weight="bold">Done</Text>
             </Text>
           </ListItem>
         </List>
         <Text>
-          If you encounter issues with this step, contact the Digital Learning{" "}
-          Team at <Link href="mailto:canvas@gatech.edu">canvas@gatech.edu</Link>
-          .
+          Click the button below to export a Banner-ready spreadsheet of grades.
+          You can use the same spreadsheet file to upload grades for multiple
+          sections, using the directions in Step 2 below.{" "}
+        </Text>
+        <Text>
+          If you encounter issues with Step 1 above, please contact the Digital
+          Learning Team at{" "}
+          <Link href="mailto:canvas@gatech.edu">canvas@gatech.edu</Link>.
         </Text>
       </View>
+      <hr />
       <View as="div" maxWidth="80%" margin="medium">
-        <Text>
-          <strong>Step 2:</strong> Upload your grades to Banner.
-        </Text>
-        <List itemSpacing="small" margin="small">
+        <Heading level="h3">Step 2: Upload your grades to Banner</Heading>
+        <List itemSpacing="small" margin="small" as="ol">
           <ListItem>
             <Text>
               Go to the Banner Faculty Grade Entry (FGE) module at{" "}
@@ -60,12 +92,12 @@ const Instructions = () => {
           </ListItem>
           <ListItem>
             <Text>
-              Upload the Canvas export grades spreadsheet (see Step 1) to
-              Banner. If your spreadsheet contains multiple sections, you will
-              need to upload it one time for each section. During the upload
-              process, there will be errors about any records in the grades
-              spreadsheet which do not match the current section. This is
-              expected behavior.
+              Upload the spreadsheet you just exported from Canvas (see Step 1
+              above). If your spreadsheet contains multiple sections, you will
+              need to upload the file once for each section. During the upload
+              process, you will see error messages about any records in the
+              grades spreadsheet which do not match the current section. This is
+              expected behavior.{" "}
             </Text>
             <Text>
               More information on this step is available at{" "}
@@ -80,7 +112,7 @@ const Instructions = () => {
           </ListItem>
         </List>
         <Text>
-          If you encounter issues with this step, contact the {"Registrar's"}{" "}
+          If you encounter issues with Step 2 above, contact the {"Registrar's"}{" "}
           Office at{" "}
           <Link href="mailto:comments@registrar.gatech.edu">
             comments@registrar.gatech.edu
