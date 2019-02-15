@@ -1,9 +1,13 @@
-FROM node:8-alpine
+FROM node:10.13.0-alpine
 
-COPY . /app
 WORKDIR /app
 
-RUN yarn install --non-interactive --no-progress --production
+COPY package.json .
+COPY yarn.lock .
+
+RUN yarn install --non-interactive --no-progress --production --no-cache
+
+COPY . /app
 RUN yarn build
 
 EXPOSE 3000
