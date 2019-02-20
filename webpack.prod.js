@@ -2,5 +2,16 @@ const merge = require("webpack-merge");
 const common = require("./webpack.common");
 
 module.exports = merge(common, {
-  mode: "production"
+  mode: "production",
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]@instructure[\\/]/,
+          name: "vendors~instructure",
+          chunks: "all"
+        }
+      }
+    }
+  }
 });

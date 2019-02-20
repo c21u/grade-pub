@@ -7,7 +7,6 @@ import Button from "@instructure/ui-buttons/lib/components/Button";
 import View from "@instructure/ui-layout/lib/components/View";
 import jwtDecode from "jwt-decode";
 import qs from "qs";
-import xlsx from "xlsx";
 import "whatwg-fetch";
 import Instructions from "./Instructions";
 import spreadsheetInstructions from "./spreadsheetInstructions";
@@ -106,7 +105,11 @@ class GradePublisher extends React.Component {
       .catch(err => console.error(`fetch failed: ${err}`));
   }
 
-  /** Export the spreadsheet */
+  /**
+   * Export the spreadsheet
+   *
+   * @return {Promise}
+   **/
   exportHandler() {
     const hasMuted = this.state.grades.data.reduce(
       (result, grade) =>
@@ -152,21 +155,32 @@ class GradePublisher extends React.Component {
     });
 
     // Add the instruction sheet
-    const instructionSheet = xlsx.utils.aoa_to_sheet(spreadsheetInstructions);
-    const workSheet = xlsx.utils.aoa_to_sheet(context.data);
-    const workBook = xlsx.utils.book_new();
-    xlsx.utils.book_append_sheet(workBook, workSheet, "Grades");
-    xlsx.utils.book_append_sheet(workBook, instructionSheet, "Instructions");
 
-    const courseID = this.state.grades.data[0].sisSectionID.replace(
-      /[^\w.]/g,
-      "_"
+    return import(/* webpackChunkName: "xlsx" */ "xlsx/dist/xlsx.full.min.js").then(
+      ({ default: xlsx }) => {
+        const instructionSheet = xlsx.utils.aoa_to_sheet(
+          spreadsheetInstructions
+        );
+        const workSheet = xlsx.utils.aoa_to_sheet(context.data);
+        const workBook = xlsx.utils.book_new();
+        xlsx.utils.book_append_sheet(workBook, workSheet, "Grades");
+        xlsx.utils.book_append_sheet(
+          workBook,
+          instructionSheet,
+          "Instructions"
+        );
+
+        const courseID = this.state.grades.data[0].sisSectionID.replace(
+          /[^\w.]/g,
+          "_"
+        );
+        const courseName = this.state.grades.data[0].course
+          .replace(/[^\w. ]/g, "")
+          .replace(/ /g, "_");
+        const filename = `grades_${courseID}_${courseName}.xlsx`;
+        xlsx.writeFile(workBook, filename);
+      }
     );
-    const courseName = this.state.grades.data[0].course
-      .replace(/[^\w. ]/g, "")
-      .replace(/ /g, "_");
-    const filename = `grades_${courseID}_${courseName}.xlsx`;
-    xlsx.writeFile(workBook, filename);
   }
 
   /**

@@ -11,6 +11,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist")
   },
   module: {
+    noParse: [/xlsx.core.min.js/, /xlsx.full.min.js/],
     rules: [
       {
         test: /\.jsx?$/,
@@ -18,11 +19,15 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"]
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+            plugins: ["@babel/plugin-syntax-dynamic-import"]
           }
         }
       }
     ]
+  },
+  resolve: {
+    alias: { "./dist/cpexcel.js": "" }
   },
   plugins: [
     new CleanWebpackPlugin(["dist"]),

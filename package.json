@@ -58,6 +58,7 @@
     "xlsx": "^0.14.0"
   },
   "devDependencies": {
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "eslint": "^5.4.0",
     "eslint-config-google": "^0.11.0",
     "eslint-config-prettier": "^4.0.0",
