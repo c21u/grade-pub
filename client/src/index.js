@@ -122,6 +122,8 @@ class GradePublisher extends React.Component {
       );
     }
 
+    context.data = [];
+
     // Add the "header" row to the sheet
     context.data.push([
       "Term Code",
