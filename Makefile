@@ -17,5 +17,5 @@ LATEST := ${NAME}:latest
 build:
 	docker build -t ${IMG} -t ${LATEST} ${TAGS} .
 
-push:
+push: build
 	@docker push ${NAME}
