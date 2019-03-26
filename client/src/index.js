@@ -181,10 +181,9 @@ class GradePublisher extends React.Component {
           "Instructions"
         );
 
-        const courseID = this.state.grades.data[0].sisSectionID.replace(
-          /[^\w.]/g,
-          "_"
-        );
+        const courseID = this.state.grades.data[0].sisSectionID
+          ? this.state.grades.data[0].sisSectionID.replace(/[^\w.]/g, "_")
+          : null;
         const courseName = this.state.grades.data[0].course
           .replace(/[^\w. ]/g, "")
           .replace(/ /g, "_");
