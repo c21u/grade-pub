@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import theme from "@instructure/ui-themes/lib/canvas";
 import Button from "@instructure/ui-buttons/lib/components/Button";
+import IconWarning from "@instructure/ui-icons/lib/Solid/IconWarning";
 import View from "@instructure/ui-layout/lib/components/View";
 import jwtDecode from "jwt-decode";
 import qs from "qs";
@@ -76,7 +77,8 @@ class GradePublisher extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataReady: false
+      dataReady: false,
+      schemaUnset: null
     };
     this.exportHandler = this.exportHandler.bind(this);
   }
@@ -94,6 +96,13 @@ class GradePublisher extends React.Component {
       .then(responseJson)
       .then(grades => this.setState({ grades }))
       .then(() => window.fetch("/api/gradeScheme", context.fetchOptions))
+      .then(res => {
+        if (res.status === 500) {
+          this.setState({ schemaUnset: true });
+          return { status: 200, json: () => ({}) };
+        }
+        return res;
+      })
       .then(checkResponseStatus)
       .then(responseJson)
       .then(gradeScheme => this.setState({ gradeScheme }))
@@ -139,8 +148,8 @@ class GradePublisher extends React.Component {
 
     // Add a row for each student
     this.state.grades.data.forEach(item => {
-      const termCode = item.sisSectionID.slice(0, 6);
-      const crn = item.sisSectionID.slice(7);
+      const termCode = item.sisSectionID ? item.sisSectionID.slice(0, 6) : null;
+      const crn = item.sisSectionID ? item.sisSectionID.slice(7) : null;
       const confidential = item.name === "Confidential" ? "Yes" : "No";
       const lastAttended = ""; // data is in SIS, so punt here
       context.data.push([
@@ -195,9 +204,16 @@ class GradePublisher extends React.Component {
           <Instructions />
         </View>
         <View as="div" textAlign="center">
+          <span style={{ display: this.state.schemaUnset ? "inline" : "none" }}>
+            <IconWarning color="warning" />
+            You have not set a grading schema for this course, please read the
+            instructions above.
+          </span>
+        </View>
+        <View as="div" textAlign="center">
           <GradesButton
             clickHandler={this.exportHandler}
-            dataReady={this.state.dataReady}
+            dataReady={this.state.dataReady && !this.state.schemaUnset}
           />
         </View>
       </div>

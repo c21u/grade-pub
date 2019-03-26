@@ -5,7 +5,7 @@
  */
 
 const app = require("../server");
-const debug = require("debug")("gradepub:server");
+const logger = require("../lib/logger");
 const http = require("http");
 
 /**
@@ -82,5 +82,5 @@ function onError(error) {
 function onListening() {
   const addr = server.address();
   const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
-  debug("Listening on " + bind);
+  logger.debug("Listening on " + bind);
 }
