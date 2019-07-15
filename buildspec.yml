@@ -11,10 +11,8 @@ env:
     SERVICE_NAME:
 
 phases:
-  pre_build:
+  install:
     commands:
-      # Set up more env variables.
-
       # Short commit hash
       - GIT_COMMIT_HASH=$(git rev-parse --short=7 --verify HEAD)
 
@@ -23,7 +21,8 @@ phases:
 
       # Use IMAGE_TAG passed in from the build, fallback to 'latest' if blank.
       - TAG=${IMAGE_TAG:-latest}
-
+  pre_build:
+    commands:
       # Log in to ECR
       - $(aws ecr get-login --no-include-email --region $AWS_REGION)
 
