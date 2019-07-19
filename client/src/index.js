@@ -89,7 +89,6 @@ class GradePublisher extends React.Component {
   componentDidMount() {
     if (!context.fetchOptions)
       throw new Error("mounting App failed: no fetchOptions");
-
     window
       .fetch("/api/grades", context.fetchOptions)
       .then(checkResponseStatus)
@@ -116,18 +115,28 @@ class GradePublisher extends React.Component {
 
   /**
    * Export the spreadsheet
-   *
+   * changed hasMuted to hasHidden (canvas updated wording from mute to hide)
    * @return {Promise}
    **/
   exportHandler() {
-    const hasMuted = this.state.grades.data.reduce(
+    let hasOverride;
+    const gradeData = this.state.grades.data;
+    const hasHidden = gradeData.reduce(
       (result, grade) =>
         result || grade.currentGrade !== grade.unpostedCurrentGrade,
       false
     );
-    if (hasMuted) {
+    // loops through grade data array of objects to see if any student has an overriden grade
+    for (let i = 0; i < gradeData.length; i++) {
+      if (gradeData[i].override == "Y") {
+        hasOverride = true;
+        break;
+      }
+    }
+    // if gradebook has either an overriden grade or hidden grade, then it will alert user
+    if (hasOverride || hasHidden) {
       alert(
-        "You have muted or unposted gradebook entries that are not included in the grade calculation. This affects the grade of at least one student in your course."
+        "You either have hidden, unposted, or overridden gradebook entries that will impact the Final Grade column in your exported spreadsheet. This affects the grade of at least one student in your course."
       );
     }
 
@@ -143,7 +152,8 @@ class GradePublisher extends React.Component {
       "Course",
       "Section",
       this.state.gradeScheme.title,
-      "Last Attended Date"
+      "Last Attended Date",
+      "Override"
     ]);
 
     // Add a row for each student
@@ -152,6 +162,7 @@ class GradePublisher extends React.Component {
       const crn = item.sisSectionID ? item.sisSectionID.slice(7) : null;
       const confidential = item.name === "Confidential" ? "Yes" : "No";
       const lastAttended = ""; // data is in SIS, so punt here
+      const override = item.override;
       context.data.push([
         termCode,
         crn,
@@ -161,7 +172,8 @@ class GradePublisher extends React.Component {
         item.course,
         this.state.sectionTitles[item.sisSectionID],
         item.currentGrade, // TODO make it dynamic for miterms and finals
-        lastAttended
+        lastAttended,
+        override
       ]);
     });
 

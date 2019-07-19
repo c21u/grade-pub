@@ -6,26 +6,38 @@ const canvasAPI = require("../lib/canvas");
 
 router.use(jwtMiddleware);
 
+router.get("/test", (req, res) => {
+  res.send({ message: "testing works!" });
+});
+
 router.get("/grades", (req, res, next) => {
   const canvas = canvasAPI.getCanvasContext(req);
+  // getCanvasContext is imported from lib/canvas
 
   canvas.api
     .get(`courses/${canvas.courseID}/enrollments`, {
       role: ["StudentEnrollment"]
-    })
+    }) // api call to canvas api, using canvas api documentation under enrollments
     .then(students => {
       return students.filter(s => s.sis_user_id);
-    })
+    }) // promise statement returns students
     .then(realStudents => {
+      // ** override feature ** - checks if override_grade exists, and if so, sets final_grade and current_grade  equal to override_grade
+      // if there is override grade, override value is equal to "Y" and if not, null
       return realStudents.map(s => ({
         name: s.user.sortable_name,
-        currentGrade: s.grades.current_grade,
-        finalGrade: s.grades.final_grade,
+        currentGrade: s.grades.override_grade
+          ? s.grades.override_grade
+          : s.grades.current_grade,
+        finalGrade: s.grades.override_grade
+          ? s.grades.override_grade
+          : s.grades.final_grade,
         unpostedFinalGrade: s.grades.unposted_final_grade,
         unpostedCurrentGrade: s.grades.unposted_current_grade,
         sisSectionID: s.sis_section_id,
         gtID: s.user.sis_user_id,
-        course: req.user.custom_canvas_course_name
+        course: req.user.custom_canvas_course_name,
+        override: s.grades.override_grade ? "Y" : null
       }));
     })
     .then(data => {
