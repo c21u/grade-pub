@@ -2,7 +2,7 @@
 module.exports = [
   ["Grade Submission"],
   [],
-  ["Instructions TEST"],
+  ["Instructions TESTING"],
   [],
   [],
   ["Step 1: Export your grades from Canvas"],
