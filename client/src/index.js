@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import theme from "@instructure/ui-themes/lib/canvas";
-import Button from "@instructure/ui-buttons/lib/components/Button";
-import IconWarning from "@instructure/ui-icons/lib/Solid/IconWarning";
-import View from "@instructure/ui-layout/lib/components/View";
+import { theme } from '@instructure/canvas-theme'
+import { Button } from '@instructure/ui-buttons';
+import { IconWarningSolid } from '@instructure/ui-icons'
+import { View } from '@instructure/ui-view';
 import jwtDecode from "jwt-decode";
 import qs from "qs";
 import "whatwg-fetch";
@@ -216,7 +216,7 @@ class GradePublisher extends React.Component {
         </View>
         <View as="div" textAlign="center">
           <span style={{ display: this.state.schemaUnset ? "inline" : "none" }}>
-            <IconWarning color="warning" />
+            <IconWarningSolid color="warning" />
             You have not set a grading schema for this course, please read the
             instructions above.
           </span>
