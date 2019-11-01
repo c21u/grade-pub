@@ -23,6 +23,7 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@instructure/canvas-theme": "^6.14.0",
+    "@instructure/ui-babel-preset": "^6.14.0",
     "@instructure/ui-buttons": "^6.14.0",
     "@instructure/ui-elements": "^6.14.0",
     "@instructure/ui-heading": "^6.14.0",

@@ -15,11 +15,16 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
+        resolve: { extensions: [".js", ".jsx"] },
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"],
+            presets: [
+              "@babel/preset-env",
+              "@babel/preset-react",
+              "@instructure/ui-babel-preset"
+            ],
             plugins: ["@babel/plugin-syntax-dynamic-import"]
           }
         }
@@ -34,7 +39,5 @@ module.exports = {
     new HTMLWebpackPlugin({
       template: "client/src/index.html"
     }),
-    require("@instructure/ui-presets/webpack/plugins")
-  ],
-  resolveLoader: require("@instructure/ui-presets/webpack/resolveLoader")
+  ]
 };
