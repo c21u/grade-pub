@@ -6,7 +6,7 @@ services:
     command: bin/www
     environment:
       NODE_ENV: production
-      VIRTUAL_HOST: dev.127.0.0.1.xip.io
+      VIRTUAL_HOST: grade-pub.127.0.0.1.xip.io
       TRUST_PROXY: uniquelocal
       LTI_KEY: $LTI_KEY
       LTI_SECRET: $LTI_SECRET
