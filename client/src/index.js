@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { theme } from '@instructure/canvas-theme'
-import { Button } from '@instructure/ui-buttons';
+import { Button, CloseButton } from '@instructure/ui-buttons';
+import { Modal } from "@instructure/ui-modal";
 import { IconWarningSolid } from '@instructure/ui-icons'
 import { View } from '@instructure/ui-view';
 import jwtDecode from "jwt-decode";
@@ -55,16 +56,37 @@ ProtectedRoute.propTypes = {
 
 const GradesButton = props => {
   return (
-    <Button
-      onClick={props.clickHandler}
-      disabled={!props.dataReady}
-      size="large"
-    >
-      {props.dataReady ? "Export grades spreadsheet" : "Preparing export..."}
-    </Button>
-  );
-};
+    <div>
+        <Button
+          onClick={props.handleModal}
+          disabled={!props.dataReady}
+          size="large"
+          >
+          {props.dataReady ? "Export Grades Spreadsheet" : "Preparing export..."}
+        </Button>
+        <Modal
+          open={props.modalOpen}
+          size="auto"
+          label="Export Modal"
+          shouldCloseOnDocumentClick
+          >
+          <Modal.Header>
+            <CloseButton onClick={props.handleModal} placement="end" offset="small" screenReaderLabel="Close" />
+          </Modal.Header>
+          <Modal.Body padding="small">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={props.clickHandler}>
+              Export Grades Spreadsheet
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+  )
+}
 GradesButton.propTypes = {
+  handleModal: PropTypes.func,
   clickHandler: PropTypes.func,
   dataReady: PropTypes.bool
 };
@@ -78,9 +100,11 @@ class GradePublisher extends React.Component {
     super(props);
     this.state = {
       dataReady: false,
-      schemaUnset: null
+      schemaUnset: null,
+      modalOpen: false
     };
     this.exportHandler = this.exportHandler.bind(this);
+    this.handleModal = this.handleModal.bind(this);
   }
 
   /**
@@ -203,7 +227,13 @@ class GradePublisher extends React.Component {
         xlsx.writeFile(workBook, filename);
       }
     );
-  }
+  };
+
+  handleModal = () => {
+   this.setState(function (state) {
+     return { modalOpen: !state.modalOpen }
+   })
+ };
 
   /**
    * @return {Object} Render the Gradepub component
@@ -223,6 +253,8 @@ class GradePublisher extends React.Component {
         </View>
         <View as="div" textAlign="center">
           <GradesButton
+            modalOpen={this.state.modalOpen}
+            handleModal={this.handleModal}
             clickHandler={this.exportHandler}
             dataReady={this.state.dataReady && !this.state.schemaUnset}
           />
