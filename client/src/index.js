@@ -226,7 +226,7 @@ class GradePublisher extends React.Component {
           .replace(/[^\w. ]/g, "")
           .replace(/ /g, "_");
         const filename = `grades_${courseID}_${courseName}.xlsx`;
-        xlsx.writeFile(workBookTagged, filename);
+        xlsx.writeFile(workBook, filename);
       }
     );
   };
