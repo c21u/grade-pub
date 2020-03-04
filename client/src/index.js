@@ -65,9 +65,9 @@ const GradesButton = props => {
           {props.dataReady ? "Export Grades Spreadsheet" : "Preparing export..."}
         </Button>
         <Modal
-          as="form"
           open={props.modalOpen}
           onSubmit={prpos.handleModal}
+          onDismiss={props.handleModal}
           size="auto"
           label="Export Modal"
           shouldCloseOnDocumentClick
@@ -79,7 +79,7 @@ const GradesButton = props => {
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={props.clickHandler} type="submit">
+            <Button onClick={props.clickHandler}>
               Export Grades Spreadsheet
             </Button>
           </Modal.Footer>
