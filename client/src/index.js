@@ -65,7 +65,9 @@ const GradesButton = props => {
           {props.dataReady ? "Export Grades Spreadsheet" : "Preparing export..."}
         </Button>
         <Modal
+          as="form"
           open={props.modalOpen}
+          onSubmit={prpos.handleModal}
           size="auto"
           label="Export Modal"
           shouldCloseOnDocumentClick
@@ -77,7 +79,7 @@ const GradesButton = props => {
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={props.clickHandler}>
+            <Button onClick={props.clickHandler} type="submit">
               Export Grades Spreadsheet
             </Button>
           </Modal.Footer>
@@ -229,7 +231,6 @@ class GradePublisher extends React.Component {
         xlsx.writeFile(workBook, filename);
       }
     );
-    this.handleModal();
   };
 
   handleModal = () => {
