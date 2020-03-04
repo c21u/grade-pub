@@ -229,6 +229,7 @@ class GradePublisher extends React.Component {
         xlsx.writeFile(workBook, filename);
       }
     );
+    this.handleModal();
   };
 
   handleModal = () => {
