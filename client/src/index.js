@@ -66,7 +66,7 @@ const GradesButton = props => {
         </Button>
         <Modal
           open={props.modalOpen}
-          onSubmit={prpos.handleModal}
+          onSubmit={props.handleModal}
           onDismiss={props.handleModal}
           size="auto"
           label="Export Modal"
