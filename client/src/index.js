@@ -78,7 +78,7 @@ const GradesButton = props => {
           <Modal.Body padding="small">
             <p>
               You are downloading FERPA protected data. Storage and sharing of protected data must follow
-              Georgia Tech data safeguard policies and protocols described at <a href="https://b.gatech.edu/datasecurity">b.gatech.edu/datasecurity</a>.
+              Georgia Tech data safeguard policies and protocols described at <a href="https://b.gatech.edu/datasecurity" target="_blank">b.gatech.edu/datasecurity</a>.
             </p>
           </Modal.Body>
           <Modal.Footer>
