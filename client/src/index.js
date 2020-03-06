@@ -76,7 +76,10 @@ const GradesButton = props => {
             <CloseButton onClick={props.handleModal} placement="end" offset="small" screenReaderLabel="Close" />
           </Modal.Header>
           <Modal.Body padding="small">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>
+              You are downloading FERPA protected data. Storage and sharing of protected data must follow
+              Georgia Tech data safeguard policies and protocols described at <a href="https://b.gatech.edu/datasecurity">b.gatech.edu/datasecurity</a>.
+            </p>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={props.clickHandler}>
