@@ -30,6 +30,7 @@
     "@instructure/ui-icons": "^6.14.0",
     "@instructure/ui-layout": "^6.14.0",
     "@instructure/ui-link": "^6.14.0",
+    "@instructure/ui-modal": "^6.21.0",
     "@instructure/ui-text": "^6.14.0",
     "@instructure/ui-view": "^6.14.0",
     "@sentry/node": "^4.0.6",
