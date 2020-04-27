@@ -9,20 +9,51 @@ const passport = require("../lib/passport");
 router.use(passport.initialize());
 const passportStrategy = require("../config")["passportStrategy"];
 
+function issueToken(req) {
+  return jwt.sign(req.user, require("../config")["jwtSecret"], {
+    expiresIn: 60 * 60 * 24 * 180 /* 180 days */
+  });
+}
+
 // health check endpoint
 router.get("/z", (req, res, next) => {
   res.sendStatus(200);
 });
+
+// router.post(
+//   "/",
+//   passport.authenticate(passportStrategy, { session: false }),
+//   (req, res, next) => {
+//     if (req.user) {
+//       const jwtSecret = require("../config")["jwtSecret"];
+//       const expiresIn = 60 * 60 * 24 * 180; // 180 days
+//       const token = jwt.sign(req.user, jwtSecret, { expiresIn });
+//       res.redirect(`/?token=${token}`);
+//     } else {
+//       res.sendStatus(401);
+//     }
+//   }
+// );
 
 router.post(
   "/",
   passport.authenticate(passportStrategy, { session: false }),
   (req, res, next) => {
     if (req.user) {
-      const jwtSecret = require("../config")["jwtSecret"];
-      const expiresIn = 60 * 60 * 24 * 180; // 180 days
-      const token = jwt.sign(req.user, jwtSecret, { expiresIn });
-      res.redirect(`/?token=${token}`);
+      const parameters = {};
+      parameters.token = issueToken(req);
+      const googleAnalyticsID = require("../config").googleAnalyticsID.id;
+      if (googleAnalyticsID) {
+        parameters.googleAnalyticsID = googleAnalyticsID;
+      }
+
+      res.set({
+        "Cache-Control": "no-store",
+        Pragma: "no-cache"
+      });
+
+      res.redirect(`/?${qs.stringify(parameters)}`);
+      log.info(req.user);
     } else {
       res.sendStatus(401);
     }
