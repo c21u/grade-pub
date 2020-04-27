@@ -4,6 +4,7 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const jwtMiddleware = require("../lib/jwt");
 const passport = require("../lib/passport");
+const qs = require("qs");
 
 // Passport initialized here but actually used as passport.authenticate()
 router.use(passport.initialize());
@@ -42,7 +43,7 @@ router.post(
     if (req.user) {
       const parameters = {};
       parameters.token = issueToken(req);
-      const googleAnalyticsID = require("../config").googleAnalyticsID.id;
+      const googleAnalyticsID = require("../config").googleAnalyticsID;
       if (googleAnalyticsID) {
         parameters.googleAnalyticsID = googleAnalyticsID;
       }
