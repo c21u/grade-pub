@@ -4,10 +4,17 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const jwtMiddleware = require("../lib/jwt");
 const passport = require("../lib/passport");
+const qs = require("qs");
 
 // Passport initialized here but actually used as passport.authenticate()
 router.use(passport.initialize());
 const passportStrategy = require("../config")["passportStrategy"];
+
+function issueToken(req) {
+  return jwt.sign(req.user, require("../config")["jwtSecret"], {
+    expiresIn: 60 * 60 * 24 * 180 /* 180 days */
+  });
+}
 
 // health check endpoint
 router.get("/z", (req, res, next) => {
@@ -19,10 +26,20 @@ router.post(
   passport.authenticate(passportStrategy, { session: false }),
   (req, res, next) => {
     if (req.user) {
-      const jwtSecret = require("../config")["jwtSecret"];
-      const expiresIn = 60 * 60 * 24 * 180; // 180 days
-      const token = jwt.sign(req.user, jwtSecret, { expiresIn });
-      res.redirect(`/?token=${token}`);
+      const parameters = {};
+      parameters.token = issueToken(req);
+      const googleAnalyticsID = require("../config").googleAnalyticsID;
+      if (googleAnalyticsID) {
+        parameters.googleAnalyticsID = googleAnalyticsID;
+      }
+
+      res.set({
+        "Cache-Control": "no-store",
+        Pragma: "no-cache"
+      });
+
+      res.redirect(`/?${qs.stringify(parameters)}`);
+      log.info(req.user);
     } else {
       res.sendStatus(401);
     }

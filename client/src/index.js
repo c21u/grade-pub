@@ -9,6 +9,7 @@ import { IconWarningSolid } from '@instructure/ui-icons'
 import { View } from '@instructure/ui-view';
 import jwtDecode from "jwt-decode";
 import qs from "qs";
+import ReactGA from "react-ga";
 import "whatwg-fetch";
 import Instructions from "./Instructions";
 import spreadsheetInstructions from "./spreadsheetInstructions";
@@ -281,6 +282,21 @@ class App extends React.Component {
     super(props);
     updateContext();
   }
+
+  componentDidMount() {
+    const queryParameters = window.location.search;
+    let googleAnalyticsID;
+    try {
+      googleAnalyticsID = qs.parse(queryParameters, { ignoreQueryPrefix: true })
+      .googleAnalyticsID;
+    } catch (err) {}
+
+    if (googleAnalyticsID) {
+      ReactGA.initialize(googleAnalyticsID);
+      ReactGA.set({ title: "GradePub LTI" });
+      ReactGA.pageview(window.location.pathname);
+    }
+  };
 
   /**
    * Render App component with react-router
