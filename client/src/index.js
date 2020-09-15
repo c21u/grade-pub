@@ -217,7 +217,7 @@ class GradePublisher extends React.Component {
         const workSheet = xlsx.utils.aoa_to_sheet(context.data);
         const workBook = xlsx.utils.book_new();
         if(!workBook.Props) workBook.Props = {};
-        workBook.Props.Title = "FERPA Restriction";
+        workBook.Props.Title = "PROTECTEDFERPA2rsPUvcxswWAgYKkKoIwCA";
         xlsx.utils.book_append_sheet(workBook, workSheet, "Grades");
         xlsx.utils.book_append_sheet(
           workBook,
