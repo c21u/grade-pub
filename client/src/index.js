@@ -183,7 +183,7 @@ class GradePublisher extends React.Component {
       "Section",
       this.state.gradeScheme.title,
       "Last Attended Date",
-      "Override"
+      "Grade Mode"
     ]);
 
     // Add a row for each student
@@ -193,6 +193,8 @@ class GradePublisher extends React.Component {
       const confidential = item.name === "Confidential" ? "Yes" : "No";
       const lastAttended = ""; // data is in SIS, so punt here
       const override = item.override;
+      const gradeMode = item.gradeMode;
+      console.log(gradeMode);
       context.data.push([
         termCode,
         crn,
@@ -203,7 +205,8 @@ class GradePublisher extends React.Component {
         this.state.sectionTitles[item.sisSectionID],
         item.currentGrade, // TODO make it dynamic for miterms and finals
         lastAttended,
-        override
+        override,
+        gradeMode
       ]);
     });
 
@@ -251,6 +254,7 @@ class GradePublisher extends React.Component {
       <div>
         <View as="div" padding="large">
           <Instructions />
+          <button onClick={() => console.log(this.state.grades.data)}>Click Me</button>
         </View>
         <View as="div" textAlign="center">
           <span style={{ display: this.state.schemaUnset ? "inline" : "none" }}>

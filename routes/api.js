@@ -4,11 +4,54 @@ const router = express.Router();
 const jwtMiddleware = require("../lib/jwt");
 const canvasAPI = require("../lib/canvas");
 
+const BuzzApi = require('buzzapi');
+const buzzappid = require("../config")["buzzAPI"].appID;
+const buzzapipassword = require("../config")["buzzAPI"].password;
+const buzzapi = new BuzzApi({'apiUser': buzzappid, 'apiPassword': buzzapipassword});
+
 router.use(jwtMiddleware);
 
 router.get("/test", (req, res) => {
   res.send({ message: "testing works!" });
 });
+
+const getGradeMode = (sisId, sectionId) => {
+  return buzzapi.post("central.iam.gted.people", "search", {
+    filter: `(gtgtid=${sisId})`,
+    requested_attributes: ["gtCourseInfoDetails1"]
+  }).then(response => {
+    // console.log(response[0].gtCourseInfoDetails1);
+    const courseInfoDetails = response[0].gtCourseInfoDetails1;
+    let gradeMode;
+    if (courseInfoDetails) {
+     for (let i = 0; i < courseInfoDetails.length; i ++) {
+       const courseInfoDetailsArray = courseInfoDetails[i].split("|");
+       if (sectionId.includes(courseInfoDetailsArray[1]) && sectionId.includes(courseInfoDetailsArray[2])) {
+         const modeCode = courseInfoDetailsArray.slice(-1).pop();
+         if (modeCode == "l") {
+           gradeMode = "Letter Grade";
+         }
+         if (modeCode == "p") {
+           gradeMode = "Pass / Fail";
+         }
+         if (modeCode == "a") {
+           gradeMode = "Audit";
+         }
+         if (courseInfoDetailsArray[3] == "instructor") {
+           gradeMode = "Not available";
+         }
+         break;
+       }
+     }
+     return gradeMode || "Not available";
+   } else {
+     return "Not available"
+   }
+  }).catch(err => {
+    console.log(err);
+    return "Not available"
+  });
+};
 
 router.get("/grades", (req, res, next) => {
   const canvas = canvasAPI.getCanvasContext(req);
@@ -37,10 +80,12 @@ router.get("/grades", (req, res, next) => {
         sisSectionID: s.sis_section_id,
         gtID: s.user.sis_user_id,
         course: req.user.custom_canvas_course_name,
-        override: s.grades.override_grade ? "Y" : null
+        override: s.grades.override_grade ? "Y" : null,
+        gradeMode: getGradeMode(s.user.sis_user_id, s.sis_section_id)
       }));
     })
     .then(data => {
+      console.log(data);
       res.send({ data });
     })
     .catch(err => {
