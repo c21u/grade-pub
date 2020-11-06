@@ -191,10 +191,9 @@ class GradePublisher extends React.Component {
       const termCode = item.sisSectionID ? item.sisSectionID.slice(0, 6) : null;
       const crn = item.sisSectionID ? item.sisSectionID.slice(7) : null;
       const confidential = item.name === "Confidential" ? "Yes" : "No";
+      const currentGrade = item.gradeMode == "Audit" ? "V" : item.currentGrade;
       const lastAttended = ""; // data is in SIS, so punt here
       const override = item.override;
-      const gradeMode = item.gradeMode;
-      console.log(gradeMode);
       context.data.push([
         termCode,
         crn,
@@ -203,10 +202,9 @@ class GradePublisher extends React.Component {
         confidential,
         item.course,
         this.state.sectionTitles[item.sisSectionID],
-        item.currentGrade, // TODO make it dynamic for miterms and finals
+        currentGrade, // TODO make it dynamic for miterms and finals
         lastAttended,
-        override,
-        gradeMode
+        override
       ]);
     });
 
@@ -254,7 +252,6 @@ class GradePublisher extends React.Component {
       <div>
         <View as="div" padding="large">
           <Instructions />
-          <button onClick={() => console.log(this.state.grades.data)}>Click Me</button>
         </View>
         <View as="div" textAlign="center">
           <span style={{ display: this.state.schemaUnset ? "inline" : "none" }}>
