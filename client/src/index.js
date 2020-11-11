@@ -183,7 +183,7 @@ class GradePublisher extends React.Component {
       "Section",
       this.state.gradeScheme.title,
       "Last Attended Date",
-      "Grade Mode"
+      "Override"
     ]);
 
     // Add a row for each student
