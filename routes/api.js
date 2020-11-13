@@ -86,7 +86,6 @@ router.get("/grades", (req, res, next) => {
       )
     })
     .then(data => {
-      console.log(data);
       res.send({ data });
     })
     .catch(err => {
