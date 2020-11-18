@@ -1,9 +1,9 @@
 import React from "react";
-import { Heading } from '@instructure/ui-heading';
-import { Link } from '@instructure/ui-link'
-import { Text } from '@instructure/ui-text';
-import { View } from '@instructure/ui-view';
-import { List } from '@instructure/ui-elements';
+import { Heading } from "@instructure/ui-heading";
+import { Link } from "@instructure/ui-link";
+import { Text } from "@instructure/ui-text";
+import { View } from "@instructure/ui-view";
+import { List } from "@instructure/ui-elements";
 
 const Instructions = () => {
   return (

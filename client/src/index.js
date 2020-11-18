@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import { theme } from '@instructure/canvas-theme'
-import { Button, CloseButton } from '@instructure/ui-buttons';
+import { theme } from "@instructure/canvas-theme";
+import { Button, CloseButton } from "@instructure/ui-buttons";
 import { Modal } from "@instructure/ui-modal";
-import { IconWarningSolid } from '@instructure/ui-icons'
-import { View } from '@instructure/ui-view';
+import { IconWarningSolid } from "@instructure/ui-icons";
+import { View } from "@instructure/ui-view";
 import jwtDecode from "jwt-decode";
 import qs from "qs";
 import ReactGA from "react-ga";
@@ -58,42 +58,53 @@ ProtectedRoute.propTypes = {
 const GradesButton = props => {
   return (
     <div>
-        <Button
-          onClick={props.handleModal}
-          disabled={!props.dataReady}
-          size="large"
-          >
-          {props.dataReady ? "Export Grades Spreadsheet" : "Preparing export..."}
-        </Button>
-        <Modal
-          open={props.modalOpen}
-          onSubmit={props.handleModal}
-          onDismiss={props.handleModal}
-          size="auto"
-          label="Export Modal"
-          shouldCloseOnDocumentClick
-          >
-          <Modal.Header>
-            <CloseButton onClick={props.handleModal} placement="end" offset="small" screenReaderLabel="Close" />
-          </Modal.Header>
-          <Modal.Body padding="small">
-            <p>
-              You are downloading FERPA protected data. Storage and sharing of protected data must follow
-              Georgia Tech data safeguard policies and protocols described at <a href="https://b.gatech.edu/datasecurity" target="_blank">b.gatech.edu/datasecurity</a>.
-            </p>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={props.clickHandler}>
-              Export Grades Spreadsheet
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
-  )
-}
+      <Button
+        onClick={props.handleModal}
+        disabled={!props.dataReady}
+        size="large"
+      >
+        {props.dataReady ? "Export Grades Spreadsheet" : "Preparing export..."}
+      </Button>
+      <Modal
+        open={props.modalOpen}
+        onSubmit={props.handleModal}
+        onDismiss={props.handleModal}
+        size="auto"
+        label="Export Modal"
+        shouldCloseOnDocumentClick
+      >
+        <Modal.Header>
+          <CloseButton
+            onClick={props.handleModal}
+            placement="end"
+            offset="small"
+            screenReaderLabel="Close"
+          />
+        </Modal.Header>
+        <Modal.Body padding="small">
+          <p>
+            You are downloading FERPA protected data. Storage and sharing of
+            protected data must follow Georgia Tech data safeguard policies and
+            protocols described at{" "}
+            <a href="https://b.gatech.edu/datasecurity" target="_blank">
+              b.gatech.edu/datasecurity
+            </a>
+            .
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={props.clickHandler}>
+            Export Grades Spreadsheet
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
+};
 GradesButton.propTypes = {
   handleModal: PropTypes.func,
   clickHandler: PropTypes.func,
+  modalOpen: PropTypes.bool,
   dataReady: PropTypes.bool
 };
 
@@ -191,6 +202,7 @@ class GradePublisher extends React.Component {
       const termCode = item.sisSectionID ? item.sisSectionID.slice(0, 6) : null;
       const crn = item.sisSectionID ? item.sisSectionID.slice(7) : null;
       const confidential = item.name === "Confidential" ? "Yes" : "No";
+      const currentGrade = item.gradeMode == "Audit" ? "V" : item.currentGrade;
       const lastAttended = ""; // data is in SIS, so punt here
       const override = item.override;
       context.data.push([
@@ -201,7 +213,7 @@ class GradePublisher extends React.Component {
         confidential,
         item.course,
         this.state.sectionTitles[item.sisSectionID],
-        item.currentGrade, // TODO make it dynamic for miterms and finals
+        currentGrade, // TODO make it dynamic for miterms and finals
         lastAttended,
         override
       ]);
@@ -216,7 +228,7 @@ class GradePublisher extends React.Component {
         );
         const workSheet = xlsx.utils.aoa_to_sheet(context.data);
         const workBook = xlsx.utils.book_new();
-        if(!workBook.Props) workBook.Props = {};
+        if (!workBook.Props) workBook.Props = {};
         workBook.Props.Title = "PROTECTEDFERPA2rsPUvcxswWAgYKkKoIwCA";
         xlsx.utils.book_append_sheet(workBook, workSheet, "Grades");
         xlsx.utils.book_append_sheet(
@@ -235,13 +247,13 @@ class GradePublisher extends React.Component {
         xlsx.writeFile(workBook, filename);
       }
     );
-  };
+  }
 
   handleModal = () => {
-   this.setState(function (state) {
-     return { modalOpen: !state.modalOpen }
-   })
- };
+    this.setState(function(state) {
+      return { modalOpen: !state.modalOpen };
+    });
+  };
 
   /**
    * @return {Object} Render the Gradepub component
@@ -288,7 +300,7 @@ class App extends React.Component {
     let googleAnalyticsID;
     try {
       googleAnalyticsID = qs.parse(queryParameters, { ignoreQueryPrefix: true })
-      .googleAnalyticsID;
+        .googleAnalyticsID;
     } catch (err) {}
 
     if (googleAnalyticsID) {
@@ -296,7 +308,7 @@ class App extends React.Component {
       ReactGA.set({ title: "GradePub LTI" });
       ReactGA.pageview(window.location.pathname);
     }
-  };
+  }
 
   /**
    * Render App component with react-router
