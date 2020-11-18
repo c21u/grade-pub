@@ -4,10 +4,13 @@ const router = express.Router();
 const jwtMiddleware = require("../lib/jwt");
 const canvasAPI = require("../lib/canvas");
 
-const BuzzApi = require('buzzapi');
+const BuzzApi = require("buzzapi");
 const buzzappid = require("../config")["buzzAPI"].appID;
 const buzzapipassword = require("../config")["buzzAPI"].password;
-const buzzapi = new BuzzApi({'apiUser': buzzappid, 'apiPassword': buzzapipassword});
+const buzzapi = new BuzzApi({
+  apiUser: buzzappid,
+  apiPassword: buzzapipassword
+});
 
 router.use(jwtMiddleware);
 
@@ -16,40 +19,46 @@ router.get("/test", (req, res) => {
 });
 
 const getGradeMode = (sisId, sectionId) => {
-  return buzzapi.post("central.iam.gted.people", "search", {
-    filter: `(gtgtid=${sisId})`,
-    requested_attributes: ["gtCourseInfoDetails1"]
-  }).then(response => {
-    const courseInfoDetails = response[0].gtCourseInfoDetails1;
-    let gradeMode;
-    if (courseInfoDetails) {
-      for (let i = 0; i < courseInfoDetails.length; i ++) {
-        const courseInfoDetailsArray = courseInfoDetails[i].split("|");
-        if (sectionId.includes(courseInfoDetailsArray[1]) && sectionId.includes(courseInfoDetailsArray[2])) {
-          const modeCode = courseInfoDetailsArray.slice(-1).pop();
-          if (modeCode == "l") {
-            gradeMode = "Letter Grade";
+  return buzzapi
+    .post("central.iam.gted.people", "search", {
+      filter: `(gtgtid=${sisId})`,
+      requested_attributes: ["gtCourseInfoDetails1"]
+    })
+    .then(response => {
+      const courseInfoDetails = response[0].gtCourseInfoDetails1;
+      let gradeMode;
+      if (courseInfoDetails) {
+        for (let i = 0; i < courseInfoDetails.length; i++) {
+          const courseInfoDetailsArray = courseInfoDetails[i].split("|");
+          if (
+            sectionId.includes(courseInfoDetailsArray[1]) &&
+            sectionId.includes(courseInfoDetailsArray[2])
+          ) {
+            const modeCode = courseInfoDetailsArray.slice(-1).pop();
+            if (modeCode == "l") {
+              gradeMode = "Letter Grade";
+            }
+            if (modeCode == "p") {
+              gradeMode = "Pass / Fail";
+            }
+            if (modeCode == "a") {
+              gradeMode = "Audit";
+            }
+            if (courseInfoDetailsArray[3] == "instructor") {
+              gradeMode = "Not available";
+            }
+            break;
           }
-          if (modeCode == "p") {
-            gradeMode = "Pass / Fail";
-          }
-          if (modeCode == "a") {
-            gradeMode = "Audit";
-          }
-          if (courseInfoDetailsArray[3] == "instructor") {
-            gradeMode = "Not available";
-          }
-          break;
         }
+        return gradeMode || "Not available";
+      } else {
+        return "Not available";
       }
-      return gradeMode || "Not available";
-    } else {
-      return "Not available"
-    }
-  }).catch(err => {
-    console.log(err);
-    return "Not available"
-  });
+    })
+    .catch(err => {
+      console.log(err);
+      return "Not available";
+    });
 };
 
 router.get("/grades", (req, res, next) => {
@@ -70,11 +79,11 @@ router.get("/grades", (req, res, next) => {
         realStudents.map(async s => ({
           name: s.user.sortable_name,
           currentGrade: s.grades.override_grade
-          ? s.grades.override_grade
-          : s.grades.current_grade,
+            ? s.grades.override_grade
+            : s.grades.current_grade,
           finalGrade: s.grades.override_grade
-          ? s.grades.override_grade
-          : s.grades.final_grade,
+            ? s.grades.override_grade
+            : s.grades.final_grade,
           unpostedFinalGrade: s.grades.unposted_final_grade,
           unpostedCurrentGrade: s.grades.unposted_current_grade,
           sisSectionID: s.sis_section_id,
@@ -83,7 +92,7 @@ router.get("/grades", (req, res, next) => {
           override: s.grades.override_grade ? "Y" : null,
           gradeMode: await getGradeMode(s.user.sis_user_id, s.sis_section_id)
         }))
-      )
+      );
     })
     .then(data => {
       res.send({ data });
