@@ -18,46 +18,92 @@ router.get("/test", (req, res) => {
   res.send({ message: "testing works!" });
 });
 
-const getGradeMode = (sisId, sectionId) => {
-  return buzzapi
-    .post("central.iam.gted.people", "search", {
-      filter: `(gtgtid=${sisId})`,
-      requested_attributes: ["gtCourseInfoDetails1"]
-    })
-    .then(response => {
-      const courseInfoDetails = response[0].gtCourseInfoDetails1;
-      let gradeMode;
-      if (courseInfoDetails) {
-        for (let i = 0; i < courseInfoDetails.length; i++) {
-          const courseInfoDetailsArray = courseInfoDetails[i].split("|");
-          if (
-            sectionId.includes(courseInfoDetailsArray[1]) &&
-            sectionId.includes(courseInfoDetailsArray[2])
-          ) {
-            const modeCode = courseInfoDetailsArray.slice(-1).pop();
-            if (modeCode == "l") {
-              gradeMode = "Letter Grade";
+/**
+ * Turn an array into an array of arrays each with a maximum size
+ *
+ * @param {Array}       arr               The array to split into chunks
+ * @param {int}         size              The size of the array chunks that should be returned
+ * @return {Array}
+ */
+const chunk = function(arr, size) {
+  const chunks = [];
+  const n = arr.length;
+  let i = 0;
+
+  while (i < n) {
+    chunks.push(arr.slice(i, (i += size)));
+  }
+  return chunks;
+};
+const getGrademodes = function(students) {
+  const keyBy = (arr, element) =>
+    arr.reduce((acc, curr) => ({ ...acc, [curr[element]]: curr }), {});
+  const studentsById = keyBy(
+    students.map(student => ({
+      ...student.user,
+      section_id: student.sis_section_id
+    })),
+    "sis_user_id"
+  );
+  sisIdsChunks = chunk(
+    students.map(student => `(gtgtid=${student.user.sis_user_id})`),
+    20
+  );
+  return Promise.all(
+    sisIdsChunks.map(sisIds =>
+      buzzapi.post("central.iam.gted.people", "search", {
+        filter: `(|${sisIds.join("")})`,
+        requested_attributes: ["gtCourseInfoDetails1", "gtgtid"]
+      })
+    )
+  )
+    .then(responses => responses.reduce((acc, cur) => acc.concat(cur)))
+    .then(responses => {
+      return responses.map(response => {
+        const courseInfoDetails = response.gtCourseInfoDetails1;
+        let gradeMode;
+        if (courseInfoDetails) {
+          for (let i = 0; i < courseInfoDetails.length; i++) {
+            const courseInfoDetailsArray = courseInfoDetails[i].split("|");
+            if (
+              studentsById[response.gtgtid].section_id.includes(
+                courseInfoDetailsArray[1]
+              ) &&
+              studentsById[response.gtgtid].section_id.includes(
+                courseInfoDetailsArray[2]
+              )
+            ) {
+              const modeCode = courseInfoDetailsArray.slice(-1).pop();
+              if (modeCode == "l") {
+                gradeMode = "Letter Grade";
+              }
+              if (modeCode == "p") {
+                gradeMode = "Pass / Fail";
+              }
+              if (modeCode == "a") {
+                gradeMode = "Audit";
+              }
+              if (courseInfoDetailsArray[3] == "instructor") {
+                gradeMode = "Not available";
+              }
+              break;
             }
-            if (modeCode == "p") {
-              gradeMode = "Pass / Fail";
-            }
-            if (modeCode == "a") {
-              gradeMode = "Audit";
-            }
-            if (courseInfoDetailsArray[3] == "instructor") {
-              gradeMode = "Not available";
-            }
-            break;
           }
+          return {
+            gtgtid: response.gtgtid,
+            gradeMode: gradeMode ? gradeMode : "Not available"
+          };
+        } else {
+          return {
+            gtgtid: response.gtgtid,
+            gradeMode: "Not available"
+          };
         }
-        return gradeMode || "Not available";
-      } else {
-        return "Not available";
-      }
+      });
     })
+    .then(results => keyBy(results, "gtgtid"))
     .catch(err => {
       console.log(err);
-      return "Not available";
     });
 };
 
@@ -72,9 +118,10 @@ router.get("/grades", (req, res, next) => {
     .then(students => {
       return students.filter(s => s.sis_user_id);
     }) // promise statement returns students
-    .then(realStudents => {
+    .then(async realStudents => {
       // ** override feature ** - checks if override_grade exists, and if so, sets final_grade and current_grade  equal to override_grade
       // if there is override grade, override value is equal to "Y" and if not, null
+      const gradeModes = await getGrademodes(realStudents);
       return Promise.all(
         realStudents.map(async s => ({
           name: s.user.sortable_name,
@@ -90,7 +137,7 @@ router.get("/grades", (req, res, next) => {
           gtID: s.user.sis_user_id,
           course: req.user.custom_canvas_course_name,
           override: s.grades.override_grade ? "Y" : null,
-          gradeMode: await getGradeMode(s.user.sis_user_id, s.sis_section_id)
+          gradeMode: gradeModes[s.user.sis_user_id]
         }))
       );
     })
@@ -99,6 +146,7 @@ router.get("/grades", (req, res, next) => {
     })
     .catch(err => {
       res.status(500).send(err);
+      console.log(JSON.stringify(err));
     });
 });
 
