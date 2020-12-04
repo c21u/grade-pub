@@ -94,7 +94,7 @@ const GradesButton = props => {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.clickHandler}>
-            Export Grades Spreadsheet
+            Export Grades Spreadsheet (Testing audit mode for large courses)
           </Button>
         </Modal.Footer>
       </Modal>
