@@ -63,7 +63,9 @@ const GradesButton = props => {
         disabled={!props.dataReady}
         size="large"
       >
-        {props.dataReady ? "Export Grades Spreadsheet" : "Preparing export..."}
+        {props.dataReady
+          ? "Export Grades Spreadsheet (Testing for large courses)"
+          : "Preparing export...(Testing for large courses)"}
       </Button>
       <Modal
         open={props.modalOpen}
@@ -94,7 +96,7 @@ const GradesButton = props => {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.clickHandler}>
-            Export Grades Spreadsheet (Testing audit mode for large courses)
+            Export Grades Spreadsheet
           </Button>
         </Modal.Footer>
       </Modal>
