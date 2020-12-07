@@ -264,9 +264,6 @@ class GradePublisher extends React.Component {
       <div>
         <View as="div" padding="large">
           <Instructions />
-          <button onClick={() => console.log(this.state.grades.data)}>
-            Click
-          </button>
         </View>
         <View as="div" textAlign="center">
           <span style={{ display: this.state.schemaUnset ? "inline" : "none" }}>
