@@ -7,6 +7,7 @@ import { Button, CloseButton } from "@instructure/ui-buttons";
 import { Modal } from "@instructure/ui-modal";
 import { IconWarningSolid } from "@instructure/ui-icons";
 import { View } from "@instructure/ui-view";
+import { Spinner } from "@instructure/ui-spinner";
 import jwtDecode from "jwt-decode";
 import qs from "qs";
 import ReactGA from "react-ga";
@@ -279,6 +280,11 @@ class GradePublisher extends React.Component {
             clickHandler={this.exportHandler}
             dataReady={this.state.dataReady && !this.state.schemaUnset}
           />
+          {this.state.dataReady || this.state.schemaUnset ? (
+            ""
+          ) : (
+            <Spinner renderTitle="Loading" size="x-small" margin="small" />
+          )}
         </View>
       </div>
     );
