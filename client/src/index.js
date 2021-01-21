@@ -7,6 +7,7 @@ import { Button, CloseButton } from "@instructure/ui-buttons";
 import { Modal } from "@instructure/ui-modal";
 import { IconWarningSolid } from "@instructure/ui-icons";
 import { View } from "@instructure/ui-view";
+import { Spinner } from "@instructure/ui-spinner";
 import jwtDecode from "jwt-decode";
 import qs from "qs";
 import ReactGA from "react-ga";
@@ -202,7 +203,8 @@ class GradePublisher extends React.Component {
       const termCode = item.sisSectionID ? item.sisSectionID.slice(0, 6) : null;
       const crn = item.sisSectionID ? item.sisSectionID.slice(7) : null;
       const confidential = item.name === "Confidential" ? "Yes" : "No";
-      const currentGrade = item.gradeMode == "Audit" ? "V" : item.currentGrade;
+      const currentGrade =
+        item.gradeMode.gradeMode == "Audit" ? "V" : item.currentGrade;
       const lastAttended = ""; // data is in SIS, so punt here
       const override = item.override;
       context.data.push([
@@ -278,6 +280,11 @@ class GradePublisher extends React.Component {
             clickHandler={this.exportHandler}
             dataReady={this.state.dataReady && !this.state.schemaUnset}
           />
+          {this.state.dataReady || this.state.schemaUnset ? (
+            ""
+          ) : (
+            <Spinner renderTitle="Loading" size="x-small" margin="small" />
+          )}
         </View>
       </div>
     );
