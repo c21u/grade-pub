@@ -65,28 +65,30 @@ const getGrademodes = function(students) {
         if (courseInfoDetails) {
           for (let i = 0; i < courseInfoDetails.length; i++) {
             const courseInfoDetailsArray = courseInfoDetails[i].split("|");
-            if (
-              studentsById[response.gtgtid].section_id.includes(
-                courseInfoDetailsArray[1]
-              ) &&
-              studentsById[response.gtgtid].section_id.includes(
-                courseInfoDetailsArray[2]
-              )
-            ) {
-              const modeCode = courseInfoDetailsArray.slice(-1).pop();
-              if (modeCode == "l") {
-                gradeMode = "Letter Grade";
+            if (studentsById[response.gtgtid].section_id) {
+              if (
+                studentsById[response.gtgtid].section_id.includes(
+                  courseInfoDetailsArray[1]
+                ) &&
+                studentsById[response.gtgtid].section_id.includes(
+                  courseInfoDetailsArray[2]
+                )
+              ) {
+                const modeCode = courseInfoDetailsArray.slice(-1).pop();
+                if (modeCode == "l") {
+                  gradeMode = "Letter Grade";
+                }
+                if (modeCode == "p") {
+                  gradeMode = "Pass / Fail";
+                }
+                if (modeCode == "a") {
+                  gradeMode = "Audit";
+                }
+                if (courseInfoDetailsArray[3] == "instructor") {
+                  gradeMode = "Not available";
+                }
+                break;
               }
-              if (modeCode == "p") {
-                gradeMode = "Pass / Fail";
-              }
-              if (modeCode == "a") {
-                gradeMode = "Audit";
-              }
-              if (courseInfoDetailsArray[3] == "instructor") {
-                gradeMode = "Not available";
-              }
-              break;
             }
           }
           return {
