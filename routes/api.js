@@ -82,6 +82,7 @@ const getGrademodes = function(students) {
                 courseInfoDetailsArray[3] == "instructor"
                   ? "Not available"
                   : modeMap[modeCode] || "Not available";
+              break;
             }
           }
           return {
