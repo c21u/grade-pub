@@ -82,10 +82,10 @@ const Instructions = () => {
             <Text>
               Go to the Banner Faculty Grade Entry (FGE) module at{" "}
               <Link
-                href="https://fge.sis.gatech.edu/StudentFacultyGradeEntry"
+                href="https://fge.sis.gatech.edu/FacultySelfService"
                 target="_blank"
               >
-                https://fge.sis.gatech.edu/StudentFacultyGradeEntry
+                https://fge.sis.gatech.edu/FacultySelfService
               </Link>
               .
             </Text>
