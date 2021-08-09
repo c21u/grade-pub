@@ -87,7 +87,7 @@ const Instructions = () => {
               >
                 https://fge.sis.gatech.edu/FacultySelfService
               </Link>
-              .(
+              {" "}(
               <Text weight="bold" fontStyle="italic">
                 Requires
                 <Link
