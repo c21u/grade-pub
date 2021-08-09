@@ -87,7 +87,16 @@ const Instructions = () => {
               >
                 https://fge.sis.gatech.edu/FacultySelfService
               </Link>
-              .
+              .(
+              <Text weight="bold" fontStyle="italic">
+                Requires
+                <Link
+                  href="https://gatech.service-now.com/continuity?id=kb_article_view&sysparm_article=KB0026837"
+                  target="_blank">
+                    VPN
+                </Link>
+                when accessed from off-campus
+              </Text>)
             </Text>
           </List.Item>
           <List.Item>
