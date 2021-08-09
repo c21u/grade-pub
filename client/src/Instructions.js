@@ -93,7 +93,7 @@ const Instructions = () => {
                 <Link
                   href="https://gatech.service-now.com/continuity?id=kb_article_view&sysparm_article=KB0026837"
                   target="_blank">
-                    VPN
+                    {" "}VPN{" "}
                 </Link>
                 when accessed from off-campus
               </Text>)
