@@ -6,21 +6,26 @@ services:
     command: bin/www
     environment:
       NODE_ENV: production
-      VIRTUAL_HOST: dev.127.0.0.1.xip.io
+      VIRTUAL_HOST: grade-pub.127.0.0.1.xip.io
       TRUST_PROXY: uniquelocal
       LTI_KEY: $LTI_KEY
       LTI_SECRET: $LTI_SECRET
       BUZZAPI_APP_ID: $BUZZAPI_APP_ID
       BUZZAPI_PASSWORD: $BUZZAPI_PASSWORD
       CANVAS_TOKEN: $CANVAS_TOKEN
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`grade-pub.127.0.0.1.nip.io`)"
+      - "traefik.http.routers.whoami.tls=true"
     expose:
       - "3000"
-
-  nginx-proxy:
-    image: jwilder/nginx-proxy
+  reverse-proxy:
+    image: traefik:v2.0
     ports:
-      - "80:80"
+      - "3001"
       - "443:443"
+      - "8080:8080"
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - $HOME/certs:/etc/nginx/certs
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - $HOME/certs:/data/traefik
+      - ./traefik:/etc/traefik
+

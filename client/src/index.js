@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { theme } from "@instructure/canvas-theme";
 import { Button, CloseButton } from "@instructure/ui-buttons";
-import { Modal } from "@instructure/ui-modal";
+import { Popover } from '@instructure/ui-popover'
 import { IconWarningSolid } from "@instructure/ui-icons";
 import { View } from "@instructure/ui-view";
 import { Spinner } from "@instructure/ui-spinner";
@@ -58,31 +58,24 @@ ProtectedRoute.propTypes = {
 
 const GradesButton = props => {
   return (
-    <div>
-      <Button
-        onClick={props.handleModal}
-        disabled={!props.dataReady}
-        size="large"
-      >
-        {props.dataReady ? "Export Grades Spreadsheet" : "Preparing export..."}
-      </Button>
-      <Modal
-        open={props.modalOpen}
-        onSubmit={props.handleModal}
-        onDismiss={props.handleModal}
-        size="auto"
-        label="Export Modal"
+    <View>
+      <Popover
+        renderTrigger={
+          <Button disabled={!props.dataReady}>
+            {props.dataReady ? "Export Grades Spreadsheet" : "Preparing export..."}
+          </Button>
+        }
+        isShowingContent={props.popOverOpen}
+        onShowContent={props.handlePopOver}
+        onHideContent={props.handlePopOver}
+        on="click"
+        screenReaderLabel="Export Grades"
+        shouldContainFocus
+        shouldReturnFocus
         shouldCloseOnDocumentClick
+        offsetY="16px"
       >
-        <Modal.Header>
-          <CloseButton
-            onClick={props.handleModal}
-            placement="end"
-            offset="small"
-            screenReaderLabel="Close"
-          />
-        </Modal.Header>
-        <Modal.Body padding="small">
+        <View padding="medium" display="block" as="form" width="600px">
           <p>
             You are downloading FERPA protected data. Storage and sharing of
             protected data must follow Georgia Tech data safeguard policies and
@@ -92,20 +85,18 @@ const GradesButton = props => {
             </a>
             .
           </p>
-        </Modal.Body>
-        <Modal.Footer>
           <Button onClick={props.clickHandler}>
             Export Grades Spreadsheet
           </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
+        </View>
+      </Popover>
+    </View>
   );
 };
 GradesButton.propTypes = {
-  handleModal: PropTypes.func,
+  handlePopOver: PropTypes.func,
   clickHandler: PropTypes.func,
-  modalOpen: PropTypes.bool,
+  popOverOpen: PropTypes.bool,
   dataReady: PropTypes.bool
 };
 
@@ -119,10 +110,10 @@ class GradePublisher extends React.Component {
     this.state = {
       dataReady: false,
       schemaUnset: null,
-      modalOpen: false
+      popOverOpen: false
     };
     this.exportHandler = this.exportHandler.bind(this);
-    this.handleModal = this.handleModal.bind(this);
+    this.handlePopOver = this.handlePopOver.bind(this);
   }
 
   /**
@@ -251,9 +242,9 @@ class GradePublisher extends React.Component {
     );
   }
 
-  handleModal = () => {
-    this.setState(function(state) {
-      return { modalOpen: !state.modalOpen };
+  handlePopOver = () => {
+    this.setState(function (state) {
+      return { popOverOpen: !state.popOverOpen };
     });
   };
 
@@ -275,15 +266,17 @@ class GradePublisher extends React.Component {
         </View>
         <View as="div" textAlign="center">
           <GradesButton
-            modalOpen={this.state.modalOpen}
-            handleModal={this.handleModal}
+            popOverOpen={this.state.popOverOpen}
+            handlePopOver={this.handlePopOver}
             clickHandler={this.exportHandler}
             dataReady={this.state.dataReady && !this.state.schemaUnset}
           />
           {this.state.dataReady || this.state.schemaUnset ? (
             ""
           ) : (
-            <Spinner renderTitle="Loading" size="x-small" margin="small" />
+            <View as="div">
+              <Spinner renderTitle="Loading" size="x-small" margin="small" />
+            </View>
           )}
         </View>
       </div>
@@ -308,7 +301,7 @@ class App extends React.Component {
     try {
       googleAnalyticsID = qs.parse(queryParameters, { ignoreQueryPrefix: true })
         .googleAnalyticsID;
-    } catch (err) {}
+    } catch (err) { }
 
     if (googleAnalyticsID) {
       ReactGA.initialize(googleAnalyticsID);
