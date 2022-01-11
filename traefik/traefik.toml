@@ -2,7 +2,7 @@ defaultEntryPoints = ["http", "https"]
 
 [entrypoints]
   [entrypoints.http]
-    address = ":3001"
+    address = ":80"
     [entryPoints.http.forwardedHeaders]
       insecure = true
 

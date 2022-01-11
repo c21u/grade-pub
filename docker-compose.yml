@@ -6,7 +6,7 @@ services:
     command: bin/www
     environment:
       NODE_ENV: production
-      VIRTUAL_HOST: grade-pub.127.0.0.1.xip.io
+      VIRTUAL_HOST: dev.127.0.0.1.nip.io
       TRUST_PROXY: uniquelocal
       LTI_KEY: $LTI_KEY
       LTI_SECRET: $LTI_SECRET
@@ -14,14 +14,14 @@ services:
       BUZZAPI_PASSWORD: $BUZZAPI_PASSWORD
       CANVAS_TOKEN: $CANVAS_TOKEN
     labels:
-      - "traefik.http.routers.whoami.rule=Host(`grade-pub.127.0.0.1.nip.io`)"
+      - "traefik.http.routers.whoami.rule=Host(`dev.127.0.0.1.nip.io`)"
       - "traefik.http.routers.whoami.tls=true"
     expose:
       - "3000"
   reverse-proxy:
     image: traefik:v2.0
     ports:
-      - "3001"
+      - "80:80"
       - "443:443"
       - "8080:8080"
     volumes:
