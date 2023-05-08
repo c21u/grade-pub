@@ -42,19 +42,19 @@ const getGrademodes = async students => {
     arr.reduce((acc, curr) => ({ ...acc, [curr[element]]: curr }), {});
 
   const studentsById = keyBy(
-    students.map(studen => ({
+    students.map(student => ({
       ...student.user,
       section_id: student.sis_section_id
     })),
     "sis_user_id"
   );
   sisIdsChunks = chunk(
-    students.map(studen => `(gtgtid=${student.user.sis_user_id})`),
+    students.map(student => `(gtgtid=${student.user.sis_user_id})`),
     20
   );
   try {
     const responses = await Promise.all(
-      sisIdsChunks.map(sisId =>
+      sisIdsChunks.map(sisIds =>
         buzzapi.post("central.iam.gted.people", "search", {
           filter: `(|${sisIds.join("")})`,
           requested_attributes: ["gtCourseInfoDetails1", "gtgtid"]
@@ -62,12 +62,12 @@ const getGrademodes = async students => {
       )
     );
     const flatResponses = responses.reduce((acc, cur) => acc.concat(cur));
-    const results = flatResponses.map(respons => {
+    const results = flatResponses.map(response => {
       const courseInfoDetails = response.gtCourseInfoDetails1;
       let gradeMode;
       if (courseInfoDetails) {
         for (let i = 0; i < courseInfoDetails.length; i++) {
-          courseInfoDetailsArray = courseInfoDetails[i].split("|");
+          const courseInfoDetailsArray = courseInfoDetails[i].split("|");
           const sectionId = `${courseInfoDetailsArray[1]}/${
             courseInfoDetailsArray[2]
           }`;
@@ -105,7 +105,7 @@ const getGrademodes = async students => {
   }
 };
 
-router.get("/grades", async (req, res, next) => {
+router.get("/grades", async (req, res) => {
   const canvas = canvasAPI.getCanvasContext(req);
   // getCanvasContext is imported from lib/canvas
 
@@ -116,12 +116,12 @@ router.get("/grades", async (req, res, next) => {
         role: ["StudentEnrollment"]
       }
     ); // api call to canvas api, using canvas api documentation under enrollments
-    const realStudents = await students.filter(s.sis_user_id);
+    const realStudents = await students.filter(s => s.sis_user_id);
     // ** override feature ** - checks if override_grade exists, and if so, sets final_grade and current_grade  equal to override_grade
     // if there is override grade, override value is equal to "Y" and if not, null
     const gradeModes = await getGrademodes(realStudents);
     data = await Promise.all(
-      realStudents.map(async => ({
+      realStudents.map(s => ({
         name: s.user.sortable_name,
         currentGrade: s.grades.override_grade
           ? s.grades.override_grade
@@ -138,10 +138,10 @@ router.get("/grades", async (req, res, next) => {
         gradeMode: gradeModes[s.user.sis_user_id]
       }))
     );
-    res.send({ data });
+    return res.send({ data });
   } catch (err) {
-    res.status(500).send(err);
     logger.error(err);
+    return res.status(500).send(err);
   }
 });
 
@@ -170,10 +170,10 @@ router.get("/gradeScheme", async (req, res) => {
     if (gs.id === 56) {
       gs.title = "Midterm Grade";
     }
-    res.send(gs);
+    return res.send(gs);
   } catch (err) {
-    res.status(500).send(err);
     logger.error(err);
+    return res.status(500).send(err);
   }
 });
 
