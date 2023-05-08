@@ -12,6 +12,9 @@ COPY webpack.common.js .
 COPY webpack.prod.js .
 COPY client client
 
+# Needed until webpack >= 5.61.0
+ENV NODE_OPTIONS --openssl-legacy-provider
+
 RUN yarn build
 
 FROM node:lts-alpine
