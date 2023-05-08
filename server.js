@@ -6,8 +6,8 @@ const cookieParser = require("cookie-parser");
 const logger = require("./lib/logger");
 const sentryDSN = require("./config")["sentryDSN"];
 
+const Sentry = require("@sentry/node");
 if (sentryDSN) {
-  const Sentry = require("@sentry/node");
   Sentry.init({ dsn: sentryDSN });
 }
 
