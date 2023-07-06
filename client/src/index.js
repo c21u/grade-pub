@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { theme } from "@instructure/canvas-theme";
 import { Button, CloseButton } from "@instructure/ui-buttons";
-import { Popover } from '@instructure/ui-popover'
+import { Popover } from "@instructure/ui-popover";
 import { IconWarningSolid } from "@instructure/ui-icons";
 import { View } from "@instructure/ui-view";
 import { Spinner } from "@instructure/ui-spinner";
@@ -62,7 +62,9 @@ const GradesButton = props => {
       <Popover
         renderTrigger={
           <Button disabled={!props.dataReady}>
-            {props.dataReady ? "Export Grades Spreadsheet" : "Preparing export..."}
+            {props.dataReady
+              ? "Export Grades Spreadsheet"
+              : "Preparing export..."}
           </Button>
         }
         isShowingContent={props.popOverOpen}
@@ -78,8 +80,8 @@ const GradesButton = props => {
         <View padding="medium" display="block" as="form" width="600px">
           <p>
             You are downloading FERPA protected data. Storage and sharing of
-            protected data must follow Georgia Tech data safeguard policies and
-            protocols described at{" "}
+            protected data must follow Georgia Tech data safeguard policies
+            and protocols described at{" "}
             <a href="https://b.gatech.edu/datasecurity" target="_blank">
               b.gatech.edu/datasecurity
             </a>
@@ -110,7 +112,8 @@ class GradePublisher extends React.Component {
     this.state = {
       dataReady: false,
       schemaUnset: null,
-      popOverOpen: false
+      popOverOpen: false,
+      dataError: false
     };
     this.exportHandler = this.exportHandler.bind(this);
     this.handlePopOver = this.handlePopOver.bind(this);
@@ -143,7 +146,7 @@ class GradePublisher extends React.Component {
       .then(responseJson)
       .then(sectionTitles => this.setState({ sectionTitles }))
       .then(() => this.setState({ dataReady: true }))
-      .catch(err => console.error(`fetch failed: ${err}`));
+      .catch(err => this.setState({ dataError: true }));
   }
 
   /**
@@ -243,7 +246,7 @@ class GradePublisher extends React.Component {
   }
 
   handlePopOver = () => {
-    this.setState(function (state) {
+    this.setState(function(state) {
       return { popOverOpen: !state.popOverOpen };
     });
   };
@@ -258,24 +261,41 @@ class GradePublisher extends React.Component {
           <Instructions />
         </View>
         <View as="div" textAlign="center">
-          <span style={{ display: this.state.schemaUnset ? "inline" : "none" }}>
+          <span
+            style={{ display: this.state.schemaUnset ? "inline" : "none" }}
+          >
             <IconWarningSolid color="warning" />
-            You have not set a grading schema for this course, please read the
-            instructions above.
+            You have not set a grading schema for this course, please read
+            the instructions above.
           </span>
         </View>
         <View as="div" textAlign="center">
-          <GradesButton
-            popOverOpen={this.state.popOverOpen}
-            handlePopOver={this.handlePopOver}
-            clickHandler={this.exportHandler}
-            dataReady={this.state.dataReady && !this.state.schemaUnset}
-          />
-          {this.state.dataReady || this.state.schemaUnset ? (
+          {this.state.dataError ? (
+            <span>
+              <IconWarningSolid color="error" /> There was a problem loading
+              the grade data for this course, please refresh the page to try
+              again. If the issue persists please contact{" "}
+              <a href="mailto:canvas@gatech.edu">canvas@gatech.edu</a>.
+            </span>
+          ) : (
+            <GradesButton
+              popOverOpen={this.state.popOverOpen}
+              handlePopOver={this.handlePopOver}
+              clickHandler={this.exportHandler}
+              dataReady={this.state.dataReady && !this.state.schemaUnset}
+            />
+          )}
+          {this.state.dataReady ||
+          this.state.schemaUnset ||
+          this.state.dataError ? (
             ""
           ) : (
             <View as="div">
-              <Spinner renderTitle="Loading" size="x-small" margin="small" />
+              <Spinner
+                renderTitle="Loading"
+                size="x-small"
+                margin="small"
+              />
             </View>
           )}
         </View>
@@ -299,9 +319,10 @@ class App extends React.Component {
     const queryParameters = window.location.search;
     let googleAnalyticsID;
     try {
-      googleAnalyticsID = qs.parse(queryParameters, { ignoreQueryPrefix: true })
-        .googleAnalyticsID;
-    } catch (err) { }
+      googleAnalyticsID = qs.parse(queryParameters, {
+        ignoreQueryPrefix: true
+      }).googleAnalyticsID;
+    } catch (err) {}
 
     if (googleAnalyticsID) {
       ReactGA.initialize(googleAnalyticsID);

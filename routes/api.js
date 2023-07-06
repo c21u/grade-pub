@@ -44,12 +44,12 @@ const getGrademodes = async students => {
   const studentsById = keyBy(
     students.map(student => ({
       ...student.user,
-      section_id: student.sis_section_id
+      section_id: student.section.sisId
     })),
-    "sis_user_id"
+    "sisId"
   );
   sisIdsChunks = chunk(
-    students.map(student => `(gtgtid=${student.user.sis_user_id})`),
+    students.map(student => `(gtgtid=${student.user.sisId})`),
     20
   );
   try {
@@ -110,34 +110,36 @@ router.get("/grades", async (req, res) => {
   // getCanvasContext is imported from lib/canvas
 
   try {
-    const students = await canvas.api.get(
-      `courses/${canvas.courseID}/enrollments`,
-      {
-        role: ["StudentEnrollment"]
-      }
-    ); // api call to canvas api, using canvas api documentation under enrollments
-    const realStudents = await students.filter(s => s.sis_user_id);
-    // ** override feature ** - checks if override_grade exists, and if so, sets final_grade and current_grade  equal to override_grade
+    const query =
+      "query ($courseId: ID) { course(id: $courseId) { enrollmentsConnection(filter: {types: StudentEnrollment}) { nodes { user { sisId sortableName } grades { overrideGrade currentGrade finalGrade unpostedCurrentGrade unpostedFinalGrade } section { sisId } } } } }";
+    const variables = { courseId: canvas.courseID };
+    const students = await canvas.rawReq.post("api/graphql", {
+      query,
+      variables
+    });
+
+    const realStudents = students.body.data.course.enrollmentsConnection.nodes.filter(
+      s => s.user.sisId
+    );
+    // ** override feature ** - checks if override_grade exists, and if so, sets final_grade and current_grade equal to override_grade
     // if there is override grade, override value is equal to "Y" and if not, null
     const gradeModes = await getGrademodes(realStudents);
-    data = await Promise.all(
-      realStudents.map(s => ({
-        name: s.user.sortable_name,
-        currentGrade: s.grades.override_grade
-          ? s.grades.override_grade
-          : s.grades.current_grade,
-        finalGrade: s.grades.override_grade
-          ? s.grades.override_grade
-          : s.grades.final_grade,
-        unpostedFinalGrade: s.grades.unposted_final_grade,
-        unpostedCurrentGrade: s.grades.unposted_current_grade,
-        sisSectionID: s.sis_section_id,
-        gtID: s.user.sis_user_id,
-        course: req.user.custom_canvas_course_name,
-        override: s.grades.override_grade ? "Y" : null,
-        gradeMode: gradeModes[s.user.sis_user_id]
-      }))
-    );
+    const data = realStudents.map(s => ({
+      name: s.user.sortableName,
+      currentGrade: s.grades.overrideGrade
+        ? s.grades.overrideGrade
+        : s.grades.currentGrade,
+      finalGrade: s.grades.overrideGrade
+        ? s.grades.overrideGrade
+        : s.grades.finalGrade,
+      unpostedFinalGrade: s.grades.unpostedFinalGrade,
+      unpostedCurrentGrade: s.grades.unpostedCurrentGrade,
+      sisSectionID: s.section.sisId,
+      gtID: s.user.sisId,
+      course: req.user.custom_canvas_course_name,
+      override: s.grades.overrideGrade ? "Y" : null,
+      gradeMode: gradeModes[s.user.sisId]
+    }));
     return res.send({ data });
   } catch (err) {
     logger.error(err);
