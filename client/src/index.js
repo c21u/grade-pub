@@ -189,7 +189,8 @@ class GradePublisher extends React.Component {
       "Section",
       this.state.gradeScheme.title,
       "Last Attended Date",
-      "Override"
+      "Override",
+      "Narrative Grade Comment"
     ]);
 
     // Add a row for each student
@@ -211,7 +212,8 @@ class GradePublisher extends React.Component {
         this.state.sectionTitles[item.sisSectionID],
         currentGrade, // TODO make it dynamic for miterms and finals
         lastAttended,
-        override
+        override,
+        null
       ]);
     });
 
