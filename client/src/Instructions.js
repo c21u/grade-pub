@@ -34,15 +34,7 @@ const Instructions = () => {
           </List.Item>
           <List.Item>
             <Text>
-              Beneath the check box, click &quot;
-              <Text weight="bold">View Grading Scheme</Text>&quot;
-            </Text>
-          </List.Item>
-          <List.Item>
-            <Text>
-              In the <Text weight="bold">View/Edit Grading Scheme</Text> window,
-              click &quot;
-              <Text weight="bold">Select Another Scheme</Text>&quot;
+              Next click the <Text weight="bold">Grading Scheme</Text> drop down.
             </Text>
           </List.Item>
           <List.Item>
@@ -53,13 +45,8 @@ const Instructions = () => {
           </List.Item>
           <List.Item>
             <Text>
-              Click &quot;
-              <Text weight="bold">Use This Grading Standard</Text>&quot;
-            </Text>
-          </List.Item>
-          <List.Item>
-            <Text>
-              Click <Text weight="bold">Done</Text>
+              Click the &quot;
+              <Text weight="bold">Update Course Details</Text>&quot; button at the bottom of the page.
             </Text>
           </List.Item>
         </List>
