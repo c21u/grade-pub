@@ -56,6 +56,11 @@ export const passport = {
     : null),
 };
 
+export const banner = {
+  url: getEnvVarOrThrow("BANNER_GRADE_API_URL"),
+  token: getEnvVarOrThrow("BANNER_GRADE_API_TOKEN"),
+};
+
 const config = {
   buzzAPI,
   canvasToken,
@@ -65,6 +70,7 @@ const config = {
   trustProxy,
   logLevel,
   passport,
+  banner,
 };
 
 export default config;
