@@ -1,9 +1,10 @@
-const request = require("supertest");
+import request from "supertest";
 
-const app = require("./server");
-const fakeAuth = require("./config")["fakeStrategyCredentials"];
+import app from "./server.js";
+import { passport } from "./config.js";
+const fakeAuth = passport.fakeStrategyCredentials;
 
-test("Can POST to be authenticated", done => {
+test("Can POST to be authenticated", (done) => {
   // Expect the fake credentials to exist.
   expect(fakeAuth.username).toBeDefined();
   expect(fakeAuth.password).toBeDefined();
@@ -20,7 +21,7 @@ test("Can POST to be authenticated", done => {
     });
 });
 
-test("Should not authenticate with bad credentials", done => {
+test("Should not authenticate with bad credentials", (done) => {
   request(app)
     .post("/")
     .send(`username=incorrect`)
@@ -32,7 +33,7 @@ test("Should not authenticate with bad credentials", done => {
     });
 });
 
-test("/api routes should be protected", done => {
+test("/api routes should be protected", (done) => {
   request(app)
     .get("/api")
     .expect(401)
@@ -42,7 +43,7 @@ test("/api routes should be protected", done => {
     });
 });
 
-test("Health check returns 200", done => {
+test("Health check returns 200", (done) => {
   request(app)
     .get("/z")
     .expect(200)

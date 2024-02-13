@@ -8,7 +8,7 @@ const getEnvVarOrDefault = (envVar, defaultValue) => {
   }
 };
 
-const getEnvVarOrNull = envVar => {
+const getEnvVarOrNull = (envVar) => {
   if (!!process.env[envVar]) {
     return process.env[envVar];
   } else {
@@ -16,7 +16,7 @@ const getEnvVarOrNull = envVar => {
   }
 };
 
-const getEnvVarOrThrow = envVar => {
+const getEnvVarOrThrow = (envVar) => {
   if (!!process.env[envVar]) {
     return process.env[envVar];
   } else {
@@ -24,36 +24,47 @@ const getEnvVarOrThrow = envVar => {
   }
 };
 
-const config = {};
-try {
-  config.buzzAPI = {
-    appID: getEnvVarOrDefault("BUZZAPI_APP_ID"),
-    password: getEnvVarOrDefault("BUZZAPI_PASSWORD")
-  };
-  config.canvasToken = getEnvVarOrDefault("CANVAS_TOKEN");
-  config.fakeStrategyCredentials = {};
-  config.googleAnalyticsID = getEnvVarOrNull("GOOGLE_ANALYTICS_ID");
-  config.jwtSecret = getEnvVarOrDefault("JWT_SECRET");
-  config.lti = {
-    key: getEnvVarOrThrow("LTI_KEY"),
-    secret: getEnvVarOrThrow("LTI_SECRET")
-  };
-  config.passportStrategy = "lti";
-  config.sentryDSN = getEnvVarOrNull("SENTRY_DSN");
-  config.trustProxy = getEnvVarOrDefault("TRUST_PROXY", "loopback");
-  config.logLevel = getEnvVarOrDefault("LOG_LEVEL", "info");
-} catch (err) {
-  console.error(err);
-}
+export const buzzAPI = {
+  apiUser: getEnvVarOrThrow("BUZZAPI_APP_ID"),
+  apiPassword: getEnvVarOrThrow("BUZZAPI_PASSWORD"),
+};
+
+export const canvasToken = getEnvVarOrThrow("CANVAS_TOKEN");
+export const jwtSecret = getEnvVarOrDefault("JWT_SECRET", "secret");
+export const lti = {
+  key: getEnvVarOrThrow("LTI_KEY"),
+  secret: getEnvVarOrThrow("LTI_SECRET"),
+};
+export const sentryDSN = getEnvVarOrNull("SENTRY_DSN");
+export const trustProxy = getEnvVarOrDefault("TRUST_PROXY", "loopback");
+
+const defaultLogLevel = process.env.NODE_ENV === "test" ? "error" : "info";
+export const logLevel = getEnvVarOrDefault("LOG_LEVEL", defaultLogLevel);
 
 if (process.env.NODE_ENV === "test") {
   console.warn(`Fake auth strategy enabled!`);
-  config["fakeStrategyCredentials"] = {
-    username: getEnvVarOrDefault("FAKE_USERNAME"),
-    password: getEnvVarOrDefault("FAKE_PASSWORD")
-  };
-  config["passportStrategy"] = "fake";
-  config.logLevel = getEnvVarOrDefault("LOG_LEVEL", "error");
 }
+export const passport = {
+  strategy: process.env.NODE_ENV === "test" ? "fake" : "lti",
+  ...(process.env.NODE_ENV === "test"
+    ? {
+        fakeStrategyCredentials: {
+          username: getEnvVarOrDefault("FAKE_USERNAME"),
+          password: getEnvVarOrDefault("FAKE_PASSWORD"),
+        },
+      }
+    : null),
+};
 
-module.exports = config;
+const config = {
+  buzzAPI,
+  canvasToken,
+  jwtSecret,
+  lti,
+  sentryDSN,
+  trustProxy,
+  logLevel,
+  passport,
+};
+
+export default config;

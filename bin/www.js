@@ -4,9 +4,9 @@
  * Module dependencies.
  */
 
-const app = require("../server");
-const logger = require("../lib/logger");
-const http = require("http");
+import app from "../server.js";
+import logger from "../lib/logger.js";
+import http from "http";
 
 /**
  * Get port from environment and store in Express.

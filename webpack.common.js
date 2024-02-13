@@ -1,14 +1,19 @@
-const path = require("path");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
-const HTMLWebpackPlugin = require("html-webpack-plugin");
+import { dirname, resolve } from "path";
+import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import HTMLWebpackPlugin from "html-webpack-plugin";
+import { fileURLToPath } from "url";
+import baseConfig from "@instructure/ui-webpack-config";
 
-module.exports = {
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+export default {
+  ...baseConfig,
   entry: {
-    app: "./client/src/index.js"
+    app: "./client/src/index.js",
   },
   output: {
     filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist")
+    path: resolve(__dirname, "dist"),
   },
   module: {
     noParse: [/xlsx.core.min.js/, /xlsx.full.min.js/],
@@ -23,20 +28,22 @@ module.exports = {
             presets: ["@babel/preset-env", "@babel/preset-react"],
             plugins: [
               "@babel/plugin-syntax-dynamic-import",
-              "@babel/plugin-proposal-class-properties"
-            ]
-          }
-        }
-      }
-    ]
+              "@babel/plugin-transform-class-properties",
+            ],
+          },
+        },
+      },
+      ...baseConfig.module.rules,
+    ],
   },
   resolve: {
-    alias: { "./dist/cpexcel.js": "" }
+    alias: { "./dist/cpexcel.js": "commonjs2 ./dist/cpexcel.js" },
   },
   plugins: [
-    new CleanWebpackPlugin(["dist"]),
+    ...baseConfig.plugins,
+    new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new HTMLWebpackPlugin({
-      template: "client/src/index.html"
-    })
-  ]
+      template: "client/src/index.html",
+    }),
+  ],
 };

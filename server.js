@@ -1,28 +1,30 @@
-require("dotenv").config();
-const createError = require("http-errors");
-const express = require("express");
-const path = require("path");
-const logger = require("./lib/logger");
-const sentryDSN = require("./config")["sentryDSN"];
+import "dotenv/config";
+import createError from "http-errors";
+import express from "express";
+import { dirname, resolve } from "path";
+import logger from "./lib/logger.js";
+import { sentryDSN, trustProxy } from "./config.js";
+import { fileURLToPath } from "url";
 
-const Sentry = require("@sentry/node");
+import Sentry from "@sentry/node";
 if (sentryDSN) {
   Sentry.init({ dsn: sentryDSN });
 }
 
-const indexRouter = require("./routes");
-const apiRouter = require("./routes/api");
+import indexRouter from "./routes/index.js";
+import apiRouter from "./routes/api.js";
 
 const app = express();
 
-app.set("trust proxy", require("./config")["trustProxy"]);
+app.set("trust proxy", trustProxy);
 
 if (sentryDSN) {
   app.use(Sentry.Handlers.requestHandler());
 }
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
+app.set("views", resolve(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // Log requests
@@ -30,18 +32,18 @@ app.use((req, res, next) => {
   const log = logger.child(
     {
       id: req.id,
-      body: req.body
+      body: req.body,
     },
-    true
+    true,
   );
   log.info({
-    req
+    req,
   });
   next();
 });
 
 // Log responses
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   /**
    * Function to cleanup and log the response
    **/
@@ -50,9 +52,9 @@ app.use(function(req, res, next) {
     res.removeListener("close", afterResponse);
     const log = logger.child(
       {
-        id: req.id
+        id: req.id,
       },
-      true
+      true,
     );
     log.info({ res: res }, "response");
   }
@@ -63,13 +65,13 @@ app.use(function(req, res, next) {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, "dist")));
+app.use(express.static(resolve(__dirname, "dist")));
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept",
   );
   next();
 });
@@ -78,7 +80,7 @@ app.use("/", indexRouter);
 app.use("/api/", apiRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
@@ -87,7 +89,7 @@ if (sentryDSN) {
 }
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
@@ -97,4 +99,4 @@ app.use(function(err, req, res, next) {
   res.render("error");
 });
 
-module.exports = app;
+export default app;

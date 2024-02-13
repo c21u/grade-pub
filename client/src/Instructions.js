@@ -3,7 +3,7 @@ import { Heading } from "@instructure/ui-heading";
 import { Link } from "@instructure/ui-link";
 import { Text } from "@instructure/ui-text";
 import { View } from "@instructure/ui-view";
-import { List } from "@instructure/ui-elements";
+import { List } from "@instructure/ui-list";
 
 const Instructions = () => {
   return (
@@ -86,17 +86,20 @@ const Instructions = () => {
                 target="_blank"
               >
                 https://fge.sis.gatech.edu/FacultySelfService
-              </Link>
-              {" "}(
+              </Link>{" "}
+              (
               <Text weight="bold" fontStyle="italic">
                 Requires
                 <Link
                   href="https://gatech.service-now.com/continuity?id=kb_article_view&sysparm_article=KB0026837"
-                  target="_blank">
-                    {" "}VPN{" "}
+                  target="_blank"
+                >
+                  {" "}
+                  VPN{" "}
                 </Link>
                 when accessed from off-campus
-              </Text>)
+              </Text>
+              )
             </Text>
           </List.Item>
           <List.Item>

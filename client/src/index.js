@@ -1,21 +1,19 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
+import { createRoot } from "react-dom";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { theme } from "@instructure/canvas-theme";
-import { Button, CloseButton } from "@instructure/ui-buttons";
+import { Button } from "@instructure/ui-buttons";
 import { Popover } from "@instructure/ui-popover";
 import { IconWarningSolid } from "@instructure/ui-icons";
 import { View } from "@instructure/ui-view";
 import { Spinner } from "@instructure/ui-spinner";
-import jwtDecode from "jwt-decode";
+import { EmotionThemeProvider } from "@instructure/emotion";
+import { jwtDecode } from "jwt-decode";
 import qs from "qs";
-import ReactGA from "react-ga";
 import "whatwg-fetch";
-import Instructions from "./Instructions";
-import spreadsheetInstructions from "./spreadsheetInstructions";
-
-theme.use();
+import Instructions from "./Instructions.js";
+import spreadsheetInstructions from "./spreadsheetInstructions.js";
 
 const context = {};
 
@@ -31,8 +29,8 @@ const updateContext = () => {
     context.lti = jwtDecode(jwt);
     context.fetchOptions = {
       headers: {
-        Authorization: `Bearer ${jwt}`
-      }
+        Authorization: `Bearer ${jwt}`,
+      },
     };
     context.data = [];
   } catch (err) {
@@ -43,7 +41,7 @@ const updateContext = () => {
 const ProtectedRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={props =>
+    render={(props) =>
       !!context.fetchOptions ? (
         <Component {...props} />
       ) : (
@@ -53,10 +51,10 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
   />
 );
 ProtectedRoute.propTypes = {
-  component: PropTypes.func
+  component: PropTypes.func,
 };
 
-const GradesButton = props => {
+const GradesButton = (props) => {
   return (
     <View>
       <Popover
@@ -80,9 +78,13 @@ const GradesButton = props => {
         <View padding="medium" display="block" as="form" width="600px">
           <p>
             You are downloading FERPA protected data. Storage and sharing of
-            protected data must follow Georgia Tech data safeguard policies
-            and protocols described at{" "}
-            <a href="https://b.gatech.edu/datasecurity" target="_blank">
+            protected data must follow Georgia Tech data safeguard policies and
+            protocols described at{" "}
+            <a
+              href="https://b.gatech.edu/datasecurity"
+              target="_blank"
+              rel="noreferrer"
+            >
               b.gatech.edu/datasecurity
             </a>
             .
@@ -99,7 +101,7 @@ GradesButton.propTypes = {
   handlePopOver: PropTypes.func,
   clickHandler: PropTypes.func,
   popOverOpen: PropTypes.bool,
-  dataReady: PropTypes.bool
+  dataReady: PropTypes.bool,
 };
 
 /** Main app component */
@@ -113,7 +115,7 @@ class GradePublisher extends React.Component {
       dataReady: false,
       schemaUnset: null,
       popOverOpen: false,
-      dataError: false
+      dataError: false,
     };
     this.exportHandler = this.exportHandler.bind(this);
     this.handlePopOver = this.handlePopOver.bind(this);
@@ -129,9 +131,9 @@ class GradePublisher extends React.Component {
       .fetch("/api/grades", context.fetchOptions)
       .then(checkResponseStatus)
       .then(responseJson)
-      .then(grades => this.setState({ grades }))
+      .then((grades) => this.setState({ grades }))
       .then(() => window.fetch("/api/gradeScheme", context.fetchOptions))
-      .then(res => {
+      .then((res) => {
         if (res.status === 500) {
           this.setState({ schemaUnset: true });
           return { status: 200, json: () => ({}) };
@@ -140,13 +142,13 @@ class GradePublisher extends React.Component {
       })
       .then(checkResponseStatus)
       .then(responseJson)
-      .then(gradeScheme => this.setState({ gradeScheme }))
+      .then((gradeScheme) => this.setState({ gradeScheme }))
       .then(() => window.fetch("/api/sectionTitles", context.fetchOptions))
       .then(checkResponseStatus)
       .then(responseJson)
-      .then(sectionTitles => this.setState({ sectionTitles }))
+      .then((sectionTitles) => this.setState({ sectionTitles }))
       .then(() => this.setState({ dataReady: true }))
-      .catch(err => this.setState({ dataError: true }));
+      .catch((err) => this.setState({ dataError: true }));
   }
 
   /**
@@ -160,7 +162,7 @@ class GradePublisher extends React.Component {
     const hasHidden = gradeData.reduce(
       (result, grade) =>
         result || grade.currentGrade !== grade.unpostedCurrentGrade,
-      false
+      false,
     );
     // loops through grade data array of objects to see if any student has an overriden grade
     for (let i = 0; i < gradeData.length; i++) {
@@ -172,7 +174,7 @@ class GradePublisher extends React.Component {
     // if gradebook has either an overriden grade or hidden grade, then it will alert user
     if (hasOverride || hasHidden) {
       alert(
-        "You either have hidden, unposted, or overridden gradebook entries that will impact the Final Grade column in your exported spreadsheet. This affects the grade of at least one student in your course."
+        "You either have hidden, unposted, or overridden gradebook entries that will impact the Final Grade column in your exported spreadsheet. This affects the grade of at least one student in your course.",
       );
     }
 
@@ -190,11 +192,11 @@ class GradePublisher extends React.Component {
       this.state.gradeScheme.title,
       "Last Attended Date",
       "Override",
-      "Narrative Grade Comment"
+      "Narrative Grade Comment",
     ]);
 
     // Add a row for each student
-    this.state.grades.data.forEach(item => {
+    this.state.grades.data.forEach((item) => {
       const termCode = item.sisSectionID ? item.sisSectionID.slice(0, 6) : null;
       const crn = item.sisSectionID ? item.sisSectionID.slice(7) : null;
       const confidential = item.name === "Confidential" ? "Yes" : "No";
@@ -213,42 +215,36 @@ class GradePublisher extends React.Component {
         currentGrade, // TODO make it dynamic for miterms and finals
         lastAttended,
         override,
-        null
+        null,
       ]);
     });
 
     // Add the instruction sheet
 
-    return import(/* webpackChunkName: "xlsx" */ "xlsx/dist/xlsx.full.min.js").then(
-      ({ default: xlsx }) => {
-        const instructionSheet = xlsx.utils.aoa_to_sheet(
-          spreadsheetInstructions
-        );
-        const workSheet = xlsx.utils.aoa_to_sheet(context.data);
-        const workBook = xlsx.utils.book_new();
-        if (!workBook.Props) workBook.Props = {};
-        workBook.Props.Title = "PROTECTEDFERPA2rsPUvcxswWAgYKkKoIwCA";
-        xlsx.utils.book_append_sheet(workBook, workSheet, "Grades");
-        xlsx.utils.book_append_sheet(
-          workBook,
-          instructionSheet,
-          "Instructions"
-        );
+    return import(
+      /* webpackChunkName: "xlsx" */ "xlsx/dist/xlsx.full.min.js"
+    ).then(({ default: xlsx }) => {
+      const instructionSheet = xlsx.utils.aoa_to_sheet(spreadsheetInstructions);
+      const workSheet = xlsx.utils.aoa_to_sheet(context.data);
+      const workBook = xlsx.utils.book_new();
+      if (!workBook.Props) workBook.Props = {};
+      workBook.Props.Title = "PROTECTEDFERPA2rsPUvcxswWAgYKkKoIwCA";
+      xlsx.utils.book_append_sheet(workBook, workSheet, "Grades");
+      xlsx.utils.book_append_sheet(workBook, instructionSheet, "Instructions");
 
-        const courseID = this.state.grades.data[0].sisSectionID
-          ? this.state.grades.data[0].sisSectionID.replace(/[^\w.]/g, "_")
-          : null;
-        const courseName = this.state.grades.data[0].course
-          .replace(/[^\w. ]/g, "")
-          .replace(/ /g, "_");
-        const filename = `grades_${courseID}_${courseName}.xlsx`;
-        xlsx.writeFile(workBook, filename);
-      }
-    );
+      const courseID = this.state.grades.data[0].sisSectionID
+        ? this.state.grades.data[0].sisSectionID.replace(/[^\w.]/g, "_")
+        : null;
+      const courseName = this.state.grades.data[0].course
+        .replace(/[^\w. ]/g, "")
+        .replace(/ /g, "_");
+      const filename = `grades_${courseID}_${courseName}.xlsx`;
+      xlsx.writeFile(workBook, filename);
+    });
   }
 
   handlePopOver = () => {
-    this.setState(function(state) {
+    this.setState(function (state) {
       return { popOverOpen: !state.popOverOpen };
     });
   };
@@ -263,20 +259,18 @@ class GradePublisher extends React.Component {
           <Instructions />
         </View>
         <View as="div" textAlign="center">
-          <span
-            style={{ display: this.state.schemaUnset ? "inline" : "none" }}
-          >
+          <span style={{ display: this.state.schemaUnset ? "inline" : "none" }}>
             <IconWarningSolid color="warning" />
-            You have not set a grading schema for this course, please read
-            the instructions above.
+            You have not set a grading schema for this course, please read the
+            instructions above.
           </span>
         </View>
         <View as="div" textAlign="center">
           {this.state.dataError ? (
             <span>
-              <IconWarningSolid color="error" /> There was a problem loading
-              the grade data for this course, please refresh the page to try
-              again. If the issue persists please contact{" "}
+              <IconWarningSolid color="error" /> There was a problem loading the
+              grade data for this course, please refresh the page to try again.
+              If the issue persists please contact{" "}
               <a href="mailto:canvas@gatech.edu">canvas@gatech.edu</a>.
             </span>
           ) : (
@@ -293,11 +287,7 @@ class GradePublisher extends React.Component {
             ""
           ) : (
             <View as="div">
-              <Spinner
-                renderTitle="Loading"
-                size="x-small"
-                margin="small"
-              />
+              <Spinner renderTitle="Loading" size="x-small" margin="small" />
             </View>
           )}
         </View>
@@ -315,22 +305,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     updateContext();
-  }
-
-  componentDidMount() {
-    const queryParameters = window.location.search;
-    let googleAnalyticsID;
-    try {
-      googleAnalyticsID = qs.parse(queryParameters, {
-        ignoreQueryPrefix: true
-      }).googleAnalyticsID;
-    } catch (err) {}
-
-    if (googleAnalyticsID) {
-      ReactGA.initialize(googleAnalyticsID);
-      ReactGA.set({ title: "GradePub LTI" });
-      ReactGA.pageview(window.location.pathname);
-    }
   }
 
   /**
@@ -356,7 +330,7 @@ const defaultRoute = () => <h1>Default unprotected route</h1>;
  * @param {Object} response
  * @return {(Object|error)}
  */
-const checkResponseStatus = response => {
+const checkResponseStatus = (response) => {
   if (response.status === 200) {
     return response;
   } else {
@@ -366,6 +340,11 @@ const checkResponseStatus = response => {
   }
 };
 
-const responseJson = response => response.json();
+const responseJson = (response) => response.json();
 
-ReactDOM.render(<App />, document.getElementById("lti_root"));
+const root = createRoot(document.getElementById("lti_root"));
+root.render(
+  <EmotionThemeProvider theme={theme}>
+    <App />
+  </EmotionThemeProvider>,
+);

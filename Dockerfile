@@ -7,13 +7,10 @@ COPY yarn.lock .
 
 RUN yarn install --non-interactive --no-progress --no-cache
 
-COPY .eslintrc.js .
+COPY .eslintrc.cjs .
 COPY webpack.common.js .
 COPY webpack.prod.js .
 COPY client client
-
-# Needed until webpack >= 5.61.0
-ENV NODE_OPTIONS --openssl-legacy-provider
 
 RUN yarn build
 
