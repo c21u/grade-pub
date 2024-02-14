@@ -1,11 +1,17 @@
-FROM node:lts-alpine as builder
+FROM node:lts-alpine AS base
+ENV NODE_ENV=production YARN_VERSION=4.0.1
+
+RUN apk update && apk upgrade && apk add --no-cache libc6-compat
+RUN corepack enable && corepack prepare yarn@${YARN_VERSION}
+
+FROM base AS builder
 
 WORKDIR /app
 
-COPY package.json .
-COPY yarn.lock .
+COPY package.json yarn.lock .yarnrc.yml ./
+COPY .yarn ./.yarn
 
-RUN yarn install --non-interactive --no-progress --no-cache
+RUN yarn install --immutable
 
 COPY .eslintrc.cjs .
 COPY webpack.common.js .
@@ -14,14 +20,14 @@ COPY client client
 
 RUN yarn build
 
-FROM node:lts-alpine
+FROM base AS runner
 
 WORKDIR /app
 
-COPY package.json .
-COPY yarn.lock .
+COPY package.json yarn.lock .yarnrc.yml ./
+COPY .yarn ./.yarn
 
-RUN yarn install --production --no-progress --non-interactive --no-cache
+RUN yarn workspaces focus --all --production
 
 COPY --from=builder /app/dist dist
 
@@ -36,7 +42,6 @@ COPY views ./views
 
 EXPOSE 3000
 USER node
-ENV NODE_ENV production
 
 ENTRYPOINT [ "node", "--max_old_space_size=400" ]
 CMD [ "bin/www" ]

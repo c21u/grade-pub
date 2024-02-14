@@ -10,7 +10,7 @@
     "lint": "precise-commits",
     "start": "node ./bin/www",
     "start-dev": "run-p dev:*",
-    "test": "NODE_ENV=test jest"
+    "test": "NODE_ENV=test node --experimental-vm-modules $(yarn bin jest)"
   },
   "husky": {
     "hooks": {
@@ -37,6 +37,7 @@
     "@instructure/ui-link": "^8.53.1",
     "@instructure/ui-list": "^8.53.1",
     "@instructure/ui-modal": "^8.53.1",
+    "@instructure/ui-popover": "^8.53.1",
     "@instructure/ui-spinner": "^8.53.1",
     "@instructure/ui-text": "^8.53.1",
     "@instructure/ui-view": "^8.53.1",
@@ -53,6 +54,7 @@
     "ims-lti": "^3.0.2",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
+    "p-map": "^7.0.1",
     "parse-link-header": "^2.0.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
@@ -94,5 +96,6 @@
     "webpack": "^5.90.1",
     "webpack-cli": "^5.1.4",
     "webpack-merge": "^5.10.0"
-  }
+  },
+  "packageManager": "yarn@4.1.0"
 }
