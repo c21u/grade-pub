@@ -10,7 +10,8 @@
     "lint": "precise-commits",
     "start": "node ./bin/www",
     "start-dev": "run-p dev:*",
-    "test": "NODE_ENV=test node --experimental-vm-modules $(yarn bin jest)"
+    "test": "NODE_ENV=test node --experimental-vm-modules $(yarn bin jest)",
+    "prepare": "husky"
   },
   "husky": {
     "hooks": {
