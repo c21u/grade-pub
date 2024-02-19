@@ -232,12 +232,8 @@ class GradePublisher extends React.Component {
       xlsx.utils.book_append_sheet(workBook, workSheet, "Grades");
       xlsx.utils.book_append_sheet(workBook, instructionSheet, "Instructions");
 
-      const courseID = this.state.grades.data[0].sisSectionID
-        ? this.state.grades.data[0].sisSectionID.replace(/[^\w.]/g, "_")
-        : null;
-      const courseName = this.state.grades.data[0].course
-        .replace(/[^\w. ]/g, "")
-        .replace(/ /g, "_");
+      const courseID = context.lti.context_label.replace(/[^\w.]/g, "_");
+      const courseName = context.lti.context_title.replace(/[^\w.]/g, "_");
       const filename = `grades_${courseID}_${courseName}.xlsx`;
       xlsx.writeFile(workBook, filename);
     });
