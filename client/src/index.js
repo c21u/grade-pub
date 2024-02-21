@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import { createRoot } from "react-dom";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { theme } from "@instructure/canvas-theme";
-import { Button } from "@instructure/ui-buttons";
-import { Popover } from "@instructure/ui-popover";
 import { IconWarningSolid } from "@instructure/ui-icons";
 import { View } from "@instructure/ui-view";
 import { Spinner } from "@instructure/ui-spinner";
@@ -12,8 +10,9 @@ import { EmotionThemeProvider } from "@instructure/emotion";
 import { jwtDecode } from "jwt-decode";
 import qs from "qs";
 import "whatwg-fetch";
+import spreadsheet from "./spreadsheet.js";
+import GradesButton from "./GradesButton.js";
 import Instructions from "./Instructions.js";
-import spreadsheetInstructions from "./spreadsheetInstructions.js";
 
 const context = {};
 
@@ -52,56 +51,6 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
 );
 ProtectedRoute.propTypes = {
   component: PropTypes.func,
-};
-
-const GradesButton = (props) => {
-  return (
-    <View>
-      <Popover
-        renderTrigger={
-          <Button disabled={!props.dataReady}>
-            {props.dataReady
-              ? "Export Grades Spreadsheet"
-              : "Preparing export..."}
-          </Button>
-        }
-        isShowingContent={props.popOverOpen}
-        onShowContent={props.handlePopOver}
-        onHideContent={props.handlePopOver}
-        on="click"
-        screenReaderLabel="Export Grades"
-        shouldContainFocus
-        shouldReturnFocus
-        shouldCloseOnDocumentClick
-        offsetY="16px"
-      >
-        <View padding="medium" display="block" as="form" width="600px">
-          <p>
-            You are downloading FERPA protected data. Storage and sharing of
-            protected data must follow Georgia Tech data safeguard policies and
-            protocols described at{" "}
-            <a
-              href="https://b.gatech.edu/datasecurity"
-              target="_blank"
-              rel="noreferrer"
-            >
-              b.gatech.edu/datasecurity
-            </a>
-            .
-          </p>
-          <Button onClick={props.clickHandler}>
-            Export Grades Spreadsheet
-          </Button>
-        </View>
-      </Popover>
-    </View>
-  );
-};
-GradesButton.propTypes = {
-  handlePopOver: PropTypes.func,
-  clickHandler: PropTypes.func,
-  popOverOpen: PropTypes.bool,
-  dataReady: PropTypes.bool,
 };
 
 /** Main app component */
@@ -178,65 +127,16 @@ class GradePublisher extends React.Component {
       );
     }
 
-    context.data = [];
+    const courseID = context.lti.context_label.replace(/[^\w.]/g, "_");
+    const courseName = context.lti.context_title.replace(/[^\w.]/g, "_");
+    const filename = `grades_${courseID}_${courseName}.xlsx`;
 
-    // Add the "header" row to the sheet
-    context.data.push([
-      "Term Code",
-      "CRN",
-      "Full Name",
-      "Student ID",
-      "Confidential",
-      "Course",
-      "Section",
+    return spreadsheet(
       this.state.gradeScheme.title,
-      "Last Attended Date",
-      "Override",
-      "Narrative Grade Comment",
-    ]);
-
-    // Add a row for each student
-    this.state.grades.data.forEach((item) => {
-      const termCode = item.sisSectionID ? item.sisSectionID.slice(0, 6) : null;
-      const crn = item.sisSectionID ? item.sisSectionID.slice(7) : null;
-      const confidential = item.name === "Confidential" ? "Yes" : "No";
-      const currentGrade =
-        item.gradeMode.gradeMode == "Audit" ? "V" : item.currentGrade;
-      const lastAttended = ""; // data is in SIS, so punt here
-      const override = item.override;
-      context.data.push([
-        termCode,
-        crn,
-        item.name,
-        { v: item.gtID, t: "s" },
-        confidential,
-        item.course,
-        this.state.sectionTitles[item.sisSectionID],
-        currentGrade, // TODO make it dynamic for miterms and finals
-        lastAttended,
-        override,
-        null,
-      ]);
-    });
-
-    // Add the instruction sheet
-
-    return import(
-      /* webpackChunkName: "xlsx" */ "xlsx/dist/xlsx.full.min.js"
-    ).then(({ default: xlsx }) => {
-      const instructionSheet = xlsx.utils.aoa_to_sheet(spreadsheetInstructions);
-      const workSheet = xlsx.utils.aoa_to_sheet(context.data);
-      const workBook = xlsx.utils.book_new();
-      if (!workBook.Props) workBook.Props = {};
-      workBook.Props.Title = "PROTECTEDFERPA2rsPUvcxswWAgYKkKoIwCA";
-      xlsx.utils.book_append_sheet(workBook, workSheet, "Grades");
-      xlsx.utils.book_append_sheet(workBook, instructionSheet, "Instructions");
-
-      const courseID = context.lti.context_label.replace(/[^\w.]/g, "_");
-      const courseName = context.lti.context_title.replace(/[^\w.]/g, "_");
-      const filename = `grades_${courseID}_${courseName}.xlsx`;
-      xlsx.writeFile(workBook, filename);
-    });
+      this.state.grades,
+      this.state.sectionTitles,
+      filename,
+    );
   }
 
   handlePopOver = () => {
