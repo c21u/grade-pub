@@ -53,3 +53,5 @@ GradesButton.propTypes = {
   popOverOpen: PropTypes.bool,
   dataReady: PropTypes.bool,
 };
+
+export default GradesButton;

@@ -6183,7 +6183,6 @@ __metadata:
     webpack: "npm:^5.90.1"
     webpack-cli: "npm:^5.1.4"
     webpack-merge: "npm:^5.10.0"
-    whatwg-fetch: "npm:^3.6.20"
     xlsx: "npm:^0.18.5"
   languageName: unknown
   linkType: soft
@@ -11302,13 +11301,6 @@ __metadata:
   bin:
     webpack: bin/webpack.js
   checksum: 10c0/c36b86e5aa42f07c865cc5221d88b84bc62267ca2e60edaf69e8fccebe284c8199d352701697546a0fa6599d648a05ea427607e854c61ccc269b9c230fb25efa
-  languageName: node
-  linkType: hard
-
-"whatwg-fetch@npm:^3.6.20":
-  version: 3.6.20
-  resolution: "whatwg-fetch@npm:3.6.20"
-  checksum: 10c0/fa972dd14091321d38f36a4d062298df58c2248393ef9e8b154493c347c62e2756e25be29c16277396046d6eaa4b11bd174f34e6403fff6aaca9fb30fa1ff46d
   languageName: node
   linkType: hard
 
