@@ -7,6 +7,7 @@ import { EmotionThemeProvider } from "@instructure/emotion";
 import { jwtDecode } from "jwt-decode";
 import qs from "qs";
 import GradePublisher from "./components/GradePublisher.js";
+import canvasLTIFixHeight from "./canvasLTIFixHeight.js";
 
 const App = () => {
   const [fetchOptions, setFetchOptions] = useState({});
@@ -35,12 +36,20 @@ const App = () => {
     }
   }, []);
 
+  useEffect(() => {
+    canvasLTIFixHeight(50);
+  });
+
   const ProtectedRoute = ({ component: Component, ...rest }) => (
     <Route
       {...rest}
       render={(props) =>
         !!fetchOptions ? (
-          <Component {...props} fetchOptions={fetchOptions} filename={filename} />
+          <Component
+            {...props}
+            fetchOptions={fetchOptions}
+            filename={filename}
+          />
         ) : (
           <Redirect to={{ pathname: "/default" }} />
         )

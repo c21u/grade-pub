@@ -4,8 +4,9 @@ import { IconWarningSolid } from "@instructure/ui-icons";
 import { View } from "@instructure/ui-view";
 import { Spinner } from "@instructure/ui-spinner";
 import spreadsheet from "../spreadsheet.js";
-import GradesButton from "./GradesButton.js";
+import BannerButton from "./BannerButton.js";
 import Instructions from "./Instructions.js";
+import GradesList from "./GradesList.js";
 
 const GradePublisher = (props) => {
   const [dataReady, setDataReady] = useState(false);
@@ -18,36 +19,42 @@ const GradePublisher = (props) => {
 
   const { fetchOptions, filename } = props;
 
-  console.log(props);
   /**
    * Fetch initial data
    */
   useEffect(() => {
-    if (!fetchOptions) {
-      throw new Error("mounting App failed: no fetchOptions");
+    if (
+      fetchOptions &&
+      fetchOptions.headers &&
+      fetchOptions.headers.Authorization
+    ) {
+      Promise.all([
+        window.fetch("/api/grades", fetchOptions),
+        window.fetch("/api/gradeScheme", fetchOptions),
+        window.fetch("/api/sectionTitles", fetchOptions),
+      ])
+        .then(
+          async ([
+            gradeResponse,
+            gradeSchemeResponse,
+            sectionTitlesResponse,
+          ]) => {
+            try {
+              checkResponseStatus(gradeResponse);
+              setGrades(await gradeResponse.json());
+              gradeSchemeResponse.status === 500
+                ? setSchemeUnset(true)
+                : setGradeScheme(await gradeSchemeResponse.json());
+              checkResponseStatus(sectionTitlesResponse);
+              setSectionTitles(await sectionTitlesResponse.json());
+              setDataReady(true);
+            } catch (err) {
+              setDataError(true);
+            }
+          },
+        )
+        .catch(() => setDataError(true));
     }
-    Promise.all([
-      window.fetch("/api/grades", fetchOptions),
-      window.fetch("/api/gradeScheme", fetchOptions),
-      window.fetch("/api/sectionTitles", fetchOptions),
-    ])
-      .then(
-        async ([gradeResponse, gradeSchemeResponse, sectionTitlesResponse]) => {
-          try {
-            checkResponseStatus(gradeResponse);
-            setGrades(await gradeResponse.json());
-            gradeSchemeResponse.status === 500
-              ? setSchemeUnset(true)
-              : setGradeScheme(await gradeSchemeResponse.json());
-            checkResponseStatus(sectionTitlesResponse);
-            setSectionTitles(await sectionTitlesResponse.json());
-            setDataReady(true);
-          } catch (err) {
-            setDataError(true);
-          }
-        },
-      )
-      .catch(() => setDataError(true));
   }, [fetchOptions]);
 
   /**
@@ -55,7 +62,7 @@ const GradePublisher = (props) => {
    * changed hasMuted to hasHidden (canvas updated wording from mute to hide)
    * @return {Promise}
    **/
-  const exportHandler = () => {
+  const sheetHandler = () => {
     let hasOverride;
     const gradeData = grades.data;
     const hasHidden = gradeData.reduce(
@@ -84,6 +91,14 @@ const GradePublisher = (props) => {
     setPopoverOpen(!popOverOpen);
   };
 
+  const bannerHandler = () => {
+    window.fetch("api/publish", {
+      ...fetchOptions,
+      method: "POST",
+      body: grades.data,
+    });
+  };
+
   /**
    * @return {Object} Render the Gradepub component
    */
@@ -108,12 +123,13 @@ const GradePublisher = (props) => {
             <a href="mailto:canvas@gatech.edu">canvas@gatech.edu</a>.
           </span>
         ) : (
-          <GradesButton
-            popOverOpen={popOverOpen}
-            handlePopOver={handlePopOver}
-            clickHandler={exportHandler}
-            dataReady={dataReady && !schemeUnset}
-          />
+          <>
+            <BannerButton
+              clickHandler={bannerHandler}
+              dataReady={dataReady && !schemeUnset}
+            />
+            {dataReady ? <GradesList grades={grades.data} /> : ""}
+          </>
         )}
         {dataReady || schemeUnset || dataError ? (
           ""

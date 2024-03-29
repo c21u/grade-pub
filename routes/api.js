@@ -4,6 +4,7 @@ const router = express.Router();
 import jwtMiddleware from "../lib/jwt.js";
 import canvasAPI from "../lib/canvas.js";
 import logger from "../lib/logger.js";
+import { uploadGrades } from "../lib/banner.js";
 import { getGrademodes } from "../lib/buzzapi.js";
 
 router.use(jwtMiddleware);
@@ -46,7 +47,7 @@ router.get("/grades", async (req, res) => {
       gtID: s.user.sisId,
       course: req.auth.custom_canvas_course_name,
       override: s.grades.overrideGrade ? "Y" : null,
-      gradeMode: gradeModes[s.user.sisId],
+      gradeMode: gradeModes[s.user.sisId].gradeMode,
     }));
     return res.send({ data });
   } catch (err) {
@@ -100,6 +101,22 @@ router.get("/sectionTitles", async (req, res) => {
     );
   } catch (err) {
     return res.status(500).send(err);
+  }
+});
+
+router.post("/publish", async (req, res) => {
+  if (!req.auth || !req.auth.roles.includes("Instructor")) {
+    return res
+      .status(403)
+      .send("You must be logged in as a course instructor to publish grades!");
+  }
+  logger.info({ user: req.auth }, "Requested publication of grades to banner");
+  try {
+    const result = await uploadGrades(req.auth, req.body);
+    return res.send(result);
+  } catch (err) {
+    logger.error(err);
+    return res.status(500).send("Error sending grades to Banner");
   }
 });
 
