@@ -94,8 +94,12 @@ const GradePublisher = (props) => {
   const bannerHandler = () => {
     window.fetch("api/publish", {
       ...fetchOptions,
+      headers: {
+        ...fetchOptions.headers,
+        "Content-Type": "application/json",
+      },
       method: "POST",
-      body: grades.data,
+      body: JSON.stringify(grades.data),
     });
   };
 
