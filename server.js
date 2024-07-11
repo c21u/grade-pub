@@ -3,13 +3,8 @@ import createError from "http-errors";
 import express from "express";
 import { dirname, resolve } from "path";
 import logger from "./lib/logger.js";
-import { sentryDSN, trustProxy } from "./config.js";
+import { trustProxy } from "./config.js";
 import { fileURLToPath } from "url";
-
-import Sentry from "@sentry/node";
-if (sentryDSN) {
-  Sentry.init({ dsn: sentryDSN });
-}
 
 import indexRouter from "./routes/index.js";
 import apiRouter from "./routes/api.js";
@@ -17,10 +12,6 @@ import apiRouter from "./routes/api.js";
 const app = express();
 
 app.set("trust proxy", trustProxy);
-
-if (sentryDSN) {
-  app.use(Sentry.Handlers.requestHandler());
-}
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 // view engine setup
@@ -83,10 +74,6 @@ app.use("/api/", apiRouter);
 app.use(function (req, res, next) {
   next(createError(404));
 });
-
-if (sentryDSN) {
-  app.use(Sentry.Handlers.errorHandler());
-}
 
 // error handler
 app.use(function (err, req, res, next) {

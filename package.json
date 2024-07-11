@@ -44,7 +44,6 @@
     "@instructure/ui-table": "^8.54.0",
     "@instructure/ui-text": "^8.54.0",
     "@instructure/ui-view": "^8.54.0",
-    "@sentry/node": "^7.100.1",
     "bunyan": "^1.8.15",
     "bunyan-express-serializer": "^1.0.0",
     "buzzapi": "^2.1.0",
@@ -99,5 +98,5 @@
     "webpack-cli": "^5.1.4",
     "webpack-merge": "^5.10.0"
   },
-  "packageManager": "yarn@4.1.0"
+  "packageManager": "yarn@4.3.1"
 }

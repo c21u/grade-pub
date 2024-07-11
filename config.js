@@ -35,7 +35,6 @@ export const lti = {
   key: getEnvVarOrThrow("LTI_KEY"),
   secret: getEnvVarOrThrow("LTI_SECRET"),
 };
-export const sentryDSN = getEnvVarOrNull("SENTRY_DSN");
 export const trustProxy = getEnvVarOrDefault("TRUST_PROXY", "loopback");
 
 const defaultLogLevel = process.env.NODE_ENV === "test" ? "error" : "info";
@@ -66,7 +65,6 @@ const config = {
   canvasToken,
   jwtSecret,
   lti,
-  sentryDSN,
   trustProxy,
   logLevel,
   passport,
