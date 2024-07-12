@@ -16,6 +16,10 @@ const GradePublisher = (props) => {
   const [grades, setGrades] = useState({});
   const [gradeScheme, setGradeScheme] = useState({});
   const [sectionTitles, setSectionTitles] = useState({});
+  const [exportRunning, setExportRunning] = useState(false);
+  const [exportError, setExportError] = useState(false);
+  const [bannerGrades, setBannerGrades] = useState([]);
+  const [overrideWarningShown, setOverrideWarningShown] = useState(false);
 
   const { fetchOptions, filename } = props;
 
@@ -57,42 +61,48 @@ const GradePublisher = (props) => {
     }
   }, [fetchOptions]);
 
-  /**
-   * Export the spreadsheet
-   * changed hasMuted to hasHidden (canvas updated wording from mute to hide)
-   * @return {Promise}
-   **/
-  const sheetHandler = () => {
+  useEffect(() => {
+    setExportError(bannerGrades.filter((grade) => !grade.success).length > 0);
+  }, [bannerGrades]);
+
+  useEffect(() => {
     let hasOverride;
     const gradeData = grades.data;
-    const hasHidden = gradeData.reduce(
-      (result, grade) =>
-        result || grade.currentGrade !== grade.unpostedCurrentGrade,
-      false,
-    );
-    // loops through grade data array of objects to see if any student has an overriden grade
-    for (let i = 0; i < gradeData.length; i++) {
-      if (gradeData[i].override == "Y") {
-        hasOverride = true;
-        break;
-      }
-    }
-    // if gradebook has either an overriden grade or hidden grade, then it will alert user
-    if (hasOverride || hasHidden) {
-      alert(
-        "You either have hidden, unposted, or overridden gradebook entries that will impact the Final Grade column in your export. This affects the grade of at least one student in your course.",
+    if (gradeData && !overrideWarningShown) {
+      const hasHidden = gradeData.reduce(
+        (result, grade) =>
+          result || grade.currentGrade !== grade.unpostedCurrentGrade,
+        false,
       );
+      // loops through grade data array of objects to see if any student has an overriden grade
+      for (let i = 0; i < gradeData.length; i++) {
+        if (gradeData[i].override == "Y") {
+          hasOverride = true;
+          break;
+        }
+      }
+      // if gradebook has either an overriden grade or hidden grade, then it will alert user
+      if (hasOverride || hasHidden) {
+        alert(
+          "You either have hidden, unposted, or overridden gradebook entries that will impact the Final Grade column in your export. This affects the grade of at least one student in your course.",
+        );
+      }
+      setOverrideWarningShown(true);
     }
+  }, [grades, overrideWarningShown]);
 
-    return spreadsheet(gradeScheme.title, grades, sectionTitles, filename);
-  };
+  /**
+   * Export the spreadsheet
+   * @return {Promise}
+   **/
+  const sheetHandler = () =>
+    spreadsheet(gradeScheme.title, grades, sectionTitles, filename);
 
-  const handlePopOver = () => {
-    setPopoverOpen(!popOverOpen);
-  };
+  const handlePopOver = () => setPopoverOpen(!popOverOpen);
 
-  const bannerHandler = () => {
-    window.fetch("api/publish", {
+  const bannerHandler = async () => {
+    setExportRunning(true);
+    const bannerResult = await window.fetch("api/publish", {
       ...fetchOptions,
       headers: {
         ...fetchOptions.headers,
@@ -101,6 +111,23 @@ const GradePublisher = (props) => {
       method: "POST",
       body: JSON.stringify(grades.data),
     });
+    setExportRunning(false);
+    setBannerGrades(
+      (await bannerResult.json())
+        .map((section) => section.students_grades)
+        .flat(),
+    );
+  };
+
+  const largeClassWarning = () => {
+    if (grades.data.length > 999) {
+      return (
+        <div>
+          <IconWarningSolid color="warning" /> Exporting grades on large courses
+          may take up to a minute.
+        </div>
+      );
+    }
   };
 
   /**
@@ -119,6 +146,13 @@ const GradePublisher = (props) => {
         </span>
       </View>
       <View as="div" textAlign="center">
+        {exportError ? (
+          <div>
+            <IconWarningSolid color="error" /> There was a problem sending some
+            grades to Banner. If the issue persists please contact{" "}
+            <a href="mailto:canvas@gatech.edu">canvas@gatech.edu</a>.
+          </div>
+        ) : null}
         {dataError ? (
           <span>
             <IconWarningSolid color="error" /> There was a problem loading the
@@ -131,8 +165,16 @@ const GradePublisher = (props) => {
             <BannerButton
               clickHandler={bannerHandler}
               dataReady={dataReady && !schemeUnset}
+              exportRunning={exportRunning}
             />
-            {dataReady ? <GradesList grades={grades.data} /> : ""}
+            {dataReady ? (
+              <>
+                <largeClassWarning />
+                <GradesList grades={grades.data} bannerGrades={bannerGrades} />
+              </>
+            ) : (
+              ""
+            )}
           </>
         )}
         {dataReady || schemeUnset || dataError ? (

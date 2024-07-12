@@ -15,7 +15,12 @@ const SortedTable = (props) => {
     },
     {
       id: "currentGrade",
-      text: "CurrentGrade",
+      text: "Canvas Grade",
+      align: "end",
+    },
+    {
+      id: "bannerGrade",
+      text: "Banner Grade",
       align: "end",
     },
   ];
@@ -73,7 +78,10 @@ const SortedTable = (props) => {
       </Table.Head>
       <Table.Body>
         {sortedRows.map((row) => (
-          <Table.Row key={`${row.gtID}/${row.sisSectionID}`}>
+          <Table.Row
+            key={`${row.gtID}/${row.sisSectionID}`}
+            background={row.bannerGrade === "?" ? "fire" : "white"}
+          >
             {headers.map(({ id, align, renderCell }) => (
               <Table.Cell key={id} textAlign={align || "start"}>
                 {renderCell ? renderCell(row[id]) : row[id]}
