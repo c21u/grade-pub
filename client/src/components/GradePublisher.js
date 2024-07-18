@@ -121,7 +121,7 @@ const GradePublisher = (props) => {
   };
 
   const largeClassWarning = () => {
-    if (grades.data.length > 999) {
+    if (dataReady && grades.data.length > 999) {
       return (
         <Text as="div">
           <IconWarningSolid color="warning" /> Exporting grades on large courses
@@ -140,11 +140,13 @@ const GradePublisher = (props) => {
         <Instructions />
       </View>
       <View as="div" textAlign="center">
-        <Text style={{ display: schemeUnset ? "inline" : "none" }}>
-          <IconWarningSolid color="warning" />
-          You have not set a grading scheme for this course, please read the
-          instructions above.
-        </Text>
+        {schemeUnset ? (
+          <Text>
+            <IconWarningSolid color="warning" />
+            You have not set a grading scheme for this course, please read the
+            instructions above.
+          </Text>
+        ) : null}
       </View>
       <View as="div" textAlign="center">
         {exportError ? (
@@ -168,14 +170,10 @@ const GradePublisher = (props) => {
               dataReady={dataReady && !schemeUnset}
               exportRunning={exportRunning}
             />
+            <largeClassWarning />
             {dataReady ? (
-              <>
-                <largeClassWarning />
-                <GradesList grades={grades.data} bannerGrades={bannerGrades} />
-              </>
-            ) : (
-              ""
-            )}
+              <GradesList grades={grades.data} bannerGrades={bannerGrades} />
+            ) : null}
           </>
         )}
         {dataReady || schemeUnset || dataError ? (

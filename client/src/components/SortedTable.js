@@ -78,10 +78,7 @@ const SortedTable = (props) => {
       </Table.Head>
       <Table.Body>
         {sortedRows.map((row) => (
-          <Table.Row
-            key={`${row.gtID}/${row.sisSectionID}`}
-            background={row.bannerGrade === "?" ? "warning" : "white"}
-          >
+          <Table.Row key={`${row.gtID}/${row.sisSectionID}`}>
             {headers.map(({ id, align, renderCell }) => (
               <Table.Cell key={id} textAlign={align || "start"}>
                 {renderCell ? renderCell(row[id]) : row[id]}
