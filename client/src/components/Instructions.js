@@ -64,9 +64,9 @@ const Instructions = () => {
           </List.Item>
         </List>
         <Text>
-          Click the button below to export your grades directly to Banner
+          Click the button below to export your grades directly to Banner.
         </Text>
-        <Text>
+        <Text as="div">
           If you encounter issues with the steps above, please contact the
           Digital Learning Team at{" "}
           <Link href="mailto:canvas@gatech.edu">canvas@gatech.edu</Link>.

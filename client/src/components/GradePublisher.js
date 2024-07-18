@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { IconWarningSolid } from "@instructure/ui-icons";
 import { View } from "@instructure/ui-view";
 import { Spinner } from "@instructure/ui-spinner";
+import { Text } from "@instructure/ui-text";
 import spreadsheet from "../spreadsheet.js";
 import BannerButton from "./BannerButton.js";
 import Instructions from "./Instructions.js";
@@ -122,10 +123,10 @@ const GradePublisher = (props) => {
   const largeClassWarning = () => {
     if (grades.data.length > 999) {
       return (
-        <div>
+        <Text as="div">
           <IconWarningSolid color="warning" /> Exporting grades on large courses
           may take up to a minute.
-        </div>
+        </Text>
       );
     }
   };
@@ -139,27 +140,27 @@ const GradePublisher = (props) => {
         <Instructions />
       </View>
       <View as="div" textAlign="center">
-        <span style={{ display: schemeUnset ? "inline" : "none" }}>
+        <Text style={{ display: schemeUnset ? "inline" : "none" }}>
           <IconWarningSolid color="warning" />
           You have not set a grading scheme for this course, please read the
           instructions above.
-        </span>
+        </Text>
       </View>
       <View as="div" textAlign="center">
         {exportError ? (
-          <div>
+          <Text as="div">
             <IconWarningSolid color="error" /> There was a problem sending some
             grades to Banner. If the issue persists please contact{" "}
             <a href="mailto:canvas@gatech.edu">canvas@gatech.edu</a>.
-          </div>
+          </Text>
         ) : null}
         {dataError ? (
-          <span>
+          <Text>
             <IconWarningSolid color="error" /> There was a problem loading the
             grade data for this course, please refresh the page to try again. If
             the issue persists please contact{" "}
             <a href="mailto:canvas@gatech.edu">canvas@gatech.edu</a>.
-          </span>
+          </Text>
         ) : (
           <>
             <BannerButton
