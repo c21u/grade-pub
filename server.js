@@ -18,6 +18,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 app.set("views", resolve(__dirname, "views"));
 app.set("view engine", "ejs");
 
+app.use(express.json());
+
 // Log requests
 app.use((req, res, next) => {
   const log = logger.child(

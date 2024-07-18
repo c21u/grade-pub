@@ -72,7 +72,6 @@ const Instructions = () => {
           <Link href="mailto:canvas@gatech.edu">canvas@gatech.edu</Link>.
         </Text>
       </View>
-      <hr />
     </div>
   );
 };

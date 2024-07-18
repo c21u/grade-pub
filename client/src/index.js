@@ -25,6 +25,7 @@ const App = () => {
       const fetchOptions = {
         headers: {
           Authorization: `Bearer ${jwt}`,
+          "Content-Type": "application/json",
         },
       };
       setFetchOptions(fetchOptions);

@@ -86,6 +86,21 @@ router.get("/gradeScheme", async (req, res) => {
   }
 });
 
+router.post("/gradeScheme", async (req, res) => {
+  const canvas = canvasAPI.getCanvasContext(req);
+
+  try {
+    return res.send(
+      await canvas.api.put(`courses/${canvas.courseID}`, null, {
+        course: { grading_standard_id: parseInt(req.body.scheme, 10) },
+      }),
+    );
+  } catch (err) {
+    logger.error(err);
+    return res.status(500).send(err);
+  }
+});
+
 router.get("/sectionTitles", async (req, res) => {
   const canvas = canvasAPI.getCanvasContext(req);
 

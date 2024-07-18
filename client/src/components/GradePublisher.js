@@ -4,25 +4,24 @@ import { IconWarningSolid } from "@instructure/ui-icons";
 import { View } from "@instructure/ui-view";
 import { Spinner } from "@instructure/ui-spinner";
 import { Text } from "@instructure/ui-text";
-import spreadsheet from "../spreadsheet.js";
 import BannerButton from "./BannerButton.js";
-import Instructions from "./Instructions.js";
 import GradesList from "./GradesList.js";
+import GradeSchemeSelect from "./GradeSchemeSelect.js";
 
 const GradePublisher = (props) => {
   const [dataReady, setDataReady] = useState(false);
   const [schemeUnset, setSchemeUnset] = useState(null);
-  const [popOverOpen, setPopoverOpen] = useState(false);
+  // const [popOverOpen, setPopoverOpen] = useState(false);
   const [dataError, setDataError] = useState(false);
   const [grades, setGrades] = useState({});
   const [gradeScheme, setGradeScheme] = useState({});
-  const [sectionTitles, setSectionTitles] = useState({});
+  // const [sectionTitles, setSectionTitles] = useState({});
   const [exportRunning, setExportRunning] = useState(false);
   const [exportError, setExportError] = useState(false);
   const [bannerGrades, setBannerGrades] = useState([]);
   const [overrideWarningShown, setOverrideWarningShown] = useState(false);
 
-  const { fetchOptions, filename } = props;
+  const { fetchOptions /* , filename */ } = props;
 
   /**
    * Fetch initial data
@@ -35,32 +34,45 @@ const GradePublisher = (props) => {
     ) {
       Promise.all([
         window.fetch("/api/grades", fetchOptions),
-        window.fetch("/api/gradeScheme", fetchOptions),
         window.fetch("/api/sectionTitles", fetchOptions),
       ])
-        .then(
-          async ([
-            gradeResponse,
-            gradeSchemeResponse,
-            sectionTitlesResponse,
-          ]) => {
-            try {
-              checkResponseStatus(gradeResponse);
-              setGrades(await gradeResponse.json());
-              gradeSchemeResponse.status === 500
-                ? setSchemeUnset(true)
-                : setGradeScheme(await gradeSchemeResponse.json());
-              checkResponseStatus(sectionTitlesResponse);
-              setSectionTitles(await sectionTitlesResponse.json());
-              setDataReady(true);
-            } catch (err) {
-              setDataError(true);
-            }
-          },
-        )
+        .then(async ([gradeResponse, sectionTitlesResponse]) => {
+          try {
+            checkResponseStatus(gradeResponse);
+            setGrades(await gradeResponse.json());
+            checkResponseStatus(sectionTitlesResponse);
+            // setSectionTitles(await sectionTitlesResponse.json());
+            setDataReady(true);
+          } catch (err) {
+            setDataError(true);
+          }
+        })
         .catch(() => setDataError(true));
     }
   }, [fetchOptions]);
+
+  useEffect(() => {
+    if (
+      fetchOptions &&
+      fetchOptions.headers &&
+      fetchOptions.headers.Authorization &&
+      schemeUnset === null
+    ) {
+      window
+        .fetch("/api/gradeScheme", fetchOptions)
+        .then(async (gradeSchemeResponse) => {
+          try {
+            gradeSchemeResponse.status === 500
+              ? setSchemeUnset(true)
+              : (setSchemeUnset(false),
+                setGradeScheme(await gradeSchemeResponse.json()));
+          } catch (err) {
+            setDataError(true);
+          }
+        })
+        .catch(() => setDataError(true));
+    }
+  }, [fetchOptions, schemeUnset]);
 
   useEffect(() => {
     setExportError(bannerGrades.filter((grade) => !grade.success).length > 0);
@@ -96,10 +108,12 @@ const GradePublisher = (props) => {
    * Export the spreadsheet
    * @return {Promise}
    **/
-  const sheetHandler = () =>
+  /*
+    const sheetHandler = () =>
     spreadsheet(gradeScheme.title, grades, sectionTitles, filename);
 
-  const handlePopOver = () => setPopoverOpen(!popOverOpen);
+    const handlePopOver = () => setPopoverOpen(!popOverOpen);
+  */
 
   const bannerHandler = async () => {
     setExportRunning(true);
@@ -120,7 +134,16 @@ const GradePublisher = (props) => {
     );
   };
 
-  const largeClassWarning = () => {
+  const handleGradeSchemeSelected = async (scheme) => {
+    await window.fetch("/api/gradeScheme", {
+      ...fetchOptions,
+      method: "POST",
+      body: JSON.stringify({ scheme }),
+    });
+    setSchemeUnset(null);
+  };
+
+  const LargeClassWarning = (props) => {
     if (dataReady && grades.data.length > 999) {
       return (
         <Text as="div">
@@ -137,14 +160,23 @@ const GradePublisher = (props) => {
   return (
     <div>
       <View as="div" padding="large">
-        <Instructions />
+        {schemeUnset !== null ? (
+          <GradeSchemeSelect
+            gradeScheme={gradeScheme}
+            schemeUnset={schemeUnset}
+            clickHandler={handleGradeSchemeSelected}
+          />
+        ) : (
+          <Spinner size="x-small" margin="small" />
+        )}
+        <hr />
       </View>
       <View as="div" textAlign="center">
         {schemeUnset ? (
           <Text>
             <IconWarningSolid color="warning" />
-            You have not set a grading scheme for this course, please read the
-            instructions above.
+            You have not set a grading scheme for this course, select one above
+            to procede.
           </Text>
         ) : null}
       </View>
@@ -170,7 +202,7 @@ const GradePublisher = (props) => {
               dataReady={dataReady && !schemeUnset}
               exportRunning={exportRunning}
             />
-            <largeClassWarning />
+            <LargeClassWarning />
             {dataReady ? (
               <GradesList grades={grades.data} bannerGrades={bannerGrades} />
             ) : null}
