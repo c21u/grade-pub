@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { Spinner } from "@instructure/ui-spinner";
 import { Table } from "@instructure/ui-table";
+import { Text } from "@instructure/ui-text";
 import canvasLTIFixHeight from "../canvasLTIFixHeight.js";
 
 const SortedTable = (props) => {
@@ -17,6 +19,8 @@ const SortedTable = (props) => {
       id: "currentGrade",
       text: "Canvas Grade",
       align: "end",
+      renderCell: (grade) =>
+        grade ? <Text>{grade}</Text> : <Spinner size="x-small" />,
     },
     {
       id: "bannerGrade",

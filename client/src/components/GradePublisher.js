@@ -9,11 +9,10 @@ import GradesList from "./GradesList.js";
 import GradeSchemeSelect from "./GradeSchemeSelect.js";
 
 const GradePublisher = (props) => {
-  const [dataReady, setDataReady] = useState(false);
   const [schemeUnset, setSchemeUnset] = useState(null);
   // const [popOverOpen, setPopoverOpen] = useState(false);
   const [dataError, setDataError] = useState(false);
-  const [grades, setGrades] = useState({});
+  const [grades, setGrades] = useState(null);
   const [gradeScheme, setGradeScheme] = useState({});
   // const [sectionTitles, setSectionTitles] = useState({});
   const [exportRunning, setExportRunning] = useState(false);
@@ -32,17 +31,12 @@ const GradePublisher = (props) => {
       fetchOptions.headers &&
       fetchOptions.headers.Authorization
     ) {
-      Promise.all([
-        window.fetch("/api/grades", fetchOptions),
-        window.fetch("/api/sectionTitles", fetchOptions),
-      ])
-        .then(async ([gradeResponse, sectionTitlesResponse]) => {
+      window
+        .fetch("/api/sectionTitles", fetchOptions)
+        .then(async (sectionTitlesResponse) => {
           try {
-            checkResponseStatus(gradeResponse);
-            setGrades(await gradeResponse.json());
             checkResponseStatus(sectionTitlesResponse);
             // setSectionTitles(await sectionTitlesResponse.json());
-            setDataReady(true);
           } catch (err) {
             setDataError(true);
           }
@@ -50,6 +44,27 @@ const GradePublisher = (props) => {
         .catch(() => setDataError(true));
     }
   }, [fetchOptions]);
+
+  useEffect(() => {
+    if (
+      fetchOptions &&
+      fetchOptions.headers &&
+      fetchOptions.headers.Authorization &&
+      gradeScheme
+    ) {
+      window
+        .fetch("/api/grades", fetchOptions)
+        .then(async (gradeResponse) => {
+          try {
+            checkResponseStatus(gradeResponse);
+            setGrades(await gradeResponse.json());
+          } catch (err) {
+            setDataError(true);
+          }
+        })
+        .catch(() => setDataError(true));
+    }
+  }, [fetchOptions, gradeScheme]);
 
   useEffect(() => {
     if (
@@ -80,8 +95,8 @@ const GradePublisher = (props) => {
 
   useEffect(() => {
     let hasOverride;
-    const gradeData = grades.data;
-    if (gradeData && !overrideWarningShown) {
+    if (grades && grades.data && !overrideWarningShown) {
+      const gradeData = grades.data;
       const hasHidden = gradeData.reduce(
         (result, grade) =>
           result || grade.currentGrade !== grade.unpostedCurrentGrade,
@@ -140,11 +155,15 @@ const GradePublisher = (props) => {
       method: "POST",
       body: JSON.stringify({ scheme }),
     });
+    setGrades({
+      ...grades,
+      data: grades.data.map((datum) => ({ ...datum, currentGrade: null })),
+    });
     setSchemeUnset(null);
   };
 
   const LargeClassWarning = (props) => {
-    if (dataReady && grades.data.length > 999) {
+    if (grades !== null && grades.data.length > 999) {
       return (
         <Text as="div">
           <IconWarningSolid color="warning" /> Exporting grades on large courses
@@ -199,16 +218,18 @@ const GradePublisher = (props) => {
           <>
             <BannerButton
               clickHandler={bannerHandler}
-              dataReady={dataReady && !schemeUnset}
+              dataReady={
+                grades && grades.data[0].currentGrade !== null && !schemeUnset
+              }
               exportRunning={exportRunning}
             />
             <LargeClassWarning />
-            {dataReady ? (
+            {grades ? (
               <GradesList grades={grades.data} bannerGrades={bannerGrades} />
             ) : null}
           </>
         )}
-        {dataReady || schemeUnset || dataError ? (
+        {grades || schemeUnset || dataError ? (
           ""
         ) : (
           <View as="div">
