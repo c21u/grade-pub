@@ -64,8 +64,8 @@ const GradePublisher = (props) => {
           try {
             gradeSchemeResponse.status === 500
               ? setSchemeUnset(true)
-              : (setSchemeUnset(false),
-                setGradeScheme(await gradeSchemeResponse.json()));
+              : setGradeScheme(await gradeSchemeResponse.json()),
+              setSchemeUnset(false);
           } catch (err) {
             setDataError(true);
           }
