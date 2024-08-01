@@ -19,6 +19,7 @@ const GradePublisher = (props) => {
   const [exportError, setExportError] = useState(false);
   const [bannerGrades, setBannerGrades] = useState([]);
   const [overrideWarningShown, setOverrideWarningShown] = useState(false);
+  const [published, setPublished] = useState(false);
 
   const { fetchOptions /* , filename */ } = props;
 
@@ -147,6 +148,7 @@ const GradePublisher = (props) => {
         .map((section) => section.students_grades)
         .flat(),
     );
+    setPublished(true);
   };
 
   const handleGradeSchemeSelected = async (scheme) => {
@@ -222,6 +224,7 @@ const GradePublisher = (props) => {
                 grades && grades.data[0].currentGrade !== null && !schemeUnset
               }
               exportRunning={exportRunning}
+              published={published}
             />
             <LargeClassWarning />
             {grades ? (
