@@ -16,6 +16,10 @@ const SortedTable = (props) => {
       text: "GTID",
     },
     {
+      id: "sisSectionID",
+      text: "Section",
+    },
+    {
       id: "currentGrade",
       text: "Canvas Grade",
       align: "end",
