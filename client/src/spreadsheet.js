@@ -1,6 +1,6 @@
 import spreadsheetInstructions from "./spreadsheetInstructions.js";
 
-export default (title, grades, sectionTitles, filename) => {
+export default async (title, grades, sectionTitles, filename) => {
   const sheet = [];
 
   // Add the "header" row to the sheet
@@ -19,7 +19,7 @@ export default (title, grades, sectionTitles, filename) => {
   ]);
 
   // Add a row for each student
-  grades.data.forEach((item) => {
+  grades.forEach((item) => {
     const termCode = item.sisSectionID ? item.sisSectionID.slice(0, 6) : null;
     const crn = item.sisSectionID ? item.sisSectionID.slice(7) : null;
     const confidential = item.name === "Confidential" ? "Yes" : "No";
@@ -34,7 +34,7 @@ export default (title, grades, sectionTitles, filename) => {
       confidential,
       item.course,
       sectionTitles[item.sisSectionID],
-      currentGrade, // TODO make it dynamic for miterms and finals
+      currentGrade,
       lastAttended,
       override,
       null,
@@ -42,17 +42,16 @@ export default (title, grades, sectionTitles, filename) => {
   });
 
   // Add the instruction sheet
-  return import(
+  const { default: xlsx } = await import(
     /* webpackChunkName: "xlsx" */ "xlsx/dist/xlsx.full.min.js"
-  ).then(({ default: xlsx }) => {
-    const instructionSheet = xlsx.utils.aoa_to_sheet(spreadsheetInstructions);
-    const workSheet = xlsx.utils.aoa_to_sheet(sheet);
-    const workBook = xlsx.utils.book_new();
-    if (!workBook.Props) workBook.Props = {};
-    workBook.Props.Title = "PROTECTEDFERPA2rsPUvcxswWAgYKkKoIwCA";
-    xlsx.utils.book_append_sheet(workBook, workSheet, "Grades");
-    xlsx.utils.book_append_sheet(workBook, instructionSheet, "Instructions");
+  );
+  const instructionSheet = xlsx.utils.aoa_to_sheet(spreadsheetInstructions);
+  const workSheet = xlsx.utils.aoa_to_sheet(sheet);
+  const workBook = xlsx.utils.book_new();
+  if (!workBook.Props) workBook.Props = {};
+  workBook.Props.Title = "PROTECTEDFERPA2rsPUvcxswWAgYKkKoIwCA";
+  xlsx.utils.book_append_sheet(workBook, workSheet, "Grades");
+  xlsx.utils.book_append_sheet(workBook, instructionSheet, "Instructions");
 
-    xlsx.writeFile(workBook, filename);
-  });
+  xlsx.writeFile(workBook, filename);
 };

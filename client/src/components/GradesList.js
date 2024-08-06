@@ -11,7 +11,7 @@ const GradesList = (props) => {
       }, {})
     : null;
 
-  const rows = props.grades.map((grade) => ({
+  const rows = props.canvasGrades.map((grade) => ({
     ...grade,
     currentGrade: grade.gradeMode === "Audit" ? "V" : grade.currentGrade,
     bannerGrade: bannerGradesByID
@@ -38,7 +38,7 @@ const GradesList = (props) => {
   );
 };
 GradesList.propTypes = {
-  grades: PropTypes.array,
+  canvasGrades: PropTypes.array,
   bannerGrades: PropTypes.array,
 };
 

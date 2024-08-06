@@ -12,7 +12,7 @@ const GradePublisher = (props) => {
   const [schemeUnset, setSchemeUnset] = useState(null);
   // const [popOverOpen, setPopoverOpen] = useState(false);
   const [dataError, setDataError] = useState(false);
-  const [grades, setGrades] = useState(null);
+  const [canvasGrades, setCanvasGrades] = useState(null);
   const [gradeScheme, setGradeScheme] = useState({});
   // const [sectionTitles, setSectionTitles] = useState({});
   const [exportRunning, setExportRunning] = useState(false);
@@ -58,7 +58,7 @@ const GradePublisher = (props) => {
         .then(async (gradeResponse) => {
           try {
             checkResponseStatus(gradeResponse);
-            setGrades(await gradeResponse.json());
+            setCanvasGrades((await gradeResponse.json()).data);
           } catch (err) {
             setDataError(true);
           }
@@ -100,16 +100,15 @@ const GradePublisher = (props) => {
 
   useEffect(() => {
     let hasOverride;
-    if (grades && grades.data && !overrideWarningShown) {
-      const gradeData = grades.data;
-      const hasHidden = gradeData.reduce(
+    if (canvasGrades && !overrideWarningShown) {
+      const hasHidden = canvasGrades.reduce(
         (result, grade) =>
           result || grade.currentGrade !== grade.unpostedCurrentGrade,
         false,
       );
       // loops through grade data array of objects to see if any student has an overriden grade
-      for (let i = 0; i < gradeData.length; i++) {
-        if (gradeData[i].override == "Y") {
+      for (let i = 0; i < canvasGrades.length; i++) {
+        if (canvasGrades[i].override == "Y") {
           hasOverride = true;
           break;
         }
@@ -122,7 +121,7 @@ const GradePublisher = (props) => {
       }
       setOverrideWarningShown(true);
     }
-  }, [grades, overrideWarningShown]);
+  }, [canvasGrades, overrideWarningShown]);
 
   /**
    * Export the spreadsheet
@@ -130,7 +129,7 @@ const GradePublisher = (props) => {
    **/
   /*
     const sheetHandler = () =>
-    spreadsheet(gradeScheme.title, grades, sectionTitles, filename);
+    spreadsheet(gradeScheme.title, canvasGrades, sectionTitles, filename);
 
     const handlePopOver = () => setPopoverOpen(!popOverOpen);
   */
@@ -146,7 +145,7 @@ const GradePublisher = (props) => {
           "Content-Type": "application/json",
         },
         method: "POST",
-        body: JSON.stringify(grades.data),
+        body: JSON.stringify(canvasGrades),
       });
       setExportRunning(false);
       setBannerGrades(
@@ -157,7 +156,7 @@ const GradePublisher = (props) => {
       setPublished(true);
     } catch (err) {
       setBannerGrades(
-        grades.data.map((grade) => ({ success: false, gtid: grade.gtID })),
+        canvasGrades.map((grade) => ({ success: false, gtid: grade.gtID })),
       );
       setExportRunning(false);
     }
@@ -169,15 +168,14 @@ const GradePublisher = (props) => {
       method: "POST",
       body: JSON.stringify({ scheme }),
     });
-    setGrades({
-      ...grades,
-      data: grades.data.map((datum) => ({ ...datum, currentGrade: null })),
-    });
+    setCanvasGrades(
+      canvasGrades.map((datum) => ({ ...datum, currentGrade: null })),
+    );
     setSchemeUnset(null);
   };
 
   const LargeClassWarning = (props) => {
-    if (grades !== null && grades.data.length > 999) {
+    if (canvasGrades !== null && canvasGrades.length > 999) {
       return (
         <Text as="div">
           <IconWarningSolid color="warning" /> Exporting grades on large courses
@@ -185,6 +183,28 @@ const GradePublisher = (props) => {
         </Text>
       );
     }
+  };
+
+  const Errors = (props) => {
+    return (
+      <>
+        {exportError ? (
+          <Text as="div">
+            <IconWarningSolid color="error" /> There was a problem sending some
+            grades to Banner. If the issue persists please contact{" "}
+            <a href="mailto:canvas@gatech.edu">canvas@gatech.edu</a>.
+          </Text>
+        ) : null}
+        {dataError ? (
+          <Text>
+            <IconWarningSolid color="error" /> There was a problem loading the
+            grade data for this course, please refresh the page to try again. If
+            the issue persists please contact{" "}
+            <a href="mailto:canvas@gatech.edu">canvas@gatech.edu</a>.
+          </Text>
+        ) : null}
+      </>
+    );
   };
 
   /**
@@ -214,37 +234,29 @@ const GradePublisher = (props) => {
         ) : null}
       </View>
       <View as="div" textAlign="center">
-        {exportError ? (
-          <Text as="div">
-            <IconWarningSolid color="error" /> There was a problem sending some
-            grades to Banner. If the issue persists please contact{" "}
-            <a href="mailto:canvas@gatech.edu">canvas@gatech.edu</a>.
-          </Text>
-        ) : null}
-        {dataError ? (
-          <Text>
-            <IconWarningSolid color="error" /> There was a problem loading the
-            grade data for this course, please refresh the page to try again. If
-            the issue persists please contact{" "}
-            <a href="mailto:canvas@gatech.edu">canvas@gatech.edu</a>.
-          </Text>
-        ) : (
+        <Errors />
+        {!dataError && !exportError ? (
           <>
             <BannerButton
               clickHandler={bannerHandler}
               dataReady={
-                grades && grades.data[0].currentGrade !== null && !schemeUnset
+                canvasGrades &&
+                canvasGrades[0].currentGrade !== null &&
+                !schemeUnset
               }
               exportRunning={exportRunning}
               published={published}
             />
             <LargeClassWarning />
-            {grades ? (
-              <GradesList grades={grades.data} bannerGrades={bannerGrades} />
+            {canvasGrades ? (
+              <GradesList
+                canvasGrades={canvasGrades}
+                bannerGrades={bannerGrades}
+              />
             ) : null}
           </>
-        )}
-        {grades || schemeUnset || dataError ? (
+        ) : null}
+        {canvasGrades || schemeUnset || dataError ? (
           ""
         ) : (
           <View as="div">
