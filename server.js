@@ -2,7 +2,6 @@ import "dotenv/config";
 import createError from "http-errors";
 import express from "express";
 import { dirname, resolve } from "path";
-import logger from "./lib/logger.js";
 import { trustProxy } from "./config.js";
 import { fileURLToPath } from "url";
 
@@ -17,44 +16,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // view engine setup
 app.set("views", resolve(__dirname, "views"));
 app.set("view engine", "ejs");
-
-app.use(express.json());
-
-// Log requests
-app.use((req, res, next) => {
-  const log = logger.child(
-    {
-      id: req.id,
-      body: req.body,
-    },
-    true,
-  );
-  log.info({
-    req,
-  });
-  next();
-});
-
-// Log responses
-app.use(function (req, res, next) {
-  /**
-   * Function to cleanup and log the response
-   **/
-  function afterResponse() {
-    res.removeListener("finish", afterResponse);
-    res.removeListener("close", afterResponse);
-    const log = logger.child(
-      {
-        id: req.id,
-      },
-      true,
-    );
-    log.info({ res: res }, "response");
-  }
-  res.on("finish", afterResponse);
-  res.on("close", afterResponse);
-  next();
-});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
