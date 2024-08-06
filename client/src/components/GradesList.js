@@ -4,19 +4,23 @@ import { Responsive } from "@instructure/ui-responsive";
 import SortedTable from "./SortedTable.js";
 
 const GradesList = (props) => {
-  const bannerGradesByID = props.bannerGrades.reduce((acc, cur) => {
-    acc[`${cur.gtid}`] = cur;
-    return acc;
-  }, {});
+  const bannerGradesByID = props.bannerGrades
+    ? props.bannerGrades.reduce((acc, cur) => {
+        acc[`${cur.gtid}`] = cur;
+        return acc;
+      }, {})
+    : null;
 
   const rows = props.grades.map((grade) => ({
     ...grade,
     currentGrade: grade.gradeMode === "Audit" ? "V" : grade.currentGrade,
-    bannerGrade: bannerGradesByID[grade.gtID]
-      ? bannerGradesByID[grade.gtID].success
-        ? bannerGradesByID[grade.gtID].grade
-        : "?"
-      : "-",
+    bannerGrade: bannerGradesByID
+      ? bannerGradesByID[grade.gtID]
+        ? bannerGradesByID[grade.gtID].success
+          ? bannerGradesByID[grade.gtID].grade
+          : "?"
+        : "-"
+      : null,
   }));
 
   return (

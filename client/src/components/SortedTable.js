@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { IconWarningSolid } from "@instructure/ui-icons";
 import { Spinner } from "@instructure/ui-spinner";
 import { Table } from "@instructure/ui-table";
 import { Text } from "@instructure/ui-text";
@@ -30,6 +31,16 @@ const SortedTable = (props) => {
       id: "bannerGrade",
       text: "Banner Grade",
       align: "end",
+      renderCell: (grade) => {
+        switch (grade) {
+          case null:
+            return <Spinner size="x-small" />;
+          case "?":
+            return <IconWarningSolid color="error" />;
+          default:
+            return <Text>{grade}</Text>;
+        }
+      },
     },
   ];
 

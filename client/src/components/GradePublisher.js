@@ -91,7 +91,11 @@ const GradePublisher = (props) => {
   }, [fetchOptions, schemeUnset]);
 
   useEffect(() => {
-    setExportError(bannerGrades.filter((grade) => !grade.success).length > 0);
+    bannerGrades
+      ? setExportError(
+          bannerGrades.filter((grade) => !grade.success).length > 0,
+        )
+      : null;
   }, [bannerGrades]);
 
   useEffect(() => {
@@ -133,22 +137,30 @@ const GradePublisher = (props) => {
 
   const bannerHandler = async () => {
     setExportRunning(true);
-    const bannerResult = await window.fetch("api/publish", {
-      ...fetchOptions,
-      headers: {
-        ...fetchOptions.headers,
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify(grades.data),
-    });
-    setExportRunning(false);
-    setBannerGrades(
-      (await bannerResult.json())
-        .map((section) => section.students_grades)
-        .flat(),
-    );
-    setPublished(true);
+    setBannerGrades(null);
+    try {
+      const bannerResult = await window.fetch("api/publish", {
+        ...fetchOptions,
+        headers: {
+          ...fetchOptions.headers,
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify(grades.data),
+      });
+      setExportRunning(false);
+      setBannerGrades(
+        (await bannerResult.json())
+          .map((section) => section.students_grades)
+          .flat(),
+      );
+      setPublished(true);
+    } catch (err) {
+      setBannerGrades(
+        grades.data.map((grade) => ({ success: false, gtid: grade.gtID })),
+      );
+      setExportRunning(false);
+    }
   };
 
   const handleGradeSchemeSelected = async (scheme) => {
