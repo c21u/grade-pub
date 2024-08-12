@@ -4,6 +4,7 @@ import { IconWarningSolid } from "@instructure/ui-icons";
 import { View } from "@instructure/ui-view";
 import { Spinner } from "@instructure/ui-spinner";
 import { Text } from "@instructure/ui-text";
+import { useBeforeunload } from "react-beforeunload";
 import BannerButton from "./BannerButton.js";
 import GradesList from "./GradesList.js";
 import GradeSchemeSelect from "./GradeSchemeSelect.js";
@@ -46,6 +47,9 @@ const GradePublisher = (props) => {
     }
   }, [fetchOptions]);
 
+  /**
+   * Fetch grades from Canvas
+   */
   useEffect(() => {
     if (
       fetchOptions &&
@@ -67,6 +71,9 @@ const GradePublisher = (props) => {
     }
   }, [fetchOptions, gradeScheme]);
 
+  /**
+   * Fetch grade scheme from Canvas
+   */
   useEffect(() => {
     if (
       fetchOptions &&
@@ -90,6 +97,9 @@ const GradePublisher = (props) => {
     }
   }, [fetchOptions, schemeUnset]);
 
+  /**
+   * Check results of Banner publish for Errors
+   */
   useEffect(() => {
     bannerGrades
       ? setExportError(
@@ -98,6 +108,9 @@ const GradePublisher = (props) => {
       : null;
   }, [bannerGrades]);
 
+  /**
+   * Check for Overridden grades
+   */
   useEffect(() => {
     let hasOverride;
     if (canvasGrades && !overrideWarningShown) {
@@ -122,6 +135,13 @@ const GradePublisher = (props) => {
       setOverrideWarningShown(true);
     }
   }, [canvasGrades, overrideWarningShown]);
+
+  useBeforeunload(
+    exportRunning
+      ? () =>
+          "The data export to Banner is still in progress, please stay on the page until it is complete."
+      : null,
+  );
 
   /**
    * Export the spreadsheet

@@ -6353,6 +6353,7 @@ __metadata:
     prop-types: "npm:^15.8.1"
     qs: "npm:^6.11.2"
     react: "npm:^18.2.0"
+    react-beforeunload: "npm:^2.6.0"
     react-dom: "npm:^18.2.0"
     react-router-dom: "npm:^5.2.0"
     superagent: "npm:^8.1.2"
@@ -9720,6 +9721,15 @@ __metadata:
     iconv-lite: "npm:0.4.24"
     unpipe: "npm:1.0.0"
   checksum: 10c0/5dad5a3a64a023b894ad7ab4e5c7c1ce34d3497fc7138d02f8c88a3781e68d8a55aa7d4fd3a458616fa8647cc228be314a1c03fb430a07521de78b32c4dd09d2
+  languageName: node
+  linkType: hard
+
+"react-beforeunload@npm:^2.6.0":
+  version: 2.6.0
+  resolution: "react-beforeunload@npm:2.6.0"
+  peerDependencies:
+    react: ^16.8.0 || 17 || 18
+  checksum: 10c0/53929df385322828c38ff045ef0071efa4c1e0d34209a475d6681bb017986a9fbabfee950d8cf30bc0180d0e2523d1cc4dc63508ccbe70dec330d8620eea29a8
   languageName: node
   linkType: hard
 
