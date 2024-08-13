@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Button } from "@instructure/ui-buttons";
 import { Popover } from "@instructure/ui-popover";
 import { View } from "@instructure/ui-view";
 
 const GradesButton = (props) => {
+  const [popOverOpen, setPopOverOpen] = useState(false);
+
+  const handlePopOver = () => {
+    setPopOverOpen(!popOverOpen);
+  };
+
   return (
     <View>
       <Popover
@@ -15,9 +21,9 @@ const GradesButton = (props) => {
               : "Preparing export..."}
           </Button>
         }
-        isShowingContent={props.popOverOpen}
-        onShowContent={props.handlePopOver}
-        onHideContent={props.handlePopOver}
+        isShowingContent={popOverOpen}
+        onShowContent={handlePopOver}
+        onHideContent={handlePopOver}
         on="click"
         screenReaderLabel="Export Grades"
         shouldContainFocus
@@ -48,9 +54,7 @@ const GradesButton = (props) => {
   );
 };
 GradesButton.propTypes = {
-  handlePopOver: PropTypes.func,
   clickHandler: PropTypes.func,
-  popOverOpen: PropTypes.bool,
   dataReady: PropTypes.bool,
 };
 

@@ -4,8 +4,9 @@ import { Link } from "@instructure/ui-link";
 import { Text } from "@instructure/ui-text";
 import { View } from "@instructure/ui-view";
 import { List } from "@instructure/ui-list";
+import KBLink from "./KBLink.js";
 
-const Instructions = () => {
+const FGEInstructions = () => {
   return (
     <div>
       <Heading>Instructions</Heading>
@@ -38,13 +39,7 @@ const Instructions = () => {
               (
               <Text weight="bold" fontStyle="italic">
                 Requires
-                <Link
-                  href="https://gatech.service-now.com/continuity?id=kb_article_view&sysparm_article=KB0026837"
-                  target="_blank"
-                >
-                  {" "}
-                  VPN{" "}
-                </Link>
+                <KBLink kbid="KB0026837"> VPN </KBLink>
                 when accessed from off-campus
               </Text>
               )
@@ -91,4 +86,4 @@ const Instructions = () => {
   );
 };
 
-export default Instructions;
+export default FGEInstructions;

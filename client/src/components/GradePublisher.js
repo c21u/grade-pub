@@ -8,10 +8,10 @@ import { useBeforeunload } from "react-beforeunload";
 import BannerButton from "./BannerButton.js";
 import GradesList from "./GradesList.js";
 import GradeSchemeSelect from "./GradeSchemeSelect.js";
+import Instructions from "./Instructions.js";
 
 const GradePublisher = (props) => {
   const [schemeUnset, setSchemeUnset] = useState(null);
-  // const [popOverOpen, setPopoverOpen] = useState(false);
   const [dataError, setDataError] = useState(false);
   const [canvasGrades, setCanvasGrades] = useState(null);
   const [gradeScheme, setGradeScheme] = useState({});
@@ -150,8 +150,6 @@ const GradePublisher = (props) => {
   /*
     const sheetHandler = () =>
     spreadsheet(gradeScheme.title, canvasGrades, sectionTitles, filename);
-
-    const handlePopOver = () => setPopoverOpen(!popOverOpen);
   */
 
   const bannerHandler = async () => {
@@ -232,6 +230,7 @@ const GradePublisher = (props) => {
    */
   return (
     <div>
+      <Instructions />
       <View as="div" padding="large">
         {schemeUnset !== null ? (
           <GradeSchemeSelect
