@@ -135,4 +135,9 @@ router.post("/publish", async (req, res) => {
   }
 });
 
+router.get("/sheet", async (req, res) => {
+  logger.info({ user: req.auth }, "User requested spreadsheet export");
+  return res.send();
+});
+
 export default router;

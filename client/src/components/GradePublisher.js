@@ -5,7 +5,9 @@ import { View } from "@instructure/ui-view";
 import { Spinner } from "@instructure/ui-spinner";
 import { Text } from "@instructure/ui-text";
 import { useBeforeunload } from "react-beforeunload";
+import spreadsheet from "../spreadsheet.js";
 import BannerButton from "./BannerButton.js";
+import SheetButton from "./SheetButton.js";
 import GradesList from "./GradesList.js";
 import GradeSchemeSelect from "./GradeSchemeSelect.js";
 import Instructions from "./Instructions.js";
@@ -15,14 +17,14 @@ const GradePublisher = (props) => {
   const [dataError, setDataError] = useState(false);
   const [canvasGrades, setCanvasGrades] = useState(null);
   const [gradeScheme, setGradeScheme] = useState({});
-  // const [sectionTitles, setSectionTitles] = useState({});
+  const [sectionTitles, setSectionTitles] = useState({});
   const [exportRunning, setExportRunning] = useState(false);
   const [exportError, setExportError] = useState(false);
   const [bannerGrades, setBannerGrades] = useState([]);
   const [overrideWarningShown, setOverrideWarningShown] = useState(false);
   const [published, setPublished] = useState(false);
 
-  const { fetchOptions /* , filename */ } = props;
+  const { fetchOptions, filename } = props;
 
   /**
    * Fetch initial data
@@ -38,7 +40,7 @@ const GradePublisher = (props) => {
         .then(async (sectionTitlesResponse) => {
           try {
             checkResponseStatus(sectionTitlesResponse);
-            // setSectionTitles(await sectionTitlesResponse.json());
+            setSectionTitles(await sectionTitlesResponse.json());
           } catch (err) {
             setDataError(true);
           }
@@ -147,10 +149,10 @@ const GradePublisher = (props) => {
    * Export the spreadsheet
    * @return {Promise}
    **/
-  /*
-    const sheetHandler = () =>
+  const sheetHandler = async () => {
+    await window.fetch("/api/sheet", fetchOptions);
     spreadsheet(gradeScheme.title, canvasGrades, sectionTitles, filename);
-  */
+  };
 
   const bannerHandler = async () => {
     setExportRunning(true);
@@ -231,6 +233,17 @@ const GradePublisher = (props) => {
   return (
     <div>
       <Instructions />
+      <Text>
+        An Excel file export of these grades for use with FGE is available:{" "}
+        <SheetButton
+          clickHandler={sheetHandler}
+          dataReady={
+            canvasGrades &&
+            canvasGrades[0].currentGrade !== null &&
+            !schemeUnset
+          }
+        />
+      </Text>
       <View as="div" padding="large">
         {schemeUnset !== null ? (
           <GradeSchemeSelect
