@@ -6,7 +6,9 @@ import SortedTable from "./SortedTable.js";
 const GradesList = (props) => {
   const bannerGradesByID = props.bannerGrades
     ? props.bannerGrades.reduce((acc, cur) => {
-        acc[`${cur.gtid}`] = cur;
+        if (cur) {
+          acc[`${cur.gtid}`] = cur;
+        }
         return acc;
       }, {})
     : null;
