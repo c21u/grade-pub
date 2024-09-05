@@ -4,7 +4,7 @@ const router = express.Router();
 import jwtMiddleware from "../lib/jwt.js";
 import canvasAPI from "../lib/canvas.js";
 import logger from "../lib/logger.js";
-import { uploadGrades } from "../lib/banner.js";
+import { uploadGrades, getGrades, isGradingOpen } from "../lib/banner.js";
 import { getGrademodes } from "../lib/buzzapi.js";
 
 router.use(jwtMiddleware);
@@ -138,6 +138,33 @@ router.post("/publish", async (req, res) => {
 router.get("/sheet", async (req, res) => {
   logger.info({ user: req.auth }, "User requested spreadsheet export");
   return res.send();
+});
+
+router.post("/bannerInitial", async (req, res) => {
+  if (!req.auth || !req.auth.roles.includes("Instructor")) {
+    return res
+      .status(403)
+      .send(
+        "You must be logged in as a course instructor to get grades from Banner!",
+      );
+  }
+  try {
+    const result = await getGrades(req.body);
+    return res.send(result);
+  } catch (err) {
+    logger.error(err);
+    return res.status(500).send("Error fetching grades from Banner");
+  }
+});
+
+router.get("/isGradingOpen", async (req, res) => {
+  try {
+    const result = await isGradingOpen(req.query.term);
+    return res.send(result);
+  } catch (err) {
+    logger.error(err);
+    return res.status(500).send("Error getting Banner grade period status");
+  }
 });
 
 export default router;

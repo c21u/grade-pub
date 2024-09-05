@@ -3,9 +3,12 @@ import PropTypes from "prop-types";
 import { Responsive } from "@instructure/ui-responsive";
 import SortedTable from "./SortedTable.js";
 
-const GradesList = (props) => {
-  const bannerGradesByID = props.bannerGrades
-    ? props.bannerGrades.reduce((acc, cur) => {
+const GradesList = ({ canvasGrades, bannerGrades }) => {
+  if (canvasGrades === null) {
+    return null;
+  }
+  const bannerGradesByID = bannerGrades
+    ? bannerGrades.reduce((acc, cur) => {
         if (cur) {
           acc[`${cur.gtid}`] = cur;
         }
@@ -13,7 +16,7 @@ const GradesList = (props) => {
       }, {})
     : null;
 
-  const rows = props.canvasGrades.map((grade) => ({
+  const rows = canvasGrades.map((grade) => ({
     ...grade,
     currentGrade: grade.gradeMode === "Audit" ? "V" : grade.currentGrade,
     bannerGrade: bannerGradesByID

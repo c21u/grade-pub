@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { IconWarningSolid } from "@instructure/ui-icons";
 import { View } from "@instructure/ui-view";
 import { Spinner } from "@instructure/ui-spinner";
 import { Text } from "@instructure/ui-text";
@@ -11,6 +10,8 @@ import SheetButton from "./SheetButton.js";
 import GradesList from "./GradesList.js";
 import GradeSchemeSelect from "./GradeSchemeSelect.js";
 import Instructions from "./Instructions.js";
+import PublisherErrors from "./PublisherErrors.js";
+import Warning from "./Warning.js";
 
 const GradePublisher = (props) => {
   const [schemeUnset, setSchemeUnset] = useState(null);
@@ -23,8 +24,10 @@ const GradePublisher = (props) => {
   const [bannerGrades, setBannerGrades] = useState([]);
   const [overrideWarningShown, setOverrideWarningShown] = useState(false);
   const [published, setPublished] = useState(false);
+  const [bannerInitial, setBannerInitial] = useState(false);
+  const [gradingOpen, setGradingOpen] = useState(null);
 
-  const { fetchOptions, filename } = props;
+  const { fetchOptions, filename, term } = props;
 
   /**
    * Fetch initial data
@@ -136,7 +139,66 @@ const GradePublisher = (props) => {
       }
       setOverrideWarningShown(true);
     }
-  }, [canvasGrades, overrideWarningShown]);
+    if (canvasGrades && !bannerInitial) {
+      try {
+        setBannerInitial({});
+        setBannerGrades(null);
+        window
+          .fetch("/api/bannerInitial", {
+            ...fetchOptions,
+            method: "POST",
+            body: JSON.stringify({
+              enrollments: canvasGrades.map(({ sisSectionID, gtID }) => {
+                const crn = sisSectionID.slice(7);
+                const termCode = sisSectionID.slice(0, 6);
+                return { crn, term_code: termCode, gtid: gtID };
+              }),
+            }),
+          })
+          .then(async (result) => {
+            const initial = await result.json();
+            setBannerInitial(initial);
+            setBannerGrades(
+              initial.map((grade) => {
+                return {
+                  success: true,
+                  gtid: grade.gtid,
+                  grade: grade.grade_code,
+                };
+              }),
+            );
+          })
+          .catch(() => {
+            setBannerInitial({});
+            setBannerGrades([]);
+          });
+      } catch (err) {
+        setBannerInitial({});
+        setBannerGrades([]);
+      }
+    }
+  }, [canvasGrades, overrideWarningShown, bannerInitial, fetchOptions]);
+
+  useEffect(() => {
+    if (
+      fetchOptions &&
+      fetchOptions.headers &&
+      fetchOptions.headers.Authorization &&
+      gradingOpen === null &&
+      term
+    ) {
+      window
+        .fetch(`/api/isGradingOpen?term=${term}`, fetchOptions)
+        .then(async (isGradingOpen) => {
+          isGradingOpen = await isGradingOpen.json();
+          setGradingOpen(
+            isGradingOpen.success &&
+              isGradingOpen.payload.grades_allowed == "open",
+          );
+        })
+        .catch((err) => setDataError(true));
+    }
+  }, [fetchOptions, gradingOpen, term]);
 
   useBeforeunload(
     exportRunning
@@ -189,7 +251,7 @@ const GradePublisher = (props) => {
       body: JSON.stringify({ scheme }),
     });
     setCanvasGrades(
-      canvasGrades.map((datum) => ({ ...datum, currentGrade: null })),
+      canvasGrades.map((datum) => ({ ...datum, currentGrade: "loading" })),
     );
     setSchemeUnset(null);
   };
@@ -197,34 +259,11 @@ const GradePublisher = (props) => {
   const LargeClassWarning = (props) => {
     if (canvasGrades !== null && canvasGrades.length > 999) {
       return (
-        <Text as="div">
-          <IconWarningSolid color="warning" /> Exporting grades on large courses
-          may take up to a minute.
-        </Text>
+        <Warning>
+          Exporting grades on large courses may take up to a minute.
+        </Warning>
       );
     }
-  };
-
-  const Errors = (props) => {
-    return (
-      <>
-        {exportError ? (
-          <Text as="div">
-            <IconWarningSolid color="error" /> There was a problem sending some
-            grades to Banner. If the issue persists please contact{" "}
-            <a href="mailto:canvas@gatech.edu">canvas@gatech.edu</a>.
-          </Text>
-        ) : null}
-        {dataError ? (
-          <Text>
-            <IconWarningSolid color="error" /> There was a problem loading the
-            grade data for this course, please refresh the page to try again. If
-            the issue persists please contact{" "}
-            <a href="mailto:canvas@gatech.edu">canvas@gatech.edu</a>.
-          </Text>
-        ) : null}
-      </>
-    );
   };
 
   /**
@@ -258,37 +297,39 @@ const GradePublisher = (props) => {
       </View>
       <View as="div" textAlign="center">
         {schemeUnset ? (
-          <Text>
-            <IconWarningSolid color="warning" />
+          <Warning>
             You have not set a grading scheme for this course, select one above
             to procede.
-          </Text>
+          </Warning>
         ) : null}
       </View>
       <View as="div" textAlign="center">
-        <Errors />
-        {!dataError && !exportError ? (
+        <PublisherErrors exportError={exportError} dataError={dataError} />
+        {gradingOpen && !dataError && !exportError ? (
           <>
             <BannerButton
               clickHandler={bannerHandler}
               dataReady={
                 canvasGrades &&
-                canvasGrades[0].currentGrade !== null &&
+                canvasGrades[0].currentGrade !== "loading" &&
                 !schemeUnset
               }
               exportRunning={exportRunning}
               published={published}
             />
             <LargeClassWarning />
-            {canvasGrades ? (
-              <GradesList
-                canvasGrades={canvasGrades}
-                bannerGrades={bannerGrades}
-              />
-            ) : null}
+            <GradesList
+              canvasGrades={canvasGrades}
+              bannerGrades={bannerGrades}
+            />
           </>
         ) : null}
-        {canvasGrades || schemeUnset || dataError ? (
+        {gradingOpen === false ? (
+          <Warning>Grading is currently closed for this term in Banner</Warning>
+        ) : (
+          ""
+        )}
+        {canvasGrades || schemeUnset || dataError || gradingOpen === false ? (
           ""
         ) : (
           <View as="div">
@@ -302,6 +343,7 @@ const GradePublisher = (props) => {
 GradePublisher.propTypes = {
   fetchOptions: PropTypes.object,
   filename: PropTypes.string,
+  term: PropTypes.number,
 };
 
 /**

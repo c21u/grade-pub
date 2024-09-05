@@ -25,7 +25,15 @@ const SortedTable = (props) => {
       text: "Canvas Grade",
       align: "end",
       renderCell: (grade) =>
-        grade ? <Text>{grade}</Text> : <Spinner size="x-small" />,
+        grade ? (
+          grade == "loading" ? (
+            <Spinner size="x-small" />
+          ) : (
+            <Text>{grade}</Text>
+          )
+        ) : (
+          "-"
+        ),
     },
     {
       id: "bannerGrade",

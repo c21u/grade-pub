@@ -12,6 +12,7 @@ import canvasLTIFixHeight from "./canvasLTIFixHeight.js";
 const App = () => {
   const [fetchOptions, setFetchOptions] = useState({});
   const [filename, setFilename] = useState({});
+  const [term, setTerm] = useState();
 
   useEffect(() => {
     /**
@@ -32,6 +33,7 @@ const App = () => {
       setFilename(
         `grades_${lti.context_label.replace(/[^\w.]/g, "_")}_${lti.context_title.replace(/[^\w.]/g, "_")}.xlsx`,
       );
+      setTerm(lti.custom_lis_course_offering_sourcedid.slice(0, 6));
     } catch (err) {
       console.error(`updating context failed: ${err}`);
     }
@@ -50,6 +52,7 @@ const App = () => {
             {...props}
             fetchOptions={fetchOptions}
             filename={filename}
+            term={term}
           />
         ) : (
           <Redirect to={{ pathname: "/default" }} />
