@@ -14,6 +14,16 @@ router.get("/test", (req, res) => {
 });
 
 router.get("/grades", async (req, res) => {
+  const getGradeLetterForMode = (grade, mode) => {
+    switch (mode) {
+      case "Audit":
+        return "V";
+      case "Pass / Fail":
+        return grade === "F" ? "U" : "S";
+      default:
+        return grade;
+    }
+  };
   const canvas = canvasAPI.getCanvasContext(req);
   // getCanvasContext is imported from lib/canvas
 
@@ -33,22 +43,30 @@ router.get("/grades", async (req, res) => {
     // ** override feature ** - checks if override_grade exists, and if so, sets final_grade and current_grade equal to override_grade
     // if there is override grade, override value is equal to "Y" and if not, null
     const gradeModes = await getGrademodes(realStudents);
-    const data = realStudents.map((s) => ({
-      name: s.user.sortableName,
-      currentGrade: s.grades.overrideGrade
-        ? s.grades.overrideGrade
-        : s.grades.currentGrade,
-      finalGrade: s.grades.overrideGrade
-        ? s.grades.overrideGrade
-        : s.grades.finalGrade,
-      unpostedFinalGrade: s.grades.unpostedFinalGrade,
-      unpostedCurrentGrade: s.grades.unpostedCurrentGrade,
-      sisSectionID: s.section.sisId,
-      gtID: s.user.sisId,
-      course: req.auth.custom_canvas_course_name,
-      override: s.grades.overrideGrade ? "Y" : null,
-      gradeMode: gradeModes[s.user.sisId].gradeMode,
-    }));
+    const data = realStudents.map(({ user, section, grades }) => {
+      const gradeMode = gradeModes[user.sisId].gradeMode;
+      const overrideGrade = grades.overrideGrade;
+      const currentGrade = getGradeLetterForMode(
+        overrideGrade ? overrideGrade : grades.currentGrade,
+        gradeMode,
+      );
+      const finalGrade = getGradeLetterForMode(
+        grades.overrideGrade ? overrideGrade : grades.finalGrade,
+        gradeMode,
+      );
+      return {
+        name: user.sortableName,
+        currentGrade,
+        finalGrade,
+        unpostedFinalGrade: grades.unpostedFinalGrade,
+        unpostedCurrentGrade: grades.unpostedCurrentGrade,
+        sisSectionID: section.sisId,
+        gtID: user.sisId,
+        course: req.auth.custom_canvas_course_name,
+        override: overrideGrade ? "Y" : null,
+        gradeMode,
+      };
+    });
     return res.send({ data });
   } catch (err) {
     logger.error(err);

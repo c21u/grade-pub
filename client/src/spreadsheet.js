@@ -23,7 +23,6 @@ export default async (title, grades, sectionTitles, filename) => {
     const termCode = item.sisSectionID ? item.sisSectionID.slice(0, 6) : null;
     const crn = item.sisSectionID ? item.sisSectionID.slice(7) : null;
     const confidential = item.name === "Confidential" ? "Yes" : "No";
-    const currentGrade = item.gradeMode == "Audit" ? "V" : item.currentGrade;
     const lastAttended = ""; // data is in SIS, so punt here
     const override = item.override;
     sheet.push([
@@ -34,7 +33,7 @@ export default async (title, grades, sectionTitles, filename) => {
       confidential,
       item.course,
       sectionTitles[item.sisSectionID],
-      currentGrade,
+      item.currentGrade,
       lastAttended,
       override,
       null,

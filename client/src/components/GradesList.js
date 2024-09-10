@@ -18,7 +18,7 @@ const GradesList = ({ canvasGrades, bannerGrades }) => {
 
   const rows = canvasGrades.map((grade) => ({
     ...grade,
-    currentGrade: grade.gradeMode === "Audit" ? "V" : grade.currentGrade,
+    currentGrade: grade.currentGrade,
     bannerGrade: bannerGradesByID
       ? bannerGradesByID[grade.gtID]
         ? bannerGradesByID[grade.gtID].success
