@@ -8,10 +8,12 @@ import spreadsheet from "../spreadsheet.js";
 import BannerButton from "./BannerButton.js";
 import SheetButton from "./SheetButton.js";
 import GradesList from "./GradesList.js";
-import GradeSchemeSelect from "./GradeSchemeSelect.js";
+import GradeSchemeSelect, { schemeMap } from "./GradeSchemeSelect.js";
 import Instructions from "./Instructions.js";
 import PublisherErrors from "./PublisherErrors.js";
-import Warning from "./Warning.js";
+import AttendanceModal from "./AttendanceModal.js";
+import { Button } from "@instructure/ui-buttons";
+import { Alert } from "@instructure/ui-alerts";
 
 const GradePublisher = (props) => {
   const [schemeUnset, setSchemeUnset] = useState(null);
@@ -22,10 +24,12 @@ const GradePublisher = (props) => {
   const [exportRunning, setExportRunning] = useState(false);
   const [exportError, setExportError] = useState(false);
   const [bannerGrades, setBannerGrades] = useState([]);
-  const [overrideWarningShown, setOverrideWarningShown] = useState(false);
   const [published, setPublished] = useState(false);
   const [bannerInitial, setBannerInitial] = useState(false);
   const [gradingOpen, setGradingOpen] = useState(null);
+  const [gradeMode, setGradeMode] = useState(null);
+  const [attendanceModalOpen, setAttendanceModalOpen] = useState(false);
+  const [hasOverride, setHasOverride] = useState(false);
 
   const { fetchOptions, filename, term } = props;
 
@@ -90,10 +94,14 @@ const GradePublisher = (props) => {
         .fetch("/api/gradeScheme", fetchOptions)
         .then(async (gradeSchemeResponse) => {
           try {
-            gradeSchemeResponse.status === 500
-              ? setSchemeUnset(true)
-              : setGradeScheme(await gradeSchemeResponse.json()),
+            if (gradeSchemeResponse.status === 500) {
+              setSchemeUnset(true);
+            } else {
+              const gs = await gradeSchemeResponse.json();
+              setGradeScheme(gs);
               setSchemeUnset(false);
+              setGradeMode(gs.id.toString() === schemeMap.Midterm ? "M" : "F");
+            }
           } catch (err) {
             setDataError(true);
           }
@@ -117,27 +125,14 @@ const GradePublisher = (props) => {
    * Check for Overridden grades
    */
   useEffect(() => {
-    let hasOverride;
-    if (canvasGrades && !overrideWarningShown) {
-      const hasHidden = canvasGrades.reduce(
-        (result, grade) =>
-          result || grade.currentGrade !== grade.unpostedCurrentGrade,
-        false,
-      );
+    if (canvasGrades && !hasOverride) {
       // loops through grade data array of objects to see if any student has an overriden grade
       for (let i = 0; i < canvasGrades.length; i++) {
         if (canvasGrades[i].override == "Y") {
-          hasOverride = true;
+          setHasOverride(true);
           break;
         }
       }
-      // if gradebook has either an overriden grade or hidden grade, then it will alert user
-      if (hasOverride || hasHidden) {
-        alert(
-          "You either have hidden, unposted, or overridden gradebook entries that will impact the Final Grade column in your export. This affects the grade of at least one student in your course.",
-        );
-      }
-      setOverrideWarningShown(true);
     }
     if (canvasGrades && !bannerInitial) {
       try {
@@ -177,7 +172,7 @@ const GradePublisher = (props) => {
         setBannerGrades([]);
       }
     }
-  }, [canvasGrades, overrideWarningShown, bannerInitial, fetchOptions]);
+  }, [canvasGrades, hasOverride, bannerInitial, fetchOptions]);
 
   useEffect(() => {
     if (
@@ -213,7 +208,13 @@ const GradePublisher = (props) => {
    **/
   const sheetHandler = async () => {
     await window.fetch("/api/sheet", fetchOptions);
-    spreadsheet(gradeScheme.title, canvasGrades, sectionTitles, filename);
+    spreadsheet(
+      gradeScheme.title,
+      canvasGrades,
+      sectionTitles,
+      gradeMode,
+      filename,
+    );
   };
 
   const bannerHandler = async () => {
@@ -227,7 +228,7 @@ const GradePublisher = (props) => {
           "Content-Type": "application/json",
         },
         method: "POST",
-        body: JSON.stringify(canvasGrades),
+        body: JSON.stringify({ grades: canvasGrades, mode: gradeMode }),
       });
       setExportRunning(false);
       setBannerGrades(
@@ -251,24 +252,54 @@ const GradePublisher = (props) => {
       body: JSON.stringify({ scheme }),
     });
     setCanvasGrades(
-      canvasGrades.map((datum) => ({ ...datum, currentGrade: "loading" })),
+      canvasGrades.map((datum) => ({
+        ...datum,
+        currentGrade: "loading",
+        finalGrade: "loading",
+      })),
     );
     setSchemeUnset(null);
+  };
+
+  const updateAttendanceDates = (dates) => {
+    setAttendanceModalOpen(false);
+    const updatedCanvasGrades = canvasGrades.map((grade) => {
+      if (needsAttendanceDate(grade)) {
+        grade.lastAttendanceDate = dates[grade.gtID];
+      } else {
+        delete grade.lastAttendanceDate;
+      }
+      return grade;
+    });
+    setCanvasGrades(updatedCanvasGrades);
+  };
+
+  const needsAttendanceDate = (student) =>
+    ["F", "I"].includes(student.finalGrade);
+
+  const needsAttendanceDates = (strict) => {
+    if (canvasGrades) {
+      return (
+        canvasGrades.filter(
+          (grade) =>
+            needsAttendanceDate(grade) &&
+            (!strict || !grade.lastAttendanceDate),
+        ).length !== 0
+      );
+    }
+    return false;
   };
 
   const LargeClassWarning = (props) => {
     if (canvasGrades !== null && canvasGrades.length > 999) {
       return (
-        <Warning>
+        <Alert variant="warning">
           Exporting grades on large courses may take up to a minute.
-        </Warning>
+        </Alert>
       );
     }
   };
 
-  /**
-   * @return {Object} Render the Gradepub component
-   */
   return (
     <div>
       <Instructions />
@@ -278,6 +309,7 @@ const GradePublisher = (props) => {
           clickHandler={sheetHandler}
           dataReady={
             canvasGrades &&
+            canvasGrades[0] &&
             canvasGrades[0].currentGrade !== null &&
             !schemeUnset
           }
@@ -291,41 +323,80 @@ const GradePublisher = (props) => {
             clickHandler={handleGradeSchemeSelected}
           />
         ) : (
-          <Spinner size="x-small" margin="small" />
+          <Spinner
+            renderTitle="Loading grade scheme"
+            size="x-small"
+            margin="small"
+          />
         )}
         <hr />
       </View>
+      {hasOverride ? (
+        <Alert variant="warning">
+          You either have hidden, unposted, or overridden gradebook entries that
+          will impact the Final Grade column in your export. This affects the
+          grade of at least one student in your course.
+        </Alert>
+      ) : null}
+
       <View as="div" textAlign="center">
         {schemeUnset ? (
-          <Warning>
+          <Alert variant="warning">
             You have not set a grading scheme for this course, select one above
             to procede.
-          </Warning>
+          </Alert>
         ) : null}
       </View>
+      {canvasGrades ? (
+        <AttendanceModal
+          open={attendanceModalOpen}
+          students={canvasGrades.filter((student) =>
+            needsAttendanceDate(student),
+          )}
+          onDismiss={() => setAttendanceModalOpen(false)}
+          onSubmit={updateAttendanceDates}
+        />
+      ) : null}
       <View as="div" textAlign="center">
         <PublisherErrors exportError={exportError} dataError={dataError} />
         {gradingOpen && !dataError && !exportError ? (
           <>
+            {gradeMode === "F" && needsAttendanceDates() ? (
+              <Button
+                margin="small"
+                onClick={() => {
+                  setAttendanceModalOpen(true);
+                }}
+              >
+                Edit Last Attendance Dates
+              </Button>
+            ) : null}
             <BannerButton
               clickHandler={bannerHandler}
               dataReady={
                 canvasGrades &&
                 canvasGrades[0].currentGrade !== "loading" &&
+                !needsAttendanceDates(true) &&
                 !schemeUnset
               }
+              needsAttendanceDates={needsAttendanceDates(true)}
               exportRunning={exportRunning}
               published={published}
             />
             <LargeClassWarning />
-            <GradesList
-              canvasGrades={canvasGrades}
-              bannerGrades={bannerGrades}
-            />
           </>
         ) : null}
+        {gradingOpen && !dataError ? (
+          <GradesList
+            canvasGrades={canvasGrades}
+            bannerGrades={bannerGrades}
+            gradeMode={gradeMode}
+          />
+        ) : null}
         {gradingOpen === false ? (
-          <Warning>Grading is currently closed for this term in Banner</Warning>
+          <Alert variant="warning">
+            Grading is currently closed for this term in Banner
+          </Alert>
         ) : (
           ""
         )}
@@ -343,7 +414,7 @@ const GradePublisher = (props) => {
 GradePublisher.propTypes = {
   fetchOptions: PropTypes.object,
   filename: PropTypes.string,
-  term: PropTypes.number,
+  term: PropTypes.string,
 };
 
 /**

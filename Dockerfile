@@ -13,12 +13,14 @@ COPY .yarn ./.yarn
 
 RUN yarn install --immutable
 
+ARG BUILD_FOR="prod"
+
 COPY .eslintrc.cjs .
 COPY webpack.common.js .
-COPY webpack.prod.js .
+COPY webpack.${BUILD_FOR}.js .
 COPY client client
 
-RUN yarn build
+RUN yarn build-${BUILD_FOR}
 
 FROM base AS runner
 

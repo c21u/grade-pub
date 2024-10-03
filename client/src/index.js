@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { createRoot } from "react-dom";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { theme } from "@instructure/canvas-theme";
-import { EmotionThemeProvider } from "@instructure/emotion";
+import { InstUISettingsProvider } from "@instructure/emotion";
 import { jwtDecode } from "jwt-decode";
 import qs from "qs";
 import GradePublisher from "./components/GradePublisher.js";
@@ -11,7 +11,7 @@ import canvasLTIFixHeight from "./canvasLTIFixHeight.js";
 
 const App = () => {
   const [fetchOptions, setFetchOptions] = useState({});
-  const [filename, setFilename] = useState({});
+  const [filename, setFilename] = useState("");
   const [term, setTerm] = useState();
 
   useEffect(() => {
@@ -78,7 +78,7 @@ const defaultRoute = () => <h1>Default unprotected route</h1>;
 
 const root = createRoot(document.getElementById("lti_root"));
 root.render(
-  <EmotionThemeProvider theme={theme}>
+  <InstUISettingsProvider theme={theme}>
     <App />
-  </EmotionThemeProvider>,
+  </InstUISettingsProvider>,
 );

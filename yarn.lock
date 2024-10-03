@@ -1416,12 +1416,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.12.13, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.23.2, @babel/runtime@npm:^7.8.4":
+"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.12.13, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.18.3, @babel/runtime@npm:^7.8.4":
   version: 7.23.9
   resolution: "@babel/runtime@npm:7.23.9"
   dependencies:
     regenerator-runtime: "npm:^0.14.0"
   checksum: 10c0/e71205fdd7082b2656512cc98e647d9ea7e222e4fe5c36e9e5adc026446fcc3ba7b3cdff8b0b694a0b78bb85db83e7b1e3d4c56ef90726682b74f13249cf952d
+  languageName: node
+  linkType: hard
+
+"@babel/runtime@npm:^7.25.6":
+  version: 7.25.7
+  resolution: "@babel/runtime@npm:7.25.7"
+  dependencies:
+    regenerator-runtime: "npm:^0.14.0"
+  checksum: 10c0/86b7829d2fc9343714a9afe92757cf96c4dc799006ca61d73cda62f4b9e29bfa1ce36794955bc6cb4c188f5b10db832c949339895e1bbe81a69022d9d578ce29
   languageName: node
   linkType: hard
 
@@ -1472,41 +1481,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@csstools/css-parser-algorithms@npm:^2.3.1":
-  version: 2.5.0
-  resolution: "@csstools/css-parser-algorithms@npm:2.5.0"
-  peerDependencies:
-    "@csstools/css-tokenizer": ^2.2.3
-  checksum: 10c0/31b4a523d956e204af9842183678cca5a88ad76551d54dcb6083f8a6f2dfd8fdec6c09bca5410842af54b90997308bebee7593c17dbc1a4e951453b54bd3f024
-  languageName: node
-  linkType: hard
-
-"@csstools/css-tokenizer@npm:^2.2.0":
-  version: 2.2.3
-  resolution: "@csstools/css-tokenizer@npm:2.2.3"
-  checksum: 10c0/557266ec52e8b36c19008a5bbd7151effba085cdd6d68270c01afebf914981caac698eda754b2a530a8a9947a3dd70e3f3a39a5e037c4170bb2a055a92754acb
-  languageName: node
-  linkType: hard
-
-"@csstools/media-query-list-parser@npm:^2.1.4":
-  version: 2.1.7
-  resolution: "@csstools/media-query-list-parser@npm:2.1.7"
-  peerDependencies:
-    "@csstools/css-parser-algorithms": ^2.5.0
-    "@csstools/css-tokenizer": ^2.2.3
-  checksum: 10c0/433aef06b00f1d402fd24074a1919b8e2de94245a3b780da6466c8cc9e0f3cc93d2db930f0fce36c7d6908cd50b626cd61e803d3f62dddad79eeb742858028ef
-  languageName: node
-  linkType: hard
-
-"@csstools/selector-specificity@npm:^3.0.0":
-  version: 3.0.1
-  resolution: "@csstools/selector-specificity@npm:3.0.1"
-  peerDependencies:
-    postcss-selector-parser: ^6.0.13
-  checksum: 10c0/4280f494726d5e38de74e28dee2ff74ec86244560dff4edeec3ddff3ac73c774c19535bd1bb70cad77949bfb359cf87e977d0ec3264591e3b7260342a20dd84f
-  languageName: node
-  linkType: hard
-
 "@discoveryjs/json-ext@npm:^0.5.0":
   version: 0.5.7
   resolution: "@discoveryjs/json-ext@npm:0.5.7"
@@ -1514,129 +1488,129 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/babel-plugin@npm:^11.11.0":
-  version: 11.11.0
-  resolution: "@emotion/babel-plugin@npm:11.11.0"
+"@emotion/babel-plugin@npm:^11.12.0":
+  version: 11.12.0
+  resolution: "@emotion/babel-plugin@npm:11.12.0"
   dependencies:
     "@babel/helper-module-imports": "npm:^7.16.7"
     "@babel/runtime": "npm:^7.18.3"
-    "@emotion/hash": "npm:^0.9.1"
-    "@emotion/memoize": "npm:^0.8.1"
-    "@emotion/serialize": "npm:^1.1.2"
+    "@emotion/hash": "npm:^0.9.2"
+    "@emotion/memoize": "npm:^0.9.0"
+    "@emotion/serialize": "npm:^1.2.0"
     babel-plugin-macros: "npm:^3.1.0"
     convert-source-map: "npm:^1.5.0"
     escape-string-regexp: "npm:^4.0.0"
     find-root: "npm:^1.1.0"
     source-map: "npm:^0.5.7"
     stylis: "npm:4.2.0"
-  checksum: 10c0/89cbb6ec0e52c8ee9c2a4b9889ccd4fc3a75d28091d835bfac6d7c4565d3338621e23af0a85f3bcd133e1cae795c692e1dadada015784d4b0554aa5bb111df43
+  checksum: 10c0/930ff6f8768b0c24d05896ad696be20e1c65f32ed61fb5c1488f571120a947ef0a2cf69187b17114cc76e7886f771fac150876ed7b5341324fec2377185d6573
   languageName: node
   linkType: hard
 
-"@emotion/cache@npm:^11.11.0":
-  version: 11.11.0
-  resolution: "@emotion/cache@npm:11.11.0"
+"@emotion/cache@npm:^11.13.0":
+  version: 11.13.1
+  resolution: "@emotion/cache@npm:11.13.1"
   dependencies:
-    "@emotion/memoize": "npm:^0.8.1"
-    "@emotion/sheet": "npm:^1.2.2"
-    "@emotion/utils": "npm:^1.2.1"
-    "@emotion/weak-memoize": "npm:^0.3.1"
+    "@emotion/memoize": "npm:^0.9.0"
+    "@emotion/sheet": "npm:^1.4.0"
+    "@emotion/utils": "npm:^1.4.0"
+    "@emotion/weak-memoize": "npm:^0.4.0"
     stylis: "npm:4.2.0"
-  checksum: 10c0/a23ab5ab2fd08e904698106d58ad3536fed51cc1aa0ef228e95bb640eaf11f560dbd91a395477b0d84e1e3c20150263764b4558517cf6576a89d2d6cc5253688
+  checksum: 10c0/321e97d8980885737de13b47e41fd4febfbd83086f10c620f865fcbddb29b8fe198adec7e1c69cc7b137638ea9242d7c475c57f954f7ca229157fa92e368f473
   languageName: node
   linkType: hard
 
-"@emotion/hash@npm:^0.9.1":
-  version: 0.9.1
-  resolution: "@emotion/hash@npm:0.9.1"
-  checksum: 10c0/cdafe5da63fc1137f3db6e232fdcde9188b2b47ee66c56c29137199642a4086f42382d866911cfb4833cae2cc00271ab45cad3946b024f67b527bb7fac7f4c9d
+"@emotion/hash@npm:^0.9.2":
+  version: 0.9.2
+  resolution: "@emotion/hash@npm:0.9.2"
+  checksum: 10c0/0dc254561a3cc0a06a10bbce7f6a997883fd240c8c1928b93713f803a2e9153a257a488537012efe89dbe1246f2abfe2add62cdb3471a13d67137fcb808e81c2
   languageName: node
   linkType: hard
 
-"@emotion/is-prop-valid@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "@emotion/is-prop-valid@npm:1.2.1"
+"@emotion/is-prop-valid@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "@emotion/is-prop-valid@npm:1.3.1"
   dependencies:
-    "@emotion/memoize": "npm:^0.8.1"
-  checksum: 10c0/7c2aabdf0ca9986ca25abc9dae711348308cf18d418d64ffa4c8ffd2114806c47f2e06ba8ee769f38ec67d65bd59ec73f34d94023e81baa1c43510ac86ccd5e6
+    "@emotion/memoize": "npm:^0.9.0"
+  checksum: 10c0/123215540c816ff510737ec68dcc499c53ea4deb0bb6c2c27c03ed21046e2e69f6ad07a7a174d271c6cfcbcc9ea44e1763e0cf3875c92192f7689216174803cd
   languageName: node
   linkType: hard
 
-"@emotion/memoize@npm:^0.8.1":
-  version: 0.8.1
-  resolution: "@emotion/memoize@npm:0.8.1"
-  checksum: 10c0/dffed372fc3b9fa2ba411e76af22b6bb686fb0cb07694fdfaa6dd2baeb0d5e4968c1a7caa472bfcf06a5997d5e7c7d16b90e993f9a6ffae79a2c3dbdc76dfe78
+"@emotion/memoize@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "@emotion/memoize@npm:0.9.0"
+  checksum: 10c0/13f474a9201c7f88b543e6ea42f55c04fb2fdc05e6c5a3108aced2f7e7aa7eda7794c56bba02985a46d8aaa914fcdde238727a98341a96e2aec750d372dadd15
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:^11.11.1":
-  version: 11.11.3
-  resolution: "@emotion/react@npm:11.11.3"
+"@emotion/react@npm:^11":
+  version: 11.13.3
+  resolution: "@emotion/react@npm:11.13.3"
   dependencies:
     "@babel/runtime": "npm:^7.18.3"
-    "@emotion/babel-plugin": "npm:^11.11.0"
-    "@emotion/cache": "npm:^11.11.0"
-    "@emotion/serialize": "npm:^1.1.3"
-    "@emotion/use-insertion-effect-with-fallbacks": "npm:^1.0.1"
-    "@emotion/utils": "npm:^1.2.1"
-    "@emotion/weak-memoize": "npm:^0.3.1"
+    "@emotion/babel-plugin": "npm:^11.12.0"
+    "@emotion/cache": "npm:^11.13.0"
+    "@emotion/serialize": "npm:^1.3.1"
+    "@emotion/use-insertion-effect-with-fallbacks": "npm:^1.1.0"
+    "@emotion/utils": "npm:^1.4.0"
+    "@emotion/weak-memoize": "npm:^0.4.0"
     hoist-non-react-statics: "npm:^3.3.1"
   peerDependencies:
     react: ">=16.8.0"
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10c0/ce995395b8714343715284beb8478afdfa72b89ed83981a15a170ca0f4a2f77d7a4a198fd50c1f9c6efcd0535768d168ff88c5921dc5f90bb33134c7a75f9455
+  checksum: 10c0/a55e770b9ea35de5d35db05a7ad40a4a3f442809fa8e4fabaf56da63ac9444f09aaf691c4e75a1455dc388991ab0c0ab4e253ce67c5836f27513e45ebd01b673
   languageName: node
   linkType: hard
 
-"@emotion/serialize@npm:^1.1.2, @emotion/serialize@npm:^1.1.3":
-  version: 1.1.3
-  resolution: "@emotion/serialize@npm:1.1.3"
+"@emotion/serialize@npm:^1.2.0, @emotion/serialize@npm:^1.3.1":
+  version: 1.3.2
+  resolution: "@emotion/serialize@npm:1.3.2"
   dependencies:
-    "@emotion/hash": "npm:^0.9.1"
-    "@emotion/memoize": "npm:^0.8.1"
-    "@emotion/unitless": "npm:^0.8.1"
-    "@emotion/utils": "npm:^1.2.1"
+    "@emotion/hash": "npm:^0.9.2"
+    "@emotion/memoize": "npm:^0.9.0"
+    "@emotion/unitless": "npm:^0.10.0"
+    "@emotion/utils": "npm:^1.4.1"
     csstype: "npm:^3.0.2"
-  checksum: 10c0/875241eafaa30e7d3b7cf9b585d8c1f224cbf627a674e87eb1d7662dafa76a8c8d67f14a79dbf7d1eaa017e9f68389962990fbcc699d5ad65035a1a047432a3f
+  checksum: 10c0/b4873b643721d28b4450f9d77b71e6c8d0109e6825c54fc79e649d2fa438fe4080d2fa696ec8fda421b8e713fcd42306d6197b6121ddd2486ffab8e4b6311ce0
   languageName: node
   linkType: hard
 
-"@emotion/sheet@npm:^1.2.2":
-  version: 1.2.2
-  resolution: "@emotion/sheet@npm:1.2.2"
-  checksum: 10c0/69827a1bfa43d7b188f1d8cea42163143a36312543fdade5257c459a2b3efd7ce386aac84ba152bc2517a4f7e54384c04800b26adb382bb284ac7e4ad40e584b
+"@emotion/sheet@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "@emotion/sheet@npm:1.4.0"
+  checksum: 10c0/3ca72d1650a07d2fbb7e382761b130b4a887dcd04e6574b2d51ce578791240150d7072a9bcb4161933abbcd1e38b243a6fb4464a7fe991d700c17aa66bb5acc7
   languageName: node
   linkType: hard
 
-"@emotion/unitless@npm:^0.8.1":
-  version: 0.8.1
-  resolution: "@emotion/unitless@npm:0.8.1"
-  checksum: 10c0/a1ed508628288f40bfe6dd17d431ed899c067a899fa293a13afe3aed1d70fac0412b8a215fafab0b42829360db687fecd763e5f01a64ddc4a4b58ec3112ff548
+"@emotion/unitless@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@emotion/unitless@npm:0.10.0"
+  checksum: 10c0/150943192727b7650eb9a6851a98034ddb58a8b6958b37546080f794696141c3760966ac695ab9af97efe10178690987aee4791f9f0ad1ff76783cdca83c1d49
   languageName: node
   linkType: hard
 
-"@emotion/use-insertion-effect-with-fallbacks@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@emotion/use-insertion-effect-with-fallbacks@npm:1.0.1"
+"@emotion/use-insertion-effect-with-fallbacks@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@emotion/use-insertion-effect-with-fallbacks@npm:1.1.0"
   peerDependencies:
     react: ">=16.8.0"
-  checksum: 10c0/a15b2167940e3a908160687b73fc4fcd81e59ab45136b6967f02c7c419d9a149acd22a416b325c389642d4f1c3d33cf4196cad6b618128b55b7c74f6807a240b
+  checksum: 10c0/a883480f3a7139fb4a43e71d3114ca57e2b7ae5ff204e05cd9e59251a113773b8f64eb75d3997726250aca85eb73447638c8f51930734bdd16b96762b65e58c3
   languageName: node
   linkType: hard
 
-"@emotion/utils@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "@emotion/utils@npm:1.2.1"
-  checksum: 10c0/db43ca803361740c14dfb1cca1464d10d27f4c8b40d3e8864e6932ccf375d1450778ff4e4eadee03fb97f2aeb18de9fae98294905596a12ff7d4cd1910414d8d
+"@emotion/utils@npm:^1.4.0, @emotion/utils@npm:^1.4.1":
+  version: 1.4.1
+  resolution: "@emotion/utils@npm:1.4.1"
+  checksum: 10c0/f4704e0bdf48062fd6eb9c64771c88f521aab1e108a48cb23d65b6438597c63a6945301cef4c43611e79e0e76a304ec5481c31025ea8f573d7ad5423d747602c
   languageName: node
   linkType: hard
 
-"@emotion/weak-memoize@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "@emotion/weak-memoize@npm:0.3.1"
-  checksum: 10c0/ed514b3cb94bbacece4ac2450d98898066c0a0698bdeda256e312405ca53634cb83c75889b25cd8bbbe185c80f4c05a1f0a0091e1875460ba6be61d0334f0b8a
+"@emotion/weak-memoize@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "@emotion/weak-memoize@npm:0.4.0"
+  checksum: 10c0/64376af11f1266042d03b3305c30b7502e6084868e33327e944b539091a472f089db307af69240f7188f8bc6b319276fd7b141a36613f1160d73d12a60f6ca1a
   languageName: node
   linkType: hard
 
@@ -1707,27 +1681,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@instructure/canvas-high-contrast-theme@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/canvas-high-contrast-theme@npm:8.54.0"
+"@instructure/canvas-theme@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/canvas-theme@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/theme-registry": "npm:8.54.0"
-    "@instructure/ui-theme-tokens": "npm:8.54.0"
-  checksum: 10c0/389cfd992b013c0c81801215fb6193c9bd5a83bd78b3df9176b160a5b8cb9b86a8a0ced946c11786d3fcf9fd1e3e43cb1f2c0af5a6ddb02a6999f16642220083
-  languageName: node
-  linkType: hard
-
-"@instructure/canvas-theme@npm:8.54.0, @instructure/canvas-theme@npm:^8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/canvas-theme@npm:8.54.0"
-  dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/theme-registry": "npm:8.54.0"
-    "@instructure/ui-theme-tokens": "npm:8.54.0"
-  checksum: 10c0/9bc63751040eebc600fd8c8b0ab3c7d32929914fc5f0e1129b3247d8eae182f8c74b5c93fd51af55c8ad7f7fab17383677de0765803d361a8ca939b5a40e5c98
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/theme-registry": "npm:10.3.0"
+    "@instructure/ui-themes": "npm:10.3.0"
+  checksum: 10c0/98bfb18ed95b043e0ac3a90cad99d0a9e09fc5f7a135d6ab3118386821a32c5499e81c50a9e88af78094a68cd4b84a43ba1f9b862253a47941f2d2c01b51a89d
   languageName: node
   linkType: hard
 
@@ -1744,876 +1706,902 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@instructure/console@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/console@npm:8.54.0"
-  dependencies:
-    "@babel/helper-annotate-as-pure": "npm:^7.22.5"
-    "@babel/helper-module-imports": "npm:^7.22.15"
-    babel-plugin-macros: "npm:^3.1.0"
+"@instructure/console@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/console@npm:10.3.0"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/ce7f7746a4211f580819e092e04ba30b3a94df1e99fca702767336cbb65e2cf82320cd81d0e9f64df5e9197ea44e5a690c3ac7129b1ed644b94ee0fee4f2e560
+  checksum: 10c0/d16f3765f93f82590b65c5eddd92a3f55adfd7bef177666d7eeb0cd650b346be0cda3667eee6a61ab91a6c614f615025e7c773f09a78fe884bcf2dd9a7b26a5b
   languageName: node
   linkType: hard
 
-"@instructure/debounce@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/debounce@npm:8.54.0"
+"@instructure/debounce@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/debounce@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-  checksum: 10c0/292516ed39af3cd0cfc27f10be4ee3074e674dee985952c6f52a7864b189276943a04e99c981f57d67e5669afca937359f878c83204b46553c5e19ff337da6a8
+    "@babel/runtime": "npm:^7.25.6"
+  checksum: 10c0/46ce823172b32bdbdc00decaa520f4dcf2343697d84215ffd2b34bd052c2f07c3fcf4ec986703349ee66596c2ad84d774e58f615c04a83520a397af3a561647d
   languageName: node
   linkType: hard
 
-"@instructure/emotion@npm:8.54.0, @instructure/emotion@npm:^8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/emotion@npm:8.54.0"
+"@instructure/emotion@npm:10.3.0, @instructure/emotion@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/emotion@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@emotion/react": "npm:^11.11.1"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/theme-registry": "npm:8.54.0"
-    "@instructure/ui-decorator": "npm:8.54.0"
-    "@instructure/ui-i18n": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-themes": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@emotion/react": "npm:^11"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/theme-registry": "npm:10.3.0"
+    "@instructure/ui-decorator": "npm:10.3.0"
+    "@instructure/ui-i18n": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-themes": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
     hoist-non-react-statics: "npm:^3.3.2"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/8edcd0c8b8a43a8a4a2adf81a8a49b72f81138fd596e4d5cd2ac698cd39279ac42a3373cc15942c1b8419e7ecfc845a634402d51a24e77796b7cdc51cad63df4
+  checksum: 10c0/eaea6ad3401cb3007f27444b628d3bee93be079c21b6b63870bae5d966523c4565068d53528280ecaecb7ea049bdffd94e0ca9eff74a204e117eb635e8b05d2e
   languageName: node
   linkType: hard
 
-"@instructure/instructure-theme@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/instructure-theme@npm:8.54.0"
-  dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/theme-registry": "npm:8.54.0"
-    "@instructure/ui-theme-tokens": "npm:8.54.0"
-  checksum: 10c0/032538152dc46bebfb9e357fa765aa00727bd4b9fc7511a266852891e4e2037f00a021abd25d1671bda7e9b46a2403253c6035a1ae6c819a5dceb0149c0f6b24
-  languageName: node
-  linkType: hard
-
-"@instructure/shared-types@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/shared-types@npm:8.54.0"
+"@instructure/shared-types@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/shared-types@npm:10.3.0"
   dependencies:
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/001e724f137f05253e0120ea865089894b036ad01345d5aeeba859b117b70d3a4bca2c4066b9b04f14a48a1bcbb184f92860a7e83350c7f03277672588771df2
+  checksum: 10c0/2d1afdbecfc217cd13b35cc4416c2e012cffe7fe2512c274686067e55ee93346f4e08043780499721ec31f840c92f3e659e4e5c3d90dbbfc722c2c711b02f743
   languageName: node
   linkType: hard
 
-"@instructure/theme-registry@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/theme-registry@npm:8.54.0"
+"@instructure/theme-registry@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/theme-registry@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
-  checksum: 10c0/1d2243740a7e1ab8f74910b7406b2a8f4ed378b731b5f873cd1ad310dd43b5fda1a478e919bd74ac166aa5576d87a6b1fdef571b10376341efe80e1fa4476c8e
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
+  checksum: 10c0/8ea3be122c0cc143c3a22c1492b3d415dcd761f34a928745e8d586c0c3e35babcc29101a53208d8380b314f5e4273450f18248178c389a87c98796108876ea8f
   languageName: node
   linkType: hard
 
-"@instructure/ui-a11y-content@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-a11y-content@npm:8.54.0"
+"@instructure/ui-a11y-content@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-a11y-content@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-prop-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
-    "@instructure/uid": "npm:8.54.0"
-    keycode: "npm:^2.2.1"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/0494bb384d23299bfeae616892ab8eb6bf2d31ba52d430360a0fc0a2cfdc9ab7f95042c8705985ef03608e5052acb29ae3d55787ed6e7acc2e7dd5e9689c0565
+  checksum: 10c0/1d0f3c9bcb9326f389b4c9639eb59e34232257a671d43927645fd900cecde18fb2a84c0ded19069abab0af322c387303f3072c3f62a2c2c6b0d004896372abce
   languageName: node
   linkType: hard
 
-"@instructure/ui-a11y-utils@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-a11y-utils@npm:8.54.0"
+"@instructure/ui-a11y-utils@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-a11y-utils@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/ui-a11y-content": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/uid": "npm:8.54.0"
-    keycode: "npm:^2.2.1"
-    prop-types: "npm:^15.8.1"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-a11y-content": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/uid": "npm:10.3.0"
+    keycode: "npm:^2"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/e84f023aa54de92b50c1ddf8ad54d54ebf180245b028539455660f668d94f68f962bc986d940b72064e9e67afe9b78f3cb5fb475c28aec19c9d67f9e40d81a17
+  checksum: 10c0/4fd4bf738255a773dd729e127ed279aff3b446ba2abf5da060154090740b851c722a7ec135452ff0705c3ef2f5e609bdad56ea8ccf3584adcb0e814045c8b6a4
   languageName: node
   linkType: hard
 
-"@instructure/ui-buttons@npm:8.54.0, @instructure/ui-buttons@npm:^8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-buttons@npm:8.54.0"
+"@instructure/ui-alerts@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-alerts@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-a11y-content": "npm:8.54.0"
-    "@instructure/ui-a11y-utils": "npm:8.54.0"
-    "@instructure/ui-color-utils": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-icons": "npm:8.54.0"
-    "@instructure/ui-position": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-tooltip": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
-    "@instructure/ui-view": "npm:8.54.0"
-    keycode: "npm:^2.2.1"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-a11y-content": "npm:10.3.0"
+    "@instructure/ui-buttons": "npm:10.3.0"
+    "@instructure/ui-icons": "npm:10.3.0"
+    "@instructure/ui-motion": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-themes": "npm:10.3.0"
+    "@instructure/ui-view": "npm:10.3.0"
+    keycode: "npm:^2"
     prop-types: "npm:^15.8.1"
-  peerDependencies:
-    react: ">=16.8 <=18"
-  checksum: 10c0/bc6083a260eced3237af314e6de93a8122666ef75dae07b91f32f758e9ac9fdb9804e2f46a0ea3e68c7b20af8e720e80df6d6f82d0408dab35527c23a2cbc4fc
-  languageName: node
-  linkType: hard
-
-"@instructure/ui-color-utils@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-color-utils@npm:8.54.0"
-  dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    tinycolor2: "npm:^1.6.0"
-  checksum: 10c0/601f204604360deea061abd325bd228819a5431b333cc6c7f91769316515f2b568ad6ac7f6712b8fe16d6bf60727d7f77e291fc4322a0e73308d2b5022c5b406
-  languageName: node
-  linkType: hard
-
-"@instructure/ui-decorator@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-decorator@npm:8.54.0"
-  dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-  checksum: 10c0/a1a6bc4684313b69ef3ca4590514936d77979d7199094e87ec3c211c9bcb626503e396377d2e22f92353eaca87ec1ca0c1d204040c0ab6a115246491d486b927
-  languageName: node
-  linkType: hard
-
-"@instructure/ui-dialog@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-dialog@npm:8.54.0"
-  dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-a11y-utils": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    prop-types: "npm:^15.8.1"
-  peerDependencies:
-    react: ">=16.8 <=18"
-  checksum: 10c0/573df1427c706c65b7e53dad58fba1c5facec0420c8ff4b4d44ecc6e0b882b494eac66edd0e7ef95bec8da27b58e4504d3b8905ad9aa060aae7c5702773de1da
-  languageName: node
-  linkType: hard
-
-"@instructure/ui-dom-utils@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-dom-utils@npm:8.54.0"
-  dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
   peerDependencies:
     react: ">=16.8 <=18"
     react-dom: ">=16.8 <=18"
-  checksum: 10c0/d1230632219cd26440a48148566ba517235d62ce0aa7c37264cbd6c591303bf62185b326af63ddef22b10fd48d246522b5cbe2abe2ef286198ae2f5b3f7e181b
+  checksum: 10c0/70da8b69bf88373fb76125c46d0c828581a4da1362ac578979d9eb8992aa82d70f93da54479def75d52a24b2787a9c321e20b80c0fa7be245a3bdfec3810912a
   languageName: node
   linkType: hard
 
-"@instructure/ui-focusable@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-focusable@npm:8.54.0"
+"@instructure/ui-buttons@npm:10.3.0, @instructure/ui-buttons@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-buttons@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
-    "@instructure/ui-view": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-a11y-content": "npm:10.3.0"
+    "@instructure/ui-a11y-utils": "npm:10.3.0"
+    "@instructure/ui-color-utils": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-icons": "npm:10.3.0"
+    "@instructure/ui-position": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-tooltip": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
+    "@instructure/ui-view": "npm:10.3.0"
+    keycode: "npm:^2"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/05f061f8a2a11ad953eb43336eae9018c857b2f25f1baf78fe9991562078e2666773af963fd00a29e4f5aef5dd09a1bc7f24e67114356e36736d5b2c2f32add7
+  checksum: 10c0/9ef43c582e7d92c8111ee71170402c0d4670e83d5ed5a7022e9d1dabb600740065dfc1731cee23ef4e996cc135c127f579935c5794c09fbf8e82014b942f6fc9
   languageName: node
   linkType: hard
 
-"@instructure/ui-form-field@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-form-field@npm:8.54.0"
+"@instructure/ui-calendar@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-calendar@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-a11y-content": "npm:8.54.0"
-    "@instructure/ui-a11y-utils": "npm:8.54.0"
-    "@instructure/ui-grid": "npm:8.54.0"
-    "@instructure/ui-icons": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
-    "@instructure/uid": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-a11y-content": "npm:10.3.0"
+    "@instructure/ui-buttons": "npm:10.3.0"
+    "@instructure/ui-i18n": "npm:10.3.0"
+    "@instructure/ui-icons": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-simple-select": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
+    "@instructure/ui-view": "npm:10.3.0"
+    "@instructure/uid": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/7eb329db85e8faec0181fcf6e72f599d7668d267e906341073885d4e5f7d70965bc241b68bd009d4ef788969e89d918112ab1e8eecf3d2e6e386c8f283ea9f5e
+  checksum: 10c0/181f9ef4e8d5bf3a8fa84db0b3d11fb10d6fc80e97a90611ce6f17ecbd4da014a7c07eeeb70c316a3583709ede9ca305bb5c2bdb66d8d4de1ed475ab88229f0c
   languageName: node
   linkType: hard
 
-"@instructure/ui-grid@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-grid@npm:8.54.0"
+"@instructure/ui-color-utils@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-color-utils@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-a11y-content": "npm:8.54.0"
-    "@instructure/ui-prop-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    tinycolor2: "npm:^1.6.0"
+  checksum: 10c0/e25316fb570ef224911402708f1efa3e3447254794f7efe2597b1aeaee776945c5a33310d915e809568c76d544a0e75eec44278b446c46e75313c03fc291dea5
+  languageName: node
+  linkType: hard
+
+"@instructure/ui-date-input@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-date-input@npm:10.3.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-calendar": "npm:10.3.0"
+    "@instructure/ui-form-field": "npm:10.3.0"
+    "@instructure/ui-i18n": "npm:10.3.0"
+    "@instructure/ui-icons": "npm:10.3.0"
+    "@instructure/ui-popover": "npm:10.3.0"
+    "@instructure/ui-position": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-selectable": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-text-input": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
+    moment-timezone: "npm:^0.5.45"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/b34adc9d6f43a02cbe3adbc35895a50f1a829870f7e9f2398f0e0853761834096cd4cb15236ed7c6afdad81b6f07e75eacb783fd45fba4d774013616f400cd14
+  checksum: 10c0/0a71f8cab233fc8db394d2d7c636b119efbb53979b5bd93391ff318d74034086ad57d2c6d05e4c5e5ab5499d2a1895f69f149d964124e56f6eb5d40913b98f1d
   languageName: node
   linkType: hard
 
-"@instructure/ui-heading@npm:^8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-heading@npm:8.54.0"
+"@instructure/ui-decorator@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-decorator@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-prop-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-view": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+  checksum: 10c0/97e99e6af1054508c3660b3c1660c5db102bd473f4f483963f27c1c925b20d046305369598d55f3cc8e20a9133216cfa5755f25f96de62b900c74b0ddb0e385d
+  languageName: node
+  linkType: hard
+
+"@instructure/ui-dialog@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-dialog@npm:10.3.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-a11y-utils": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/3ae40b5332208361903c56e05a54f10ae58ec78232a2959537e419c689e705bcba2cac8a9833bfdf72ad0976b7b3764fa1f16c5ac6e8ad3ea76216338c738ed7
+  checksum: 10c0/73ed02545d248da54614cd5b85141a5af7f4a16d27387a8a35d33626e45b28af96437f67601cdce7f452204cd2c6bf72f355f503a1bc1f47ed3a2885f2d31df7
   languageName: node
   linkType: hard
 
-"@instructure/ui-i18n@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-i18n@npm:8.54.0"
+"@instructure/ui-dom-utils@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-dom-utils@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-decorator": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-prop-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+  peerDependencies:
+    react: ">=16.8 <=18"
+    react-dom: ">=16.8 <=18"
+  checksum: 10c0/d3ef9aff9856cb5daeeb4171e7eae611d7da8b25afee0dec0325d027c2e80714a99e135a09d083128080986b7164da5a5010c9620466e8d8a7ad63bb780e0b63
+  languageName: node
+  linkType: hard
+
+"@instructure/ui-focusable@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-focusable@npm:10.3.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
+    "@instructure/ui-view": "npm:10.3.0"
+    prop-types: "npm:^15.8.1"
+  peerDependencies:
+    react: ">=16.8 <=18"
+  checksum: 10c0/4d9377bcef6c5daa3798f8dfb2b3bc0591bbdb570d333551edb0931bcc1bbdeca2df0537898f7ca3cca2bc2abfdb9a09e902bc52b578094778452981d304879d
+  languageName: node
+  linkType: hard
+
+"@instructure/ui-form-field@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-form-field@npm:10.3.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-a11y-content": "npm:10.3.0"
+    "@instructure/ui-a11y-utils": "npm:10.3.0"
+    "@instructure/ui-grid": "npm:10.3.0"
+    "@instructure/ui-icons": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
+    "@instructure/uid": "npm:10.3.0"
+    prop-types: "npm:^15.8.1"
+  peerDependencies:
+    react: ">=16.8 <=18"
+  checksum: 10c0/b4ff49d3d8763def532fe240c388fcd0911223d4052f40deaeedbc1b5bace783d5b80c652c257ececc2931f6961fb35a3ffc8813efe1e5725dca0d16d48e5298
+  languageName: node
+  linkType: hard
+
+"@instructure/ui-grid@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-grid@npm:10.3.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-a11y-content": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
+    prop-types: "npm:^15.8.1"
+  peerDependencies:
+    react: ">=16.8 <=18"
+  checksum: 10c0/233e7c494a0b50c3259e628e31ceb17bbd9c3450e69ee1379a702105e2af57037c32f51402d1e144c28be150f31d68d3be4fd286e77ca611151cac3cb92d75ac
+  languageName: node
+  linkType: hard
+
+"@instructure/ui-heading@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-heading@npm:10.3.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-view": "npm:10.3.0"
+    prop-types: "npm:^15.8.1"
+  peerDependencies:
+    react: ">=16.8 <=18"
+  checksum: 10c0/a6ae2234f1a987fd348ee38e6876f2e37d1378a532ade8bfc8ff94b3265cc854e51c59a2ad4d903f0b4e0e937fc708042f77046914b6fec34e77aa27a64ab60a
+  languageName: node
+  linkType: hard
+
+"@instructure/ui-i18n@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-i18n@npm:10.3.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-decorator": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
     hoist-non-react-statics: "npm:^3.3.2"
-    moment-timezone: "npm:^0.5.43"
+    moment-timezone: "npm:^0.5.45"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/4641cddce08b8a4b49b84b61bdd49129020f9c925547f8cc147fbed8db15aa2b55a103f8b69ab00dc563a58486824a62b67e72a15cbf98afd46e3aec1ef11e54
+  checksum: 10c0/3171412dc6a0ec41e8e0c9c21c33463ce15a4fd6ae8d8dd6826db2aef69b5edd3ee6e1a3493852be197fd98d645fc487f827bd57ded6d6bb9cc7e699101f5ae7
   languageName: node
   linkType: hard
 
-"@instructure/ui-icons@npm:8.54.0, @instructure/ui-icons@npm:^8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-icons@npm:8.54.0"
+"@instructure/ui-icons@npm:10.3.0, @instructure/ui-icons@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-icons@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/ui-svg-images": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/ui-svg-images": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/ab2a43f5b7e099100ccef33998b783e8c35d2e5992e09132d4549d57cc5068b83540bfced1c6174f578340edb46fb3771a0b6aff40529f76d1b2bcbefd6d34fc
+  checksum: 10c0/4384230247622c2ab639bd2283442804d24ffd17d185a610a7bedee26402a05ac412b59983a43294ba26dff00ea53c21a785025203f9d31ef6225425a33ba244
   languageName: node
   linkType: hard
 
-"@instructure/ui-link@npm:^8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-link@npm:8.54.0"
+"@instructure/ui-link@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-link@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-a11y-utils": "npm:8.54.0"
-    "@instructure/ui-color-utils": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-icons": "npm:8.54.0"
-    "@instructure/ui-prop-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-view": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-a11y-utils": "npm:10.3.0"
+    "@instructure/ui-color-utils": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-icons": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-view": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/1e2cbac9902e9fb66d22315f7fc77d11ef6695d6bc83e4d05b8995ee9409bbcb778bd740d153cb6b33c459cec94496ab4fc2050fc8feed76fc30ddbe5ff05978
+  checksum: 10c0/9beb320b29ccf2291d60259d60d4e232a98483dcd4f0574a8e5b8a034e7059464d2bdbe85774416cb5d88e5ecacae3686fdaa5e6a880f690d47059e022b64ed5
   languageName: node
   linkType: hard
 
-"@instructure/ui-list@npm:^8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-list@npm:8.54.0"
+"@instructure/ui-list@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-list@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-prop-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-view": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-view": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/a5a94979e6e1c48057fa7d791188ce5a31301a6bee809fd22af4fee3d9b44f78db0a79c890350fe12ca688e8d56e8eefa8b7a6932491a42d147f65b9f54da9b8
+  checksum: 10c0/aabccf8917726cbbcdfeb760af64880cb3572c7922418d23b793b5c79cd08c3885c79939c72dbb7f947921eb116fad16a8b90c9685833dafc4024abfecdfb1f4
   languageName: node
   linkType: hard
 
-"@instructure/ui-modal@npm:^8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-modal@npm:8.54.0"
+"@instructure/ui-modal@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-modal@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-buttons": "npm:8.54.0"
-    "@instructure/ui-dialog": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-motion": "npm:8.54.0"
-    "@instructure/ui-overlays": "npm:8.54.0"
-    "@instructure/ui-portal": "npm:8.54.0"
-    "@instructure/ui-prop-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
-    "@instructure/ui-view": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-buttons": "npm:10.3.0"
+    "@instructure/ui-dialog": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-motion": "npm:10.3.0"
+    "@instructure/ui-overlays": "npm:10.3.0"
+    "@instructure/ui-portal": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
+    "@instructure/ui-view": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/3bde40c77d5ac4dc926efcf96452cd6929ad876dd90465b4e3cc79d4c974d3e41fa12b19df8e43ad5993328aa0c3b12bdb2c014de3a96b663a742b9be9c98daf
+  checksum: 10c0/4b3ad6db906f20f34a6d5f014364b4525cfcf2156923944a7e4d235ae36dfd7c17c3d30f36a3d47aee992b010591e24cacda3cb21e23d891702ceaaca58fa0c7
   languageName: node
   linkType: hard
 
-"@instructure/ui-motion@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-motion@npm:8.54.0"
+"@instructure/ui-motion@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-motion@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/029e0e0ad275141a7d3ac39d2bfefdaed9a271667baf43ca516f7fe8032a71953c62292541ce729c486277a6b0a1c295d0db276eb362fdcf704e32d8c140641c
+  checksum: 10c0/757872d913b5020226d5ef2ee6e50979bb463be9401545742355d1ef060bb1ff30267c3dde941f9b6ee4f175cf5d9fd74f19028a99aa30d4084186e24955b5ba
   languageName: node
   linkType: hard
 
-"@instructure/ui-options@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-options@npm:8.54.0"
+"@instructure/ui-options@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-options@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-icons": "npm:8.54.0"
-    "@instructure/ui-prop-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-view": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-icons": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-view": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/598db7503af191f8c71f494d271187a0a0c65d7033bec11f968551ba54fed6187456df762abb4d3174eb09a0f762565ba9e884b274d76bd0575832f31ccb0183
+  checksum: 10c0/e37b0647ef951e62a937334489e6dc1388d7cd935564b57b7aa6a813dd77c2045f1436bd354972dbfdfe0d5a4881849116878af3dd156eb1a60aa4077864d621
   languageName: node
   linkType: hard
 
-"@instructure/ui-overlays@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-overlays@npm:8.54.0"
+"@instructure/ui-overlays@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-overlays@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-buttons": "npm:8.54.0"
-    "@instructure/ui-dialog": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-focusable": "npm:8.54.0"
-    "@instructure/ui-i18n": "npm:8.54.0"
-    "@instructure/ui-motion": "npm:8.54.0"
-    "@instructure/ui-popover": "npm:8.54.0"
-    "@instructure/ui-portal": "npm:8.54.0"
-    "@instructure/ui-position": "npm:8.54.0"
-    "@instructure/ui-prop-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-tooltip": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
-    "@instructure/ui-view": "npm:8.54.0"
-    "@instructure/uid": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-buttons": "npm:10.3.0"
+    "@instructure/ui-dialog": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-focusable": "npm:10.3.0"
+    "@instructure/ui-i18n": "npm:10.3.0"
+    "@instructure/ui-motion": "npm:10.3.0"
+    "@instructure/ui-popover": "npm:10.3.0"
+    "@instructure/ui-portal": "npm:10.3.0"
+    "@instructure/ui-position": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-tooltip": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
+    "@instructure/ui-view": "npm:10.3.0"
+    "@instructure/uid": "npm:10.3.0"
     no-scroll: "npm:^2.1.1"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/e92fe2b2e61603c99a8072fa966daca5927058a64cece2610b6fe8afe7edfe8fe96791e4172dc86ab5b9f1d257eafaf8b6a94e875ad5683a108c4e0874d87a2c
+  checksum: 10c0/3ff372ad1725d3c15ddcd8c7edb7c66f5d220b1a3920f7625b4b6c362ba2454077541f4538af9bbd0bca7265b6cb0ba0363157d6a88a269ddaab7db18f9d30aa
   languageName: node
   linkType: hard
 
-"@instructure/ui-popover@npm:8.54.0, @instructure/ui-popover@npm:^8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-popover@npm:8.54.0"
+"@instructure/ui-popover@npm:10.3.0, @instructure/ui-popover@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-popover@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/ui-a11y-utils": "npm:8.54.0"
-    "@instructure/ui-dialog": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-i18n": "npm:8.54.0"
-    "@instructure/ui-position": "npm:8.54.0"
-    "@instructure/ui-prop-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
-    "@instructure/ui-view": "npm:8.54.0"
-    "@instructure/uid": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-a11y-utils": "npm:10.3.0"
+    "@instructure/ui-dialog": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-i18n": "npm:10.3.0"
+    "@instructure/ui-position": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
+    "@instructure/ui-view": "npm:10.3.0"
+    "@instructure/uid": "npm:10.3.0"
     keycode: "npm:^2.2.1"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/f27ee96fc9a593169407c972ed98a1d22913274d3c396f9280c75d7d0213e6244a94a6b59d54262e40f542a5391d7eaa01abf33e139cd46fea1f6d287e4613ff
+  checksum: 10c0/4eaf10a02674db357c192a74236789c95ba7137bb1c55ad7f9be155075ad8ade600f690a1a4e6d890226dab8953674b60eef7af70f756a66ceb456f5b1960c2d
   languageName: node
   linkType: hard
 
-"@instructure/ui-portal@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-portal@npm:8.54.0"
+"@instructure/ui-portal@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-portal@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-i18n": "npm:8.54.0"
-    "@instructure/ui-prop-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-i18n": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
     react-dom: ">=16.8 <=18"
-  checksum: 10c0/fc2b88f8339410df1544c1923595cc076163a889d70e2ebb93db03a07ab4cae442c76ec3106a24e4f6cc5a71b1dfca4b12755a927450035bb44b70f6de541a4c
+  checksum: 10c0/8f7fa67a69ec1393650dffd98cb50c309ec8ef42ae84a738504d58d65f7f0e785e94bb2f76cfd7aee24f5263ffdbb395f23ba20c4f586fa05f5703fe8c95e214
   languageName: node
   linkType: hard
 
-"@instructure/ui-position@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-position@npm:8.54.0"
+"@instructure/ui-position@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-position@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/debounce": "npm:8.54.0"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-portal": "npm:8.54.0"
-    "@instructure/ui-prop-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
-    "@instructure/uid": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/debounce": "npm:10.3.0"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-portal": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
+    "@instructure/uid": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/60c57372708e59337ff8b557035882471687ec16e6c7e058cf2e4306ac0e8a226ef95afdd13ef043873eee091f6e8d49bf89c66f2fa6be0d50de71b4553733dd
+  checksum: 10c0/5b2f8f81888e1fddfc912ce5c119d2d883c9c702399355eaa33a421f32b2fceb6bdf2976455f06ce7cf9115f3ca10a183e4a0c39c0974d4928f2d409988c86e3
   languageName: node
   linkType: hard
 
-"@instructure/ui-prop-types@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-prop-types@npm:8.54.0"
+"@instructure/ui-prop-types@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-prop-types@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
+    "@babel/runtime": "npm:^7.25.6"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/9d4309bf3962d6d38c1ab8cb53e51fa9deac219aad8566c8415760eadd65374e8e1c46702ac853a2d1d2ba022aab00402f449fc6e635c6c62847eec2fe6186c1
+  checksum: 10c0/83034b392e1b84b49066f6556b2e5afdc57606c6319f128c322d5bb5ba1d66ffdaf7ef1b52099c8fba1fbfcfdb937e312f162d7a7ebdf9236e64f3b190a878d5
   languageName: node
   linkType: hard
 
-"@instructure/ui-react-utils@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-react-utils@npm:8.54.0"
+"@instructure/ui-react-utils@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-react-utils@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@emotion/is-prop-valid": "npm:^1.2.1"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-decorator": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@emotion/is-prop-valid": "npm:^1.3.1"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-decorator": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
     hoist-non-react-statics: "npm:^3.3.2"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
     react-dom: ">=16.8 <=18"
-  checksum: 10c0/08733702b8d9926f5363e7560ca142abf1303e8ea136ee5df45835ac1e370ba9fc7bf2fb371730345da61a55a6591dc18ca604cedd56d15b1a8ee69dfb27f9e4
+  checksum: 10c0/2a3dfe39725ef21ed769fb188c17443bc6c8d7002a1568328df5fd9def352410516fc54c4b914f2e72f502ee227d52dbb03af60b67e59473a60649cda0628af0
   languageName: node
   linkType: hard
 
-"@instructure/ui-responsive@npm:^8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-responsive@npm:8.54.0"
+"@instructure/ui-responsive@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-responsive@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/debounce": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/debounce": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/1d19612df52ddaf22952f917248e10c2763b4ae2452e39fee44c37521a7fb1fc0dd9f68148b8c97c3ab210d83d1ed686d358556c5d940749b8337521e974462b
+  checksum: 10c0/59b5776c7aec5d97676d00b6f7f1918af7c6253ca57d9a4e5edbca732c9030224fdf5ead432603b3ac1dc76d83b6c5ff321075726d49b80e471890fa8ee6ca93
   languageName: node
   linkType: hard
 
-"@instructure/ui-select@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-select@npm:8.54.0"
+"@instructure/ui-select@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-select@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-form-field": "npm:8.54.0"
-    "@instructure/ui-icons": "npm:8.54.0"
-    "@instructure/ui-options": "npm:8.54.0"
-    "@instructure/ui-popover": "npm:8.54.0"
-    "@instructure/ui-position": "npm:8.54.0"
-    "@instructure/ui-prop-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-selectable": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-text-input": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
-    "@instructure/ui-view": "npm:8.54.0"
-    "@instructure/uid": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-form-field": "npm:10.3.0"
+    "@instructure/ui-icons": "npm:10.3.0"
+    "@instructure/ui-options": "npm:10.3.0"
+    "@instructure/ui-popover": "npm:10.3.0"
+    "@instructure/ui-position": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-selectable": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-text-input": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
+    "@instructure/ui-view": "npm:10.3.0"
+    "@instructure/uid": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/f5c2ebd22cdbbc8e08b099f1d3f417521694d3e4ce738ac7e401bf483bca1abd2aeed87d23ee24ce2d4f0883a14f2cc3f9ef332d9f120ae566d616c4ffda67b2
+  checksum: 10c0/5bd32e03498bb17347568b8a4e88c69504964793c9021f9172f35000de6167755880ad97539d83ac17a9b71e6ea4c394af8d888bf61250df6dfa2d048c032581
   languageName: node
   linkType: hard
 
-"@instructure/ui-selectable@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-selectable@npm:8.54.0"
+"@instructure/ui-selectable@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-selectable@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
-    keycode: "npm:^2.2.1"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
+    keycode: "npm:^2"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/a05b4b5846cb296aed51035b196d80ff0baa0b90aa2a9e129fa9e118b9c783199697d81c402d3e0d548dda5d9235c837c5c60b2db57dbb6354cddb3ee243773c
+  checksum: 10c0/44a067059362f9061ff3e53fd9666578f7dd79c8f96f26a84d72cd19483225d9973c075440bf7181a86d4f45a9c1b21bfa78cf0ae9017490819922ecfac54a56
   languageName: node
   linkType: hard
 
-"@instructure/ui-simple-select@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-simple-select@npm:8.54.0"
+"@instructure/ui-simple-select@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-simple-select@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-form-field": "npm:8.54.0"
-    "@instructure/ui-position": "npm:8.54.0"
-    "@instructure/ui-prop-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-select": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-form-field": "npm:10.3.0"
+    "@instructure/ui-position": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-select": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/27358b35f4f99823d5eb797ede227b9905d365644c8fb85f196242cf303a340820daf0865a96ff9417a7ba1d6f66e91e45b4216603ad300ebaef61e43eb4e3b0
+  checksum: 10c0/5568fd7ae4700bfc32d64a21d6cd616c4fafe2a05701c1ded8654e105392ed7e031ac36af2baa4f9a7470c5426bdbb0a9c33a68621e216ecdf658e2a110b1964
   languageName: node
   linkType: hard
 
-"@instructure/ui-spinner@npm:^8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-spinner@npm:8.54.0"
+"@instructure/ui-spinner@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-spinner@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-color-utils": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
-    "@instructure/ui-view": "npm:8.54.0"
-    "@instructure/uid": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-color-utils": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
+    "@instructure/ui-view": "npm:10.3.0"
+    "@instructure/uid": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/86188484237c6591d3b061cd59226f4c94bb1a234a5c386392a2f11cd2d74a8832f7531313493c7348cb8c40e0c09f856b0c0e68b35bb22daf760e367d285934
+  checksum: 10c0/add4c8e13b5e93116d1bf1e2105b06ba7973fe923ea313357f1d7b26e0e1d6e4d272893c3c8c7b8f423a762e7a7e396c94203da61907b20e635142f30fc258ed
   languageName: node
   linkType: hard
 
-"@instructure/ui-svg-images@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-svg-images@npm:8.54.0"
+"@instructure/ui-svg-images@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-svg-images@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
-    "@instructure/uid": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
+    "@instructure/uid": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/490b3ad7c474c2290096b8d6dfb4f2f6f00df439559bc9f525af33692ae04f85f17fa09eec729efc68a3c595a82ea21abceecefc30079ad1f8862b66cd330e64
+  checksum: 10c0/bec2225678622651389e58292cb795ef3d6a61c98111019d6a54aae8eac41d0677620d9660aca143a0728c87b7ed6414ab6e516b9ef6aa0bf77b016badd57860
   languageName: node
   linkType: hard
 
-"@instructure/ui-table@npm:^8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-table@npm:8.54.0"
+"@instructure/ui-table@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-table@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-a11y-content": "npm:8.54.0"
-    "@instructure/ui-icons": "npm:8.54.0"
-    "@instructure/ui-prop-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-simple-select": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
-    "@instructure/ui-view": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-a11y-content": "npm:10.3.0"
+    "@instructure/ui-icons": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-simple-select": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
+    "@instructure/ui-view": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/89fb139c6dd1c803135f99507b4ac178199ee06d964ec86691b271bdda03a33e59edcd8c9d3a6a0f04a0229a703c032d405a3e9483022e109ed042a83309400f
+  checksum: 10c0/53626a53dfd0834b2e6239f654e03b41623fe3bbaf62e7af632a9b7453a1e22e6b70bbf3fe351ee29ec273ef20647744a11af6b17ea6c82390c0b906a9c55ff5
   languageName: node
   linkType: hard
 
-"@instructure/ui-tag@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-tag@npm:8.54.0"
+"@instructure/ui-tag@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-tag@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-color-utils": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-icons": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-view": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-color-utils": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-icons": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-view": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/eed46550589aabf81d9d980680d06e1f0396e7a6c8137119daabe6536ca7861b84773eaa6464d2220af66799cb59bca94635deaf51adbd1b744bd95b263fc8a6
+  checksum: 10c0/d2dc11f0b5b2ca88b3cf6456eb5c44ec06d9fb1f17df6c5a748ff557b2fad078431004b2643704f561b36550aa9723ab081f5e09ffa0e4b044f4db560d87cabb
   languageName: node
   linkType: hard
 
-"@instructure/ui-testable@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-testable@npm:8.54.0"
+"@instructure/ui-testable@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-testable@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/ui-decorator": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/ui-decorator": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
   peerDependencies:
     react: ">=16.8 <=18"
     react-dom: ">=16.8 <=18"
-  checksum: 10c0/34b384e1ba954673b6057643252604891e88d9849c33f553aea4e54810c74ae8a96ef07b17bd66a17deeeb3e90052e1719508ebba5f07850e112676c2ea708e5
+  checksum: 10c0/164bfce2647e85c87e4b8d3ad7f837f9447b3efa7b149e28efdfc8a73c518e86f0904f879d12d4f52bb474fd8677a6ae9b53c1b2c49b60ff6098215c65ad29dc
   languageName: node
   linkType: hard
 
-"@instructure/ui-text-input@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-text-input@npm:8.54.0"
+"@instructure/ui-text-input@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-text-input@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-form-field": "npm:8.54.0"
-    "@instructure/ui-icons": "npm:8.54.0"
-    "@instructure/ui-prop-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-tag": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-form-field": "npm:10.3.0"
+    "@instructure/ui-icons": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-tag": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/1150dfddc208186129cdf23cec5cf0f59ccc6468e07b9f8e6bddb71cb3064542fea1d9c4afd8bf14a8fc0c78e4463763fda2e3b54b4b2fd96a4b13b7b4e01da8
+  checksum: 10c0/0f20e74a3772ded4bb81f338c7bfeec415c9327d6712d2b64925c7de735187dd06c023fd554c20ca789ac3fec2ba55e253190ac6aa9b7cb165370a99042d50c0
   languageName: node
   linkType: hard
 
-"@instructure/ui-text@npm:^8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-text@npm:8.54.0"
+"@instructure/ui-text@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-text@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-color-utils": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-color-utils": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/872e98049e91bc5781966d24f22230c898d9f67f116ec0f0e9b819a708710b5012357706f951dc86ac78f0dd1a37a538e4cd6d4af635ccd155aa180513a2481c
+  checksum: 10c0/43c360ca8e4701ee976723fe219ffa564a4d06ef71a7e2c598d29348daf315332e9c206a358d247f9af577dc8b28c37cb67f3490544bcfe1526f6682301ec0b6
   languageName: node
   linkType: hard
 
-"@instructure/ui-theme-tokens@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-theme-tokens@npm:8.54.0"
+"@instructure/ui-themes@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-themes@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/shared-types": "npm:8.54.0"
-  checksum: 10c0/26078f61f35fdff1ac02927f096eb1d430b2dd26dc929fd46f2396c25c641149a2df3c777f4ba33e3ca14a6298469821b1da8124651d497ebb3221bf51d48bef
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/theme-registry": "npm:10.3.0"
+  checksum: 10c0/e08f9aceeab17cbe7fcba40a82f40e44db3f357a7453b0e0a9324ca19039ca61e8bf184b9fa59fc4b8e04f6bc113c064723e2a7192346cd3a3f8e5f018e89692
   languageName: node
   linkType: hard
 
-"@instructure/ui-themes@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-themes@npm:8.54.0"
+"@instructure/ui-tooltip@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-tooltip@npm:10.3.0"
   dependencies:
-    "@instructure/canvas-high-contrast-theme": "npm:8.54.0"
-    "@instructure/canvas-theme": "npm:8.54.0"
-    "@instructure/instructure-theme": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-  checksum: 10c0/c73bbff285c117b4cec94c1831651e016aeec1f378a3039b126cea6ef29096e686b082833389c9daf21f7db7a38f49f7d0c89dc8c3163afa9b87701cf43aac50
-  languageName: node
-  linkType: hard
-
-"@instructure/ui-tooltip@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-tooltip@npm:8.54.0"
-  dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-popover": "npm:8.54.0"
-    "@instructure/ui-position": "npm:8.54.0"
-    "@instructure/ui-prop-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
-    "@instructure/ui-testable": "npm:8.54.0"
-    "@instructure/ui-utils": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-popover": "npm:10.3.0"
+    "@instructure/ui-position": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
+    "@instructure/ui-testable": "npm:10.3.0"
+    "@instructure/ui-utils": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/072469c06fa184e4a5842c913d00ebe312efb476723d3e88347f1e4c1700b4500c03a31e27ab7841769a10cd89ea0279d1f0610c26267a4cc75eec4fc5d1b2e7
+  checksum: 10c0/f7afb6c32c146f790bd07e85cac8bd9374672723bf0198d3594b1ea5fe4731aa0d4671c28f369d3a5c33eda85fa70e33339187cfa513192c89329d8739df856b
   languageName: node
   linkType: hard
 
-"@instructure/ui-utils@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-utils@npm:8.54.0"
+"@instructure/ui-utils@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-utils@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@types/ua-parser-js": "npm:^0.7.37"
-    bowser: "npm:^2.11.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@types/ua-parser-js": "npm:^0.7.39"
     fast-deep-equal: "npm:^3.1.3"
-    json-stable-stringify: "npm:^1.0.2"
-    keycode: "npm:^2.2.1"
-    ua-parser-js: "npm:^1.0.36"
+    json-stable-stringify: "npm:^1.1.1"
+    ua-parser-js: "npm:^1.0.39"
   peerDependencies:
     react: ">=16.8 <=18"
     react-dom: ">=16.8 <=18"
-  checksum: 10c0/bbc992b9eac64c66c3350f4c6b799af1604bc0d232704ec3c963b81dbea5c38c15387d72931c19e89cc0e632452b1a0b3bdf5025688c23da718bb0d7bff40747
+  checksum: 10c0/ca37a876bc7886ab6f1679fc161bf15c779980dbffad104f595fe4e592cbcf62231e4cea9a1ea019699feabca648847f20695b40b4e69d7ab8b41865ba8cccb9
   languageName: node
   linkType: hard
 
-"@instructure/ui-view@npm:8.54.0, @instructure/ui-view@npm:^8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-view@npm:8.54.0"
+"@instructure/ui-view@npm:10.3.0, @instructure/ui-view@npm:^10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/ui-view@npm:10.3.0"
   dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-    "@instructure/console": "npm:8.54.0"
-    "@instructure/emotion": "npm:8.54.0"
-    "@instructure/shared-types": "npm:8.54.0"
-    "@instructure/ui-color-utils": "npm:8.54.0"
-    "@instructure/ui-dom-utils": "npm:8.54.0"
-    "@instructure/ui-i18n": "npm:8.54.0"
-    "@instructure/ui-position": "npm:8.54.0"
-    "@instructure/ui-prop-types": "npm:8.54.0"
-    "@instructure/ui-react-utils": "npm:8.54.0"
+    "@babel/runtime": "npm:^7.25.6"
+    "@instructure/console": "npm:10.3.0"
+    "@instructure/emotion": "npm:10.3.0"
+    "@instructure/shared-types": "npm:10.3.0"
+    "@instructure/ui-color-utils": "npm:10.3.0"
+    "@instructure/ui-dom-utils": "npm:10.3.0"
+    "@instructure/ui-i18n": "npm:10.3.0"
+    "@instructure/ui-position": "npm:10.3.0"
+    "@instructure/ui-prop-types": "npm:10.3.0"
+    "@instructure/ui-react-utils": "npm:10.3.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">=16.8 <=18"
-  checksum: 10c0/8ae74c5c3904de7d32b244b961fbab9d67f66af360699853f572f251f877b76a8bbe27b5988d61bf9216160e2d02f8e3ad06766727afd7af1dc9970f61a8f07e
+  checksum: 10c0/7fb8b6b6cc9d5f130fcf5b3b3165cda06b8af8b71db61e3d4f9ab57181f76756f31974f348dacaf8f667b4f190f89fccfb5602aa5ceb7866677e571ae0474bbb
   languageName: node
   linkType: hard
 
-"@instructure/ui-webpack-config@npm:^8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/ui-webpack-config@npm:8.54.0"
+"@instructure/uid@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@instructure/uid@npm:10.3.0"
   dependencies:
-    buffer: "npm:^6.0.3"
-    css-loader: "npm:^6.8.1"
-    dotenv: "npm:^16.3.1"
-    file-loader: "npm:^6.2.0"
-    process: "npm:^0.11.10"
-    style-loader: "npm:^3.3.3"
-    stylelint: "npm:^15.10.3"
-    terser-webpack-plugin: "npm:^5.3.9"
-    thread-loader: "npm:^4.0.2"
-    webpack: "npm:^5.89.0"
-  checksum: 10c0/7fabab5fff5ec5416860747e55e887b575b5e2891246f91bb731db67b14a167b5a43ed66b25f2250c1603951bf326f7c66ae681ff77da7b72ef34aa0c111c3b5
-  languageName: node
-  linkType: hard
-
-"@instructure/uid@npm:8.54.0":
-  version: 8.54.0
-  resolution: "@instructure/uid@npm:8.54.0"
-  dependencies:
-    "@babel/runtime": "npm:^7.23.2"
-  checksum: 10c0/5e3ffe1573ec854c16ac3cdb2780eb9a94208d2391710a3e294f8264bc8aa1c2a1fe0c7c19c39bc85d08124bcf8893e6e262d2a0bcf2afdd0eeae731d04d5d2c
+    "@babel/runtime": "npm:^7.25.6"
+  checksum: 10c0/45ff2033b66b92df5fff734219728a374440631a2d8a741ad01f2f9a3feafc8e060431038e140d6e1ca9fc240f6e0886c29fab18b06e3234849a3dc76bbe0049
   languageName: node
   linkType: hard
 
@@ -2959,14 +2947,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nodelib/fs.stat@npm:2.0.5, @nodelib/fs.stat@npm:^2.0.2":
+"@nodelib/fs.stat@npm:2.0.5":
   version: 2.0.5
   resolution: "@nodelib/fs.stat@npm:2.0.5"
   checksum: 10c0/88dafe5e3e29a388b07264680dc996c17f4bda48d163a9d4f5c1112979f0ce8ec72aa7116122c350b4e7976bc5566dc3ddb579be1ceaacc727872eb4ed93926d
   languageName: node
   linkType: hard
 
-"@nodelib/fs.walk@npm:^1.2.3, @nodelib/fs.walk@npm:^1.2.8":
+"@nodelib/fs.walk@npm:^1.2.8":
   version: 1.2.8
   resolution: "@nodelib/fs.walk@npm:1.2.8"
   dependencies:
@@ -3179,26 +3167,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/minimist@npm:^1.2.2":
-  version: 1.2.5
-  resolution: "@types/minimist@npm:1.2.5"
-  checksum: 10c0/3f791258d8e99a1d7d0ca2bda1ca6ea5a94e5e7b8fc6cde84dd79b0552da6fb68ade750f0e17718f6587783c24254bbca0357648dd59dc3812c150305cabdc46
-  languageName: node
-  linkType: hard
-
 "@types/node@npm:*":
   version: 20.11.17
   resolution: "@types/node@npm:20.11.17"
   dependencies:
     undici-types: "npm:~5.26.4"
   checksum: 10c0/1f30dae80b416cbf38f133a619ffb0e9fb9e7bc58f82d900bf73816ae5781740c4640892bf5971dd9c12570d5d05241646be3e7540bb4e059322ec6af4e51e15
-  languageName: node
-  linkType: hard
-
-"@types/normalize-package-data@npm:^2.4.0":
-  version: 2.4.4
-  resolution: "@types/normalize-package-data@npm:2.4.4"
-  checksum: 10c0/aef7bb9b015883d6f4119c423dd28c4bdc17b0e8a0ccf112c78b4fe0e91fbc4af7c6204b04bba0e199a57d2f3fbbd5b4a14bf8739bf9d2a39b2a0aad545e0f86
   languageName: node
   linkType: hard
 
@@ -3223,7 +3197,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/ua-parser-js@npm:^0.7.37":
+"@types/ua-parser-js@npm:^0.7.39":
   version: 0.7.39
   resolution: "@types/ua-parser-js@npm:0.7.39"
   checksum: 10c0/fea522f42dfc2854d9c93144a13c3db3bbe1c791458451db06d46bec7e1dbbe945d1542e02bb38378e39a04bdb7810b43e2ead26f9e6c250832e187312522708
@@ -3574,7 +3548,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^8.0.0, ajv@npm:^8.0.1, ajv@npm:^8.9.0":
+"ajv@npm:^8.0.0, ajv@npm:^8.9.0":
   version: 8.12.0
   resolution: "ajv@npm:8.12.0"
   dependencies:
@@ -3706,13 +3680,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"array-union@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "array-union@npm:2.1.0"
-  checksum: 10c0/429897e68110374f39b771ec47a7161fc6a8fc33e196857c0a396dc75df0b5f65e4d046674db764330b6bb66b39ef48dd7c53b6a2ee75cfb0681e0c1a7033962
-  languageName: node
-  linkType: hard
-
 "array-uniq@npm:^1.0.1":
   version: 1.0.3
   resolution: "array-uniq@npm:1.0.3"
@@ -3773,24 +3740,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"arrify@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "arrify@npm:1.0.1"
-  checksum: 10c0/c35c8d1a81bcd5474c0c57fe3f4bad1a4d46a5fa353cedcff7a54da315df60db71829e69104b859dff96c5d68af46bd2be259fe5e50dc6aa9df3b36bea0383ab
-  languageName: node
-  linkType: hard
-
 "asap@npm:^2.0.0":
   version: 2.0.6
   resolution: "asap@npm:2.0.6"
   checksum: 10c0/c6d5e39fe1f15e4b87677460bd66b66050cd14c772269cee6688824c1410a08ab20254bb6784f9afb75af9144a9f9a7692d49547f4d19d715aeb7c0318f3136d
-  languageName: node
-  linkType: hard
-
-"astral-regex@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "astral-regex@npm:2.0.0"
-  checksum: 10c0/f63d439cc383db1b9c5c6080d1e240bd14dae745f15d11ec5da863e182bbeca70df6c8191cffef5deba0b566ef98834610a68be79ac6379c95eeb26e1b310e25
   languageName: node
   linkType: hard
 
@@ -3967,24 +3920,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"balanced-match@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "balanced-match@npm:2.0.0"
-  checksum: 10c0/60a54e0b75a61674e16a7a336b805f06c72d6f8fc457639c24efc512ba2bf9cb5744b9f6f5225afcefb99da39714440c83c737208cc65c5d9ecd1f3093331ca3
-  languageName: node
-  linkType: hard
-
 "base64-js@npm:^1.3.1":
   version: 1.5.1
   resolution: "base64-js@npm:1.5.1"
   checksum: 10c0/f23823513b63173a001030fae4f2dabe283b99a9d324ade3ad3d148e218134676f1ee8568c877cd79ec1c53158dcf2d2ba527a97c606618928ba99dd930102bf
-  languageName: node
-  linkType: hard
-
-"big.js@npm:^5.2.2":
-  version: 5.2.2
-  resolution: "big.js@npm:5.2.2"
-  checksum: 10c0/230520f1ff920b2d2ce3e372d77a33faa4fa60d802fe01ca4ffbc321ee06023fe9a741ac02793ee778040a16b7e497f7d60c504d1c402b8fdab6f03bb785a25f
   languageName: node
   linkType: hard
 
@@ -4019,13 +3958,6 @@ __metadata:
   version: 1.0.0
   resolution: "boolbase@npm:1.0.0"
   checksum: 10c0/e4b53deb4f2b85c52be0e21a273f2045c7b6a6ea002b0e139c744cb6f95e9ec044439a52883b0d74dedd1ff3da55ed140cfdddfed7fb0cccbed373de5dce1bcf
-  languageName: node
-  linkType: hard
-
-"bowser@npm:^2.11.0":
-  version: 2.11.0
-  resolution: "bowser@npm:2.11.0"
-  checksum: 10c0/04efeecc7927a9ec33c667fa0965dea19f4ac60b3fea60793c2e6cf06c1dcd2f7ae1dbc656f450c5f50783b1c75cf9dc173ba6f3b7db2feee01f8c4b793e1bd3
   languageName: node
   linkType: hard
 
@@ -4101,16 +4033,6 @@ __metadata:
     base64-js: "npm:^1.3.1"
     ieee754: "npm:^1.1.13"
   checksum: 10c0/27cac81cff434ed2876058d72e7c4789d11ff1120ef32c9de48f59eab58179b66710c488987d295ae89a228f835fc66d088652dffeb8e3ba8659f80eb091d55e
-  languageName: node
-  linkType: hard
-
-"buffer@npm:^6.0.3":
-  version: 6.0.3
-  resolution: "buffer@npm:6.0.3"
-  dependencies:
-    base64-js: "npm:^1.3.1"
-    ieee754: "npm:^1.2.1"
-  checksum: 10c0/2a905fbbcde73cc5d8bd18d1caa23715d5f83a5935867c2329f0ac06104204ba7947be098fe1317fbd8830e26090ff8e764f08cd14fefc977bb248c3487bcbd0
   languageName: node
   linkType: hard
 
@@ -4220,18 +4142,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"camelcase-keys@npm:^7.0.0":
-  version: 7.0.2
-  resolution: "camelcase-keys@npm:7.0.2"
-  dependencies:
-    camelcase: "npm:^6.3.0"
-    map-obj: "npm:^4.1.0"
-    quick-lru: "npm:^5.1.1"
-    type-fest: "npm:^1.2.1"
-  checksum: 10c0/ae86a51168643e9e8a2f2c7bfa17850729979ec3dafc5253056a7d97931cbb0e3ef5b4185e59d54b7a56c54405dee2874b0c82033498d8626e512ff9034cb05c
-  languageName: node
-  linkType: hard
-
 "camelcase@npm:^5.3.1":
   version: 5.3.1
   resolution: "camelcase@npm:5.3.1"
@@ -4239,7 +4149,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"camelcase@npm:^6.2.0, camelcase@npm:^6.3.0":
+"camelcase@npm:^6.2.0":
   version: 6.3.0
   resolution: "camelcase@npm:6.3.0"
   checksum: 10c0/0d701658219bd3116d12da3eab31acddb3f9440790c0792e0d398f0a520a6a4058018e546862b6fba89d7ae990efaeb97da71e1913e9ebf5a8b5621a3d55c710
@@ -4470,13 +4380,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"colord@npm:^2.9.3":
-  version: 2.9.3
-  resolution: "colord@npm:2.9.3"
-  checksum: 10c0/9699e956894d8996b28c686afe8988720785f476f59335c80ce852ded76ab3ebe252703aec53d9bef54f6219aea6b960fb3d9a8300058a1d0c0d4026460cd110
-  languageName: node
-  linkType: hard
-
 "colorette@npm:^2.0.14":
   version: 2.0.20
   resolution: "colorette@npm:2.0.20"
@@ -4615,23 +4518,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cosmiconfig@npm:^8.2.0":
-  version: 8.3.6
-  resolution: "cosmiconfig@npm:8.3.6"
-  dependencies:
-    import-fresh: "npm:^3.3.0"
-    js-yaml: "npm:^4.1.0"
-    parse-json: "npm:^5.2.0"
-    path-type: "npm:^4.0.0"
-  peerDependencies:
-    typescript: ">=4.9.5"
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 10c0/0382a9ed13208f8bfc22ca2f62b364855207dffdb73dc26e150ade78c3093f1cf56172df2dd460c8caf2afa91c0ed4ec8a88c62f8f9cd1cf423d26506aa8797a
-  languageName: node
-  linkType: hard
-
 "crc-32@npm:~1.2.0, crc-32@npm:~1.2.1":
   version: 1.2.2
   resolution: "crc-32@npm:1.2.2"
@@ -4693,37 +4579,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-functions-list@npm:^3.2.1":
-  version: 3.2.1
-  resolution: "css-functions-list@npm:3.2.1"
-  checksum: 10c0/e6e2d9580437ad6df9f2cf18cff3f941691ec5cbbaebd4cb17a5da40d8d5dac50004807ddd05c00a121d2f21a224e2c5d339fe8e13614af21c00181d7d1c22b9
-  languageName: node
-  linkType: hard
-
-"css-loader@npm:^6.8.1":
-  version: 6.10.0
-  resolution: "css-loader@npm:6.10.0"
-  dependencies:
-    icss-utils: "npm:^5.1.0"
-    postcss: "npm:^8.4.33"
-    postcss-modules-extract-imports: "npm:^3.0.0"
-    postcss-modules-local-by-default: "npm:^4.0.4"
-    postcss-modules-scope: "npm:^3.1.1"
-    postcss-modules-values: "npm:^4.0.0"
-    postcss-value-parser: "npm:^4.2.0"
-    semver: "npm:^7.5.4"
-  peerDependencies:
-    "@rspack/core": 0.x || 1.x
-    webpack: ^5.0.0
-  peerDependenciesMeta:
-    "@rspack/core":
-      optional: true
-    webpack:
-      optional: true
-  checksum: 10c0/acadd2a93f505bf8a8d1c6912a476ef953585f195412b6aa1f2581053bcce8563b833f2a6666c1e1521f4b35fb315176563495a38933becc89e3143cfa7dce45
-  languageName: node
-  linkType: hard
-
 "css-select@npm:^4.1.3":
   version: 4.3.0
   resolution: "css-select@npm:4.3.0"
@@ -4737,29 +4592,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-tree@npm:^2.3.1":
-  version: 2.3.1
-  resolution: "css-tree@npm:2.3.1"
-  dependencies:
-    mdn-data: "npm:2.0.30"
-    source-map-js: "npm:^1.0.1"
-  checksum: 10c0/6f8c1a11d5e9b14bf02d10717fc0351b66ba12594166f65abfbd8eb8b5b490dd367f5c7721db241a3c792d935fc6751fbc09f7e1598d421477ad9fadc30f4f24
-  languageName: node
-  linkType: hard
-
 "css-what@npm:^6.0.1":
   version: 6.1.0
   resolution: "css-what@npm:6.1.0"
   checksum: 10c0/a09f5a6b14ba8dcf57ae9a59474722e80f20406c53a61e9aedb0eedc693b135113ffe2983f4efc4b5065ae639442e9ae88df24941ef159c218b231011d733746
-  languageName: node
-  linkType: hard
-
-"cssesc@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "cssesc@npm:3.0.0"
-  bin:
-    cssesc: bin/cssesc
-  checksum: 10c0/6bcfd898662671be15ae7827120472c5667afb3d7429f1f917737f3bf84c4176003228131b643ae74543f17a394446247df090c597bb9a728cce298606ed0aa7
   languageName: node
   linkType: hard
 
@@ -4795,30 +4631,6 @@ __metadata:
     supports-color:
       optional: true
   checksum: 10c0/cedbec45298dd5c501d01b92b119cd3faebe5438c3917ff11ae1bff86a6c722930ac9c8659792824013168ba6db7c4668225d845c633fbdafbbf902a6389f736
-  languageName: node
-  linkType: hard
-
-"decamelize-keys@npm:^1.1.0":
-  version: 1.1.1
-  resolution: "decamelize-keys@npm:1.1.1"
-  dependencies:
-    decamelize: "npm:^1.1.0"
-    map-obj: "npm:^1.0.0"
-  checksum: 10c0/4ca385933127437658338c65fb9aead5f21b28d3dd3ccd7956eb29aab0953b5d3c047fbc207111672220c71ecf7a4d34f36c92851b7bbde6fca1a02c541bdd7d
-  languageName: node
-  linkType: hard
-
-"decamelize@npm:^1.1.0":
-  version: 1.2.0
-  resolution: "decamelize@npm:1.2.0"
-  checksum: 10c0/85c39fe8fbf0482d4a1e224ef0119db5c1897f8503bcef8b826adff7a1b11414972f6fef2d7dec2ee0b4be3863cf64ac1439137ae9e6af23a3d8dcbe26a5b4b2
-  languageName: node
-  linkType: hard
-
-"decamelize@npm:^5.0.0":
-  version: 5.0.1
-  resolution: "decamelize@npm:5.0.1"
-  checksum: 10c0/3da71022bc1e85487810fa0833138effb599fa331ca21e179650e93a765d0c4dabeb1ecdd6ad1474fa0bacd2457953c63ea335afb6e53b35f2b4bf779514e2a3
   languageName: node
   linkType: hard
 
@@ -4945,15 +4757,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dir-glob@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "dir-glob@npm:3.0.1"
-  dependencies:
-    path-type: "npm:^4.0.0"
-  checksum: 10c0/dcac00920a4d503e38bb64001acb19df4efc14536ada475725e12f52c16777afdee4db827f55f13a908ee7efc0cb282e2e3dbaeeb98c0993dd93d1802d3bf00c
-  languageName: node
-  linkType: hard
-
 "doctrine@npm:^2.1.0":
   version: 2.1.0
   resolution: "doctrine@npm:2.1.0"
@@ -5029,7 +4832,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^16.3.1, dotenv@npm:^16.4.3":
+"dotenv@npm:^16.4.3":
   version: 16.4.3
   resolution: "dotenv@npm:16.4.3"
   checksum: 10c0/c6a572b2dab5d71accb7064c90b38dfd4068c2487be859a0f053460fcaa685a7718e78db51d643b32e0736b318988c31f8c45cb4ab99cd620278f537177cb0ab
@@ -5105,13 +4908,6 @@ __metadata:
   version: 9.2.2
   resolution: "emoji-regex@npm:9.2.2"
   checksum: 10c0/af014e759a72064cf66e6e694a7fc6b0ed3d8db680427b021a89727689671cefe9d04151b2cad51dbaf85d5ba790d061cd167f1cf32eb7b281f6368b3c181639
-  languageName: node
-  linkType: hard
-
-"emojis-list@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "emojis-list@npm:3.0.0"
-  checksum: 10c0/7dc4394b7b910444910ad64b812392159a21e1a7ecc637c775a440227dcb4f80eff7fe61f4453a7d7603fa23d23d30cc93fe9e4b5ed985b88d6441cd4a35117b
   languageName: node
   linkType: hard
 
@@ -5707,19 +5503,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.1":
-  version: 3.3.2
-  resolution: "fast-glob@npm:3.3.2"
-  dependencies:
-    "@nodelib/fs.stat": "npm:^2.0.2"
-    "@nodelib/fs.walk": "npm:^1.2.3"
-    glob-parent: "npm:^5.1.2"
-    merge2: "npm:^1.3.0"
-    micromatch: "npm:^4.0.4"
-  checksum: 10c0/42baad7b9cd40b63e42039132bde27ca2cb3a4950d0a0f9abe4639ea1aa9d3e3b40f98b1fe31cbc0cc17b664c9ea7447d911a152fa34ec5b72977b125a6fc845
-  languageName: node
-  linkType: hard
-
 "fast-json-stable-stringify@npm:^2.0.0, fast-json-stable-stringify@npm:^2.1.0":
   version: 2.1.0
   resolution: "fast-json-stable-stringify@npm:2.1.0"
@@ -5741,7 +5524,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fastest-levenshtein@npm:^1.0.12, fastest-levenshtein@npm:^1.0.16":
+"fastest-levenshtein@npm:^1.0.12":
   version: 1.0.16
   resolution: "fastest-levenshtein@npm:1.0.16"
   checksum: 10c0/7e3d8ae812a7f4fdf8cad18e9cde436a39addf266a5986f653ea0d81e0de0900f50c0f27c6d5aff3f686bcb48acbd45be115ae2216f36a6a13a7dbbf5cad878b
@@ -5782,27 +5565,6 @@ __metadata:
   dependencies:
     flat-cache: "npm:^3.0.4"
   checksum: 10c0/58473e8a82794d01b38e5e435f6feaf648e3f36fdb3a56e98f417f4efae71ad1c0d4ebd8a9a7c50c3ad085820a93fc7494ad721e0e4ebc1da3573f4e1c3c7cdd
-  languageName: node
-  linkType: hard
-
-"file-entry-cache@npm:^7.0.0":
-  version: 7.0.2
-  resolution: "file-entry-cache@npm:7.0.2"
-  dependencies:
-    flat-cache: "npm:^3.2.0"
-  checksum: 10c0/822664e35c3e295e6a8ca7ec490d8d8077017607f41f94b29922f1f49c6dd07025048e3ed528e2909a1439eba66d60f802c0774aa612cf6ee053ee4ecc16c8c5
-  languageName: node
-  linkType: hard
-
-"file-loader@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "file-loader@npm:6.2.0"
-  dependencies:
-    loader-utils: "npm:^2.0.0"
-    schema-utils: "npm:^3.0.0"
-  peerDependencies:
-    webpack: ^4.0.0 || ^5.0.0
-  checksum: 10c0/e176a57c2037ab0f78e5755dbf293a6b7f0f8392350a120bd03cc2ce2525bea017458ba28fea14ca535ff1848055e86d1a3a216bdb2561ef33395b27260a1dd3
   languageName: node
   linkType: hard
 
@@ -5895,7 +5657,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flat-cache@npm:^3.0.4, flat-cache@npm:^3.2.0":
+"flat-cache@npm:^3.0.4":
   version: 3.2.0
   resolution: "flat-cache@npm:3.2.0"
   dependencies:
@@ -6130,21 +5892,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob-parent@npm:^5.1.2, glob-parent@npm:~5.1.2":
-  version: 5.1.2
-  resolution: "glob-parent@npm:5.1.2"
-  dependencies:
-    is-glob: "npm:^4.0.1"
-  checksum: 10c0/cab87638e2112bee3f839ef5f6e0765057163d39c66be8ec1602f3823da4692297ad4e972de876ea17c44d652978638d2fd583c6713d0eb6591706825020c9ee
-  languageName: node
-  linkType: hard
-
 "glob-parent@npm:^6.0.2":
   version: 6.0.2
   resolution: "glob-parent@npm:6.0.2"
   dependencies:
     is-glob: "npm:^4.0.3"
   checksum: 10c0/317034d88654730230b3f43bb7ad4f7c90257a426e872ea0bf157473ac61c99bf5d205fad8f0185f989be8d2fa6d3c7dce1645d99d545b6ea9089c39f838e7f8
+  languageName: node
+  linkType: hard
+
+"glob-parent@npm:~5.1.2":
+  version: 5.1.2
+  resolution: "glob-parent@npm:5.1.2"
+  dependencies:
+    is-glob: "npm:^4.0.1"
+  checksum: 10c0/cab87638e2112bee3f839ef5f6e0765057163d39c66be8ec1602f3823da4692297ad4e972de876ea17c44d652978638d2fd583c6713d0eb6591706825020c9ee
   languageName: node
   linkType: hard
 
@@ -6197,26 +5959,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"global-modules@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "global-modules@npm:2.0.0"
-  dependencies:
-    global-prefix: "npm:^3.0.0"
-  checksum: 10c0/43b770fe24aa6028f4b9770ea583a47f39750be15cf6e2578f851e4ccc9e4fa674b8541928c0b09c21461ca0763f0d36e4068cec86c914b07fd6e388e66ba5b9
-  languageName: node
-  linkType: hard
-
-"global-prefix@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "global-prefix@npm:3.0.0"
-  dependencies:
-    ini: "npm:^1.3.5"
-    kind-of: "npm:^6.0.2"
-    which: "npm:^1.3.1"
-  checksum: 10c0/510f489fb68d1cc7060f276541709a0ee6d41356ef852de48f7906c648ac223082a1cc8fce86725ca6c0e032bcdc1189ae77b4744a624b29c34a9d0ece498269
-  languageName: node
-  linkType: hard
-
 "globals@npm:^11.1.0":
   version: 11.12.0
   resolution: "globals@npm:11.12.0"
@@ -6242,20 +5984,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:^11.1.0":
-  version: 11.1.0
-  resolution: "globby@npm:11.1.0"
-  dependencies:
-    array-union: "npm:^2.1.0"
-    dir-glob: "npm:^3.0.1"
-    fast-glob: "npm:^3.2.9"
-    ignore: "npm:^5.2.0"
-    merge2: "npm:^1.4.1"
-    slash: "npm:^3.0.0"
-  checksum: 10c0/b39511b4afe4bd8a7aead3a27c4ade2b9968649abab0a6c28b1a90141b96ca68ca5db1302f7c7bd29eab66bf51e13916b8e0a3d0ac08f75e1e84a39b35691189
-  languageName: node
-  linkType: hard
-
 "globby@npm:^6.1.0":
   version: 6.1.0
   resolution: "globby@npm:6.1.0"
@@ -6266,13 +5994,6 @@ __metadata:
     pify: "npm:^2.0.0"
     pinkie-promise: "npm:^2.0.0"
   checksum: 10c0/656ad1f0d02c6ef378c07589519ed3ec27fe988ea177195c05b8aff280320f3d67b91fa0baa6f7e49288f9bf1f92fc84f783a79ac3ed66278f3fa082e627ed84
-  languageName: node
-  linkType: hard
-
-"globjoin@npm:^0.1.4":
-  version: 0.1.4
-  resolution: "globjoin@npm:0.1.4"
-  checksum: 10c0/236e991b48f1a9869fe2aa7bb5141fb1f32973940567a3c012f8ccb58c3c85ab78ce594d374fa819410fff3b48cfd24584d7ef726939f8a3c3772890e62ea16b
   languageName: node
   linkType: hard
 
@@ -6303,21 +6024,22 @@ __metadata:
     "@babel/plugin-transform-class-properties": "npm:^7.23.3"
     "@babel/preset-env": "npm:^7.23.9"
     "@babel/preset-react": "npm:^7.23.3"
-    "@instructure/canvas-theme": "npm:^8.54.0"
-    "@instructure/emotion": "npm:^8.54.0"
-    "@instructure/ui-buttons": "npm:^8.54.0"
-    "@instructure/ui-heading": "npm:^8.54.0"
-    "@instructure/ui-icons": "npm:^8.54.0"
-    "@instructure/ui-link": "npm:^8.54.0"
-    "@instructure/ui-list": "npm:^8.54.0"
-    "@instructure/ui-modal": "npm:^8.54.0"
-    "@instructure/ui-popover": "npm:^8.54.0"
-    "@instructure/ui-responsive": "npm:^8.54.0"
-    "@instructure/ui-spinner": "npm:^8.54.0"
-    "@instructure/ui-table": "npm:^8.54.0"
-    "@instructure/ui-text": "npm:^8.54.0"
-    "@instructure/ui-view": "npm:^8.54.0"
-    "@instructure/ui-webpack-config": "npm:^8.54.0"
+    "@instructure/canvas-theme": "npm:^10.3.0"
+    "@instructure/emotion": "npm:^10.3.0"
+    "@instructure/ui-alerts": "npm:^10.3.0"
+    "@instructure/ui-buttons": "npm:^10.3.0"
+    "@instructure/ui-date-input": "npm:^10.3.0"
+    "@instructure/ui-heading": "npm:^10.3.0"
+    "@instructure/ui-icons": "npm:^10.3.0"
+    "@instructure/ui-link": "npm:^10.3.0"
+    "@instructure/ui-list": "npm:^10.3.0"
+    "@instructure/ui-modal": "npm:^10.3.0"
+    "@instructure/ui-popover": "npm:^10.3.0"
+    "@instructure/ui-responsive": "npm:^10.3.0"
+    "@instructure/ui-spinner": "npm:^10.3.0"
+    "@instructure/ui-table": "npm:^10.3.0"
+    "@instructure/ui-text": "npm:^10.3.0"
+    "@instructure/ui-view": "npm:^10.3.0"
     babel-loader: "npm:^9.1.3"
     bunyan: "npm:^1.8.15"
     bunyan-express-serializer: "npm:^1.0.0"
@@ -6369,13 +6091,6 @@ __metadata:
   version: 1.4.0
   resolution: "graphemer@npm:1.4.0"
   checksum: 10c0/e951259d8cd2e0d196c72ec711add7115d42eb9a8146c8eeda5b8d3ac91e5dd816b9cd68920726d9fd4490368e7ed86e9c423f40db87e2d8dfafa00fa17c3a31
-  languageName: node
-  linkType: hard
-
-"hard-rejection@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "hard-rejection@npm:2.1.0"
-  checksum: 10c0/febc3343a1ad575aedcc112580835b44a89a89e01f400b4eda6e8110869edfdab0b00cd1bd4c3bfec9475a57e79e0b355aecd5be46454b6a62b9a359af60e564
   languageName: node
   linkType: hard
 
@@ -6487,15 +6202,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hosted-git-info@npm:^4.0.1":
-  version: 4.1.0
-  resolution: "hosted-git-info@npm:4.1.0"
-  dependencies:
-    lru-cache: "npm:^6.0.0"
-  checksum: 10c0/150fbcb001600336d17fdbae803264abed013548eea7946c2264c49ebe2ebd8c4441ba71dd23dd8e18c65de79d637f98b22d4760ba5fb2e0b15d62543d0fff07
-  languageName: node
-  linkType: hard
-
 "html-escaper@npm:^2.0.0":
   version: 2.0.2
   resolution: "html-escaper@npm:2.0.2"
@@ -6517,13 +6223,6 @@ __metadata:
   bin:
     html-minifier-terser: cli.js
   checksum: 10c0/1aa4e4f01cf7149e3ac5ea84fb7a1adab86da40d38d77a6fff42852b5ee3daccb78b615df97264e3a6a5c33e57f0c77f471d607ca1e1debd1dab9b58286f4b5a
-  languageName: node
-  linkType: hard
-
-"html-tags@npm:^3.3.1":
-  version: 3.3.1
-  resolution: "html-tags@npm:3.3.1"
-  checksum: 10c0/680165e12baa51bad7397452d247dbcc5a5c29dac0e6754b1187eee3bf26f514bc1907a431dd2f7eb56207611ae595ee76a0acc8eaa0d931e72c791dd6463d79
   languageName: node
   linkType: hard
 
@@ -6645,16 +6344,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"icss-utils@npm:^5.0.0, icss-utils@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "icss-utils@npm:5.1.0"
-  peerDependencies:
-    postcss: ^8.1.0
-  checksum: 10c0/39c92936fabd23169c8611d2b5cc39e39d10b19b0d223352f20a7579f75b39d5f786114a6b8fc62bee8c5fed59ba9e0d38f7219a4db383e324fb3061664b043d
-  languageName: node
-  linkType: hard
-
-"ieee754@npm:^1.1.13, ieee754@npm:^1.2.1":
+"ieee754@npm:^1.1.13":
   version: 1.2.1
   resolution: "ieee754@npm:1.2.1"
   checksum: 10c0/b0782ef5e0935b9f12883a2e2aa37baa75da6e66ce6515c168697b42160807d9330de9a32ec1ed73149aea02e0d822e572bca6f1e22bdcbd2149e13b050b17bb
@@ -6675,27 +6365,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ignore@npm:^5.2.0, ignore@npm:^5.2.4":
+"ignore@npm:^5.2.0":
   version: 5.3.1
   resolution: "ignore@npm:5.3.1"
   checksum: 10c0/703f7f45ffb2a27fb2c5a8db0c32e7dee66b33a225d28e8db4e1be6474795f606686a6e3bcc50e1aa12f2042db4c9d4a7d60af3250511de74620fbed052ea4cd
   languageName: node
   linkType: hard
 
-"import-fresh@npm:^3.2.1, import-fresh@npm:^3.3.0":
+"import-fresh@npm:^3.2.1":
   version: 3.3.0
   resolution: "import-fresh@npm:3.3.0"
   dependencies:
     parent-module: "npm:^1.0.0"
     resolve-from: "npm:^4.0.0"
   checksum: 10c0/7f882953aa6b740d1f0e384d0547158bc86efbf2eea0f1483b8900a6f65c5a5123c2cf09b0d542cc419d0b98a759ecaeb394237e97ea427f2da221dc3cd80cc3
-  languageName: node
-  linkType: hard
-
-"import-lazy@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "import-lazy@npm:4.0.0"
-  checksum: 10c0/a3520313e2c31f25c0b06aa66d167f329832b68a4f957d7c9daf6e0fa41822b6e84948191648b9b9d8ca82f94740cdf15eecf2401a5b42cd1c33fd84f2225cca
   languageName: node
   linkType: hard
 
@@ -6736,13 +6419,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"indent-string@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "indent-string@npm:5.0.0"
-  checksum: 10c0/8ee77b57d92e71745e133f6f444d6fa3ed503ad0e1bcd7e80c8da08b42375c07117128d670589725ed07b1978065803fa86318c309ba45415b7fe13e7f170220
-  languageName: node
-  linkType: hard
-
 "inflight@npm:^1.0.4":
   version: 1.0.6
   resolution: "inflight@npm:1.0.6"
@@ -6757,13 +6433,6 @@ __metadata:
   version: 2.0.4
   resolution: "inherits@npm:2.0.4"
   checksum: 10c0/4e531f648b29039fb7426fb94075e6545faa1eb9fe83c29f0b6d9e7263aceb4289d2d4557db0d428188eeb449cc7c5e77b0a0b2c4e248ff2a65933a0dee49ef2
-  languageName: node
-  linkType: hard
-
-"ini@npm:^1.3.5":
-  version: 1.3.8
-  resolution: "ini@npm:1.3.8"
-  checksum: 10c0/ec93838d2328b619532e4f1ff05df7909760b6f66d9c9e2ded11e5c1897d6f2f9980c54dd638f88654b00919ce31e827040631eab0a3969e4d1abefa0719516a
   languageName: node
   linkType: hard
 
@@ -6863,7 +6532,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-core-module@npm:^2.13.0, is-core-module@npm:^2.5.0":
+"is-core-module@npm:^2.13.0":
   version: 2.13.1
   resolution: "is-core-module@npm:2.13.1"
   dependencies:
@@ -7005,26 +6674,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-plain-obj@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "is-plain-obj@npm:1.1.0"
-  checksum: 10c0/daaee1805add26f781b413fdf192fc91d52409583be30ace35c82607d440da63cc4cac0ac55136716688d6c0a2c6ef3edb2254fecbd1fe06056d6bd15975ee8c
-  languageName: node
-  linkType: hard
-
 "is-plain-object@npm:^2.0.4":
   version: 2.0.4
   resolution: "is-plain-object@npm:2.0.4"
   dependencies:
     isobject: "npm:^3.0.1"
   checksum: 10c0/f050fdd5203d9c81e8c4df1b3ff461c4bc64e8b5ca383bcdde46131361d0a678e80bcf00b5257646f6c636197629644d53bd8e2375aea633de09a82d57e942f4
-  languageName: node
-  linkType: hard
-
-"is-plain-object@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "is-plain-object@npm:5.0.0"
-  checksum: 10c0/893e42bad832aae3511c71fd61c0bf61aa3a6d853061c62a307261842727d0d25f761ce9379f7ba7226d6179db2a3157efa918e7fe26360f3bf0842d9f28942c
   languageName: node
   linkType: hard
 
@@ -7773,7 +7428,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json-parse-better-errors@npm:^1.0.1, json-parse-better-errors@npm:^1.0.2":
+"json-parse-better-errors@npm:^1.0.1":
   version: 1.0.2
   resolution: "json-parse-better-errors@npm:1.0.2"
   checksum: 10c0/2f1287a7c833e397c9ddd361a78638e828fc523038bb3441fd4fc144cfd2c6cd4963ffb9e207e648cf7b692600f1e1e524e965c32df5152120910e4903a47dcb
@@ -7808,7 +7463,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json-stable-stringify@npm:^1.0.2":
+"json-stable-stringify@npm:^1.1.1":
   version: 1.1.1
   resolution: "json-stable-stringify@npm:1.1.1"
   dependencies:
@@ -7820,7 +7475,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json5@npm:^2.1.2, json5@npm:^2.2.3":
+"json5@npm:^2.2.3":
   version: 2.2.3
   resolution: "json5@npm:2.2.3"
   bin:
@@ -7894,7 +7549,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"keycode@npm:^2.2.1":
+"keycode@npm:^2, keycode@npm:^2.2.1":
   version: 2.2.1
   resolution: "keycode@npm:2.2.1"
   checksum: 10c0/e38ecbdc62f57e18ef9f7ad88aefded84e05b89115a40eea3081a7002d7c055765ddb5f5c3e2dd36ac2b2ab3901053c8286c9db082fd807b3abeb7e44034d96a
@@ -7910,7 +7565,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"kind-of@npm:^6.0.2, kind-of@npm:^6.0.3":
+"kind-of@npm:^6.0.2":
   version: 6.0.3
   resolution: "kind-of@npm:6.0.3"
   checksum: 10c0/61cdff9623dabf3568b6445e93e31376bee1cdb93f8ba7033d86022c2a9b1791a1d9510e026e6465ebd701a6dd2f7b0808483ad8838341ac52f003f512e0b4c4
@@ -7921,13 +7576,6 @@ __metadata:
   version: 3.0.3
   resolution: "kleur@npm:3.0.3"
   checksum: 10c0/cd3a0b8878e7d6d3799e54340efe3591ca787d9f95f109f28129bdd2915e37807bf8918bb295ab86afb8c82196beec5a1adcaf29042ce3f2bd932b038fe3aa4b
-  languageName: node
-  linkType: hard
-
-"known-css-properties@npm:^0.29.0":
-  version: 0.29.0
-  resolution: "known-css-properties@npm:0.29.0"
-  checksum: 10c0/f66e9992097b8f54e97dbe729943d4a11b8d3ba15f68dbb3deb8bb0122cb89c22c90c9221ecb1e3f2e236838fe3c0faae319b43908c81b6e254ac43cafde2906
   languageName: node
   linkType: hard
 
@@ -7967,21 +7615,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loader-runner@npm:^4.1.0, loader-runner@npm:^4.2.0":
+"loader-runner@npm:^4.2.0":
   version: 4.3.0
   resolution: "loader-runner@npm:4.3.0"
   checksum: 10c0/a44d78aae0907a72f73966fe8b82d1439c8c485238bd5a864b1b9a2a3257832effa858790241e6b37876b5446a78889adf2fcc8dd897ce54c089ecc0a0ce0bf0
-  languageName: node
-  linkType: hard
-
-"loader-utils@npm:^2.0.0":
-  version: 2.0.4
-  resolution: "loader-utils@npm:2.0.4"
-  dependencies:
-    big.js: "npm:^5.2.2"
-    emojis-list: "npm:^3.0.0"
-    json5: "npm:^2.1.2"
-  checksum: 10c0/d5654a77f9d339ec2a03d88221a5a695f337bf71eb8dea031b3223420bb818964ba8ed0069145c19b095f6c8b8fd386e602a3fc7ca987042bd8bb1dcc90d7100
   languageName: node
   linkType: hard
 
@@ -8096,13 +7733,6 @@ __metadata:
   version: 4.1.1
   resolution: "lodash.once@npm:4.1.1"
   checksum: 10c0/46a9a0a66c45dd812fcc016e46605d85ad599fe87d71a02f6736220554b52ffbe82e79a483ad40f52a8a95755b0d1077fba259da8bfb6694a7abbf4a48f1fc04
-  languageName: node
-  linkType: hard
-
-"lodash.truncate@npm:^4.4.2":
-  version: 4.4.2
-  resolution: "lodash.truncate@npm:4.4.2"
-  checksum: 10c0/4e870d54e8a6c86c8687e057cec4069d2e941446ccab7f40b4d9555fa5872d917d0b6aa73bece7765500a3123f1723bcdba9ae881b679ef120bba9e1a0b0ed70
   languageName: node
   linkType: hard
 
@@ -8231,34 +7861,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"map-obj@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "map-obj@npm:1.0.1"
-  checksum: 10c0/ccca88395e7d38671ed9f5652ecf471ecd546924be2fb900836b9da35e068a96687d96a5f93dcdfa94d9a27d649d2f10a84595590f89a347fb4dda47629dcc52
-  languageName: node
-  linkType: hard
-
-"map-obj@npm:^4.1.0":
-  version: 4.3.0
-  resolution: "map-obj@npm:4.3.0"
-  checksum: 10c0/1c19e1c88513c8abdab25c316367154c6a0a6a0f77e3e8c391bb7c0e093aefed293f539d026dc013d86219e5e4c25f23b0003ea588be2101ccd757bacc12d43b
-  languageName: node
-  linkType: hard
-
-"mathml-tag-names@npm:^2.1.3":
-  version: 2.1.3
-  resolution: "mathml-tag-names@npm:2.1.3"
-  checksum: 10c0/e2b094658a2618433efd2678a5a3e551645e09ba17c7c777783cd8dfa0178b0195fda0a5c46a6be5e778923662cf8dde891c894c869ff14fbb4ea3208c31bc4d
-  languageName: node
-  linkType: hard
-
-"mdn-data@npm:2.0.30":
-  version: 2.0.30
-  resolution: "mdn-data@npm:2.0.30"
-  checksum: 10c0/a2c472ea16cee3911ae742593715aa4c634eb3d4b9f1e6ada0902aa90df13dcbb7285d19435f3ff213ebaa3b2e0c0265c1eb0e3fb278fda7f8919f046a410cd9
-  languageName: node
-  linkType: hard
-
 "media-typer@npm:0.3.0":
   version: 0.3.0
   resolution: "media-typer@npm:0.3.0"
@@ -8270,26 +7872,6 @@ __metadata:
   version: 0.3.1
   resolution: "memorystream@npm:0.3.1"
   checksum: 10c0/4bd164657711d9747ff5edb0508b2944414da3464b7fe21ac5c67cf35bba975c4b446a0124bd0f9a8be54cfc18faf92e92bd77563a20328b1ccf2ff04e9f39b9
-  languageName: node
-  linkType: hard
-
-"meow@npm:^10.1.5":
-  version: 10.1.5
-  resolution: "meow@npm:10.1.5"
-  dependencies:
-    "@types/minimist": "npm:^1.2.2"
-    camelcase-keys: "npm:^7.0.0"
-    decamelize: "npm:^5.0.0"
-    decamelize-keys: "npm:^1.1.0"
-    hard-rejection: "npm:^2.1.0"
-    minimist-options: "npm:4.1.0"
-    normalize-package-data: "npm:^3.0.2"
-    read-pkg-up: "npm:^8.0.0"
-    redent: "npm:^4.0.0"
-    trim-newlines: "npm:^4.0.2"
-    type-fest: "npm:^1.2.2"
-    yargs-parser: "npm:^20.2.9"
-  checksum: 10c0/a513849022edd5ddcc41d28c679d31978abe414d9db5bc457e95e537a4327b2910fd2f699cdd883293f9a5da8951a50939bf60fbd62f7fe12b9ddf96a84b1b27
   languageName: node
   linkType: hard
 
@@ -8307,13 +7889,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"merge2@npm:^1.3.0, merge2@npm:^1.4.1":
-  version: 1.4.1
-  resolution: "merge2@npm:1.4.1"
-  checksum: 10c0/254a8a4605b58f450308fc474c82ac9a094848081bf4c06778200207820e5193726dc563a0d2c16468810516a5c97d9d3ea0ca6585d23c58ccfff2403e8dbbeb
-  languageName: node
-  linkType: hard
-
 "methods@npm:^1.1.2, methods@npm:~1.1.2":
   version: 1.1.2
   resolution: "methods@npm:1.1.2"
@@ -8321,7 +7896,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromatch@npm:^4.0.4, micromatch@npm:^4.0.5":
+"micromatch@npm:^4.0.4":
   version: 4.0.5
   resolution: "micromatch@npm:4.0.5"
   dependencies:
@@ -8379,13 +7954,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"min-indent@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "min-indent@npm:1.0.1"
-  checksum: 10c0/7e207bd5c20401b292de291f02913230cb1163abca162044f7db1d951fa245b174dc00869d40dd9a9f32a885ad6a5f3e767ee104cf278f399cb4e92d3f582d5c
-  languageName: node
-  linkType: hard
-
 "minimatch@npm:2 || 3, minimatch@npm:^3.0.4, minimatch@npm:^3.0.5, minimatch@npm:^3.1.1, minimatch@npm:^3.1.2":
   version: 3.1.2
   resolution: "minimatch@npm:3.1.2"
@@ -8410,17 +7978,6 @@ __metadata:
   dependencies:
     brace-expansion: "npm:^2.0.1"
   checksum: 10c0/85f407dcd38ac3e180f425e86553911d101455ca3ad5544d6a7cec16286657e4f8a9aa6695803025c55e31e35a91a2252b5dc8e7d527211278b8b65b4dbd5eac
-  languageName: node
-  linkType: hard
-
-"minimist-options@npm:4.1.0":
-  version: 4.1.0
-  resolution: "minimist-options@npm:4.1.0"
-  dependencies:
-    arrify: "npm:^1.0.1"
-    is-plain-obj: "npm:^1.1.0"
-    kind-of: "npm:^6.0.3"
-  checksum: 10c0/7871f9cdd15d1e7374e5b013e2ceda3d327a06a8c7b38ae16d9ef941e07d985e952c589e57213f7aa90a8744c60aed9524c0d85e501f5478382d9181f2763f54
   languageName: node
   linkType: hard
 
@@ -8535,7 +8092,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moment-timezone@npm:^0.5.43":
+"moment-timezone@npm:^0.5.45":
   version: 0.5.45
   resolution: "moment-timezone@npm:0.5.45"
   dependencies:
@@ -8596,15 +8153,6 @@ __metadata:
   dependencies:
     node-gyp: "npm:latest"
   checksum: 10c0/9209d80134fdb98c0afe35c1372d2b930a0a8d3c52706cb5e4257a27e9845c375f7a8daedadadec8d6403ca2eebb3b37d362ff5d1ec03249462abf65fef2a148
-  languageName: node
-  linkType: hard
-
-"nanoid@npm:^3.3.7":
-  version: 3.3.7
-  resolution: "nanoid@npm:3.3.7"
-  bin:
-    nanoid: bin/nanoid.cjs
-  checksum: 10c0/e3fb661aa083454f40500473bb69eedb85dc160e763150b9a2c567c7e9ff560ce028a9f833123b618a6ea742e311138b591910e795614a629029e86e180660f3
   languageName: node
   linkType: hard
 
@@ -8774,18 +8322,6 @@ __metadata:
     semver: "npm:2 || 3 || 4 || 5"
     validate-npm-package-license: "npm:^3.0.1"
   checksum: 10c0/357cb1646deb42f8eb4c7d42c4edf0eec312f3628c2ef98501963cc4bbe7277021b2b1d977f982b2edce78f5a1014613ce9cf38085c3df2d76730481357ca504
-  languageName: node
-  linkType: hard
-
-"normalize-package-data@npm:^3.0.2":
-  version: 3.0.3
-  resolution: "normalize-package-data@npm:3.0.3"
-  dependencies:
-    hosted-git-info: "npm:^4.0.1"
-    is-core-module: "npm:^2.5.0"
-    semver: "npm:^7.3.4"
-    validate-npm-package-license: "npm:^3.0.1"
-  checksum: 10c0/e5d0f739ba2c465d41f77c9d950e291ea4af78f8816ddb91c5da62257c40b76d8c83278b0d08ffbcd0f187636ebddad20e181e924873916d03e6e5ea2ef026be
   languageName: node
   linkType: hard
 
@@ -9428,94 +8964,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-modules-extract-imports@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "postcss-modules-extract-imports@npm:3.0.0"
-  peerDependencies:
-    postcss: ^8.1.0
-  checksum: 10c0/f8879d66d8162fb7a3fcd916d37574006c584ea509107b1cfb798a5e090175ef9470f601e46f0a305070d8ff2500e07489a5c1ac381c29a1dc1120e827ca7943
-  languageName: node
-  linkType: hard
-
-"postcss-modules-local-by-default@npm:^4.0.4":
-  version: 4.0.4
-  resolution: "postcss-modules-local-by-default@npm:4.0.4"
-  dependencies:
-    icss-utils: "npm:^5.0.0"
-    postcss-selector-parser: "npm:^6.0.2"
-    postcss-value-parser: "npm:^4.1.0"
-  peerDependencies:
-    postcss: ^8.1.0
-  checksum: 10c0/9ebf464867eb10b29b73501b1466dcac8352ed852ef68ec23571f515daa74401d7ace9a6c72f354542081fdbb47d098c9bc6b05373b553a6e35779d072f967bb
-  languageName: node
-  linkType: hard
-
-"postcss-modules-scope@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "postcss-modules-scope@npm:3.1.1"
-  dependencies:
-    postcss-selector-parser: "npm:^6.0.4"
-  peerDependencies:
-    postcss: ^8.1.0
-  checksum: 10c0/3ef6ac14fcda1581bc43e37622256bd87b99ea49c59b2aae648d057d57f5ecc634648cce9910166220a797567af674bc09246ccc010f1dd58d2863b805719109
-  languageName: node
-  linkType: hard
-
-"postcss-modules-values@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "postcss-modules-values@npm:4.0.0"
-  dependencies:
-    icss-utils: "npm:^5.0.0"
-  peerDependencies:
-    postcss: ^8.1.0
-  checksum: 10c0/dd18d7631b5619fb9921b198c86847a2a075f32e0c162e0428d2647685e318c487a2566cc8cc669fc2077ef38115cde7a068e321f46fb38be3ad49646b639dbc
-  languageName: node
-  linkType: hard
-
-"postcss-resolve-nested-selector@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "postcss-resolve-nested-selector@npm:0.1.1"
-  checksum: 10c0/e86412064c5d805fbee20f4e851395304102addd7d583b6a991adaa5616e8d5f45549864eb6292d4cf15075cd261c289f069acdf6a2556689fc44fe72bcb306e
-  languageName: node
-  linkType: hard
-
-"postcss-safe-parser@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "postcss-safe-parser@npm:6.0.0"
-  peerDependencies:
-    postcss: ^8.3.3
-  checksum: 10c0/5b0997b63de6ab4afb4b718a52dd7902e465c21d1f2e516762bcb59047787459b4dc5713132f6a19c9c8c483043b20b8a380a55fb61152ee66cbffcddf3b57f0
-  languageName: node
-  linkType: hard
-
-"postcss-selector-parser@npm:^6.0.13, postcss-selector-parser@npm:^6.0.2, postcss-selector-parser@npm:^6.0.4":
-  version: 6.0.15
-  resolution: "postcss-selector-parser@npm:6.0.15"
-  dependencies:
-    cssesc: "npm:^3.0.0"
-    util-deprecate: "npm:^1.0.2"
-  checksum: 10c0/48b425d6cef497bcf6b7d136f6fd95cfca43026955e07ec9290d3c15457de3a862dbf251dd36f42c07a0d5b5ab6f31e41acefeff02528995a989b955505e440b
-  languageName: node
-  linkType: hard
-
-"postcss-value-parser@npm:^4.1.0, postcss-value-parser@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "postcss-value-parser@npm:4.2.0"
-  checksum: 10c0/f4142a4f56565f77c1831168e04e3effd9ffcc5aebaf0f538eee4b2d465adfd4b85a44257bb48418202a63806a7da7fe9f56c330aebb3cac898e46b4cbf49161
-  languageName: node
-  linkType: hard
-
-"postcss@npm:^8.4.28, postcss@npm:^8.4.33":
-  version: 8.4.35
-  resolution: "postcss@npm:8.4.35"
-  dependencies:
-    nanoid: "npm:^3.3.7"
-    picocolors: "npm:^1.0.0"
-    source-map-js: "npm:^1.0.2"
-  checksum: 10c0/e8dd04e48001eb5857abc9475365bf08f4e508ddf9bc0b8525449a95d190f10d025acebc5b56ac2e94b3c7146790e4ae78989bb9633cb7ee20d1cc9b7dc909b2
-  languageName: node
-  linkType: hard
-
 "precise-commits@npm:^1.0.2":
   version: 1.0.2
   resolution: "precise-commits@npm:1.0.2"
@@ -9585,13 +9033,6 @@ __metadata:
   version: 3.0.0
   resolution: "proc-log@npm:3.0.0"
   checksum: 10c0/f66430e4ff947dbb996058f6fd22de2c66612ae1a89b097744e17fb18a4e8e7a86db99eda52ccf15e53f00b63f4ec0b0911581ff2aac0355b625c8eac509b0dc
-  languageName: node
-  linkType: hard
-
-"process@npm:^0.11.10":
-  version: 0.11.10
-  resolution: "process@npm:0.11.10"
-  checksum: 10c0/40c3ce4b7e6d4b8c3355479df77aeed46f81b279818ccdc500124e6a5ab882c0cc81ff7ea16384873a95a74c4570b01b120f287abbdd4c877931460eca6084b3
   languageName: node
   linkType: hard
 
@@ -9686,13 +9127,6 @@ __metadata:
   version: 1.2.3
   resolution: "queue-microtask@npm:1.2.3"
   checksum: 10c0/900a93d3cdae3acd7d16f642c29a642aea32c2026446151f0778c62ac089d4b8e6c986811076e1ae180a694cedf077d453a11b58ff0a865629a4f82ab558e102
-  languageName: node
-  linkType: hard
-
-"quick-lru@npm:^5.1.1":
-  version: 5.1.1
-  resolution: "quick-lru@npm:5.1.1"
-  checksum: 10c0/a24cba5da8cec30d70d2484be37622580f64765fb6390a928b17f60cd69e8dbd32a954b3ff9176fa1b86d86ff2ba05252fae55dc4d40d0291c60412b0ad096da
   languageName: node
   linkType: hard
 
@@ -9804,17 +9238,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"read-pkg-up@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "read-pkg-up@npm:8.0.0"
-  dependencies:
-    find-up: "npm:^5.0.0"
-    read-pkg: "npm:^6.0.0"
-    type-fest: "npm:^1.0.1"
-  checksum: 10c0/cf3905ccbe5cd602f23192cc7ca65ed17561bab117eadb9aed817441d5bfc6b9a11215c2a3e9505f501d046818f3c4180dbea61fa83c42083e0b4e407d5cc745
-  languageName: node
-  linkType: hard
-
 "read-pkg@npm:^3.0.0":
   version: 3.0.0
   resolution: "read-pkg@npm:3.0.0"
@@ -9823,18 +9246,6 @@ __metadata:
     normalize-package-data: "npm:^2.3.2"
     path-type: "npm:^3.0.0"
   checksum: 10c0/65acf2df89fbcd506b48b7ced56a255ba00adf7ecaa2db759c86cc58212f6fd80f1f0b7a85c848551a5d0685232e9b64f45c1fd5b48d85df2761a160767eeb93
-  languageName: node
-  linkType: hard
-
-"read-pkg@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "read-pkg@npm:6.0.0"
-  dependencies:
-    "@types/normalize-package-data": "npm:^2.4.0"
-    normalize-package-data: "npm:^3.0.2"
-    parse-json: "npm:^5.2.0"
-    type-fest: "npm:^1.0.1"
-  checksum: 10c0/b51ee5eed75324f4fac34c9a40b5e4b403de4c532242be01959c9bbdb1ff9db1c6c2aefaba569622fec49d1ead866e97ba856ab145f6e11039b11f7bec1318ba
   languageName: node
   linkType: hard
 
@@ -9853,16 +9264,6 @@ __metadata:
   dependencies:
     resolve: "npm:^1.20.0"
   checksum: 10c0/1a30074124a22abbd5d44d802dac26407fa72a0a95f162aa5504ba8246bc5452f8b1a027b154d9bdbabcd8764920ff9333d934c46a8f17479c8912e92332f3ff
-  languageName: node
-  linkType: hard
-
-"redent@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "redent@npm:4.0.0"
-  dependencies:
-    indent-string: "npm:^5.0.0"
-    strip-indent: "npm:^4.0.0"
-  checksum: 10c0/a9b640c8f4b2b5b26a1a908706475ff404dd50a97d6f094bc3c59717be922622927cc7d601d4ae2857d897ad243fd979bd76d751a0481cee8be7024e5fb4c662
   languageName: node
   linkType: hard
 
@@ -10206,7 +9607,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"schema-utils@npm:^3.0.0, schema-utils@npm:^3.1.1, schema-utils@npm:^3.2.0":
+"schema-utils@npm:^3.1.1, schema-utils@npm:^3.2.0":
   version: 3.3.0
   resolution: "schema-utils@npm:3.3.0"
   dependencies:
@@ -10217,7 +9618,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"schema-utils@npm:^4.0.0, schema-utils@npm:^4.0.1":
+"schema-utils@npm:^4.0.0":
   version: 4.2.0
   resolution: "schema-utils@npm:4.2.0"
   dependencies:
@@ -10247,7 +9648,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.8, semver@npm:^7.5.3, semver@npm:^7.5.4":
+"semver@npm:^7.3.5, semver@npm:^7.3.8, semver@npm:^7.5.3, semver@npm:^7.5.4":
   version: 7.6.0
   resolution: "semver@npm:7.6.0"
   dependencies:
@@ -10443,17 +9844,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"slice-ansi@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "slice-ansi@npm:4.0.0"
-  dependencies:
-    ansi-styles: "npm:^4.0.0"
-    astral-regex: "npm:^2.0.0"
-    is-fullwidth-code-point: "npm:^3.0.0"
-  checksum: 10c0/6c25678db1270d4793e0327620f1e0f9f5bea4630123f51e9e399191bc52c87d6e6de53ed33538609e5eacbd1fab769fae00f3705d08d029f02102a540648918
-  languageName: node
-  linkType: hard
-
 "smart-buffer@npm:^4.2.0":
   version: 4.2.0
   resolution: "smart-buffer@npm:4.2.0"
@@ -10479,13 +9869,6 @@ __metadata:
     ip-address: "npm:^9.0.5"
     smart-buffer: "npm:^4.2.0"
   checksum: 10c0/31836d95e42f10a6e734fae93e61f6c2673416ca3003daa4df39a7582f40c5127f655cfadfaadd0bae456862f78b87a34cd28d5068a76aa767d7e7b794d9eb95
-  languageName: node
-  linkType: hard
-
-"source-map-js@npm:^1.0.1, source-map-js@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "source-map-js@npm:1.0.2"
-  checksum: 10c0/32f2dfd1e9b7168f9a9715eb1b4e21905850f3b50cf02cf476e47e4eebe8e6b762b63a64357896aa29b37e24922b4282df0f492e0d2ace572b43d15525976ff8
   languageName: node
   linkType: hard
 
@@ -10744,85 +10127,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strip-indent@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "strip-indent@npm:4.0.0"
-  dependencies:
-    min-indent: "npm:^1.0.1"
-  checksum: 10c0/6b1fb4e22056867f5c9e7a6f3f45922d9a2436cac758607d58aeaac0d3b16ec40b1c43317de7900f1b8dd7a4107352fa47fb960f2c23566538c51e8585c8870e
-  languageName: node
-  linkType: hard
-
 "strip-json-comments@npm:^3.1.1":
   version: 3.1.1
   resolution: "strip-json-comments@npm:3.1.1"
   checksum: 10c0/9681a6257b925a7fa0f285851c0e613cc934a50661fa7bb41ca9cbbff89686bb4a0ee366e6ecedc4daafd01e83eee0720111ab294366fe7c185e935475ebcecd
-  languageName: node
-  linkType: hard
-
-"style-loader@npm:^3.3.3":
-  version: 3.3.4
-  resolution: "style-loader@npm:3.3.4"
-  peerDependencies:
-    webpack: ^5.0.0
-  checksum: 10c0/8f8027fc5c6e91400cbb60066e7db3315810f8eaa0d19b2a254936eb0bec399ba8a7043b1789da9d05ab7c3ba50faf9267765ae0bf3571e48aa34ecdc774be37
-  languageName: node
-  linkType: hard
-
-"style-search@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "style-search@npm:0.1.0"
-  checksum: 10c0/9e5cb735e5dc4fc2f8c61bebdf211d5352f1cf01511a64da12bb726a01e8c6948c50d357eb8fd7893d44b4e3189655bdddcf8ab338f9d508fe89a8942c650b14
-  languageName: node
-  linkType: hard
-
-"stylelint@npm:^15.10.3":
-  version: 15.11.0
-  resolution: "stylelint@npm:15.11.0"
-  dependencies:
-    "@csstools/css-parser-algorithms": "npm:^2.3.1"
-    "@csstools/css-tokenizer": "npm:^2.2.0"
-    "@csstools/media-query-list-parser": "npm:^2.1.4"
-    "@csstools/selector-specificity": "npm:^3.0.0"
-    balanced-match: "npm:^2.0.0"
-    colord: "npm:^2.9.3"
-    cosmiconfig: "npm:^8.2.0"
-    css-functions-list: "npm:^3.2.1"
-    css-tree: "npm:^2.3.1"
-    debug: "npm:^4.3.4"
-    fast-glob: "npm:^3.3.1"
-    fastest-levenshtein: "npm:^1.0.16"
-    file-entry-cache: "npm:^7.0.0"
-    global-modules: "npm:^2.0.0"
-    globby: "npm:^11.1.0"
-    globjoin: "npm:^0.1.4"
-    html-tags: "npm:^3.3.1"
-    ignore: "npm:^5.2.4"
-    import-lazy: "npm:^4.0.0"
-    imurmurhash: "npm:^0.1.4"
-    is-plain-object: "npm:^5.0.0"
-    known-css-properties: "npm:^0.29.0"
-    mathml-tag-names: "npm:^2.1.3"
-    meow: "npm:^10.1.5"
-    micromatch: "npm:^4.0.5"
-    normalize-path: "npm:^3.0.0"
-    picocolors: "npm:^1.0.0"
-    postcss: "npm:^8.4.28"
-    postcss-resolve-nested-selector: "npm:^0.1.1"
-    postcss-safe-parser: "npm:^6.0.0"
-    postcss-selector-parser: "npm:^6.0.13"
-    postcss-value-parser: "npm:^4.2.0"
-    resolve-from: "npm:^5.0.0"
-    string-width: "npm:^4.2.3"
-    strip-ansi: "npm:^6.0.1"
-    style-search: "npm:^0.1.0"
-    supports-hyperlinks: "npm:^3.0.0"
-    svg-tags: "npm:^1.0.0"
-    table: "npm:^6.8.1"
-    write-file-atomic: "npm:^5.0.1"
-  bin:
-    stylelint: bin/stylelint.mjs
-  checksum: 10c0/2d88b7293e308b7e418c14ba4130777b1a28b214304957f03b41a6dc8e00005266caf47479f718a6ec5e572cb52e903ca34aabf3febbe3a3ae32fff6b018d9fd
   languageName: node
   linkType: hard
 
@@ -10870,7 +10178,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"supports-color@npm:^7.0.0, supports-color@npm:^7.1.0":
+"supports-color@npm:^7.1.0":
   version: 7.2.0
   resolution: "supports-color@npm:7.2.0"
   dependencies:
@@ -10888,27 +10196,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"supports-hyperlinks@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "supports-hyperlinks@npm:3.0.0"
-  dependencies:
-    has-flag: "npm:^4.0.0"
-    supports-color: "npm:^7.0.0"
-  checksum: 10c0/36aaa55e67645dded8e0f846fd81d7dd05ce82ea81e62347f58d86213577eb627b2b45298656ce7a70e7155e39f071d0d3f83be91e112aed801ebaa8db1ef1d0
-  languageName: node
-  linkType: hard
-
 "supports-preserve-symlinks-flag@npm:^1.0.0":
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
   checksum: 10c0/6c4032340701a9950865f7ae8ef38578d8d7053f5e10518076e6554a9381fa91bd9c6850193695c141f32b21f979c985db07265a758867bac95de05f7d8aeb39
-  languageName: node
-  linkType: hard
-
-"svg-tags@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "svg-tags@npm:1.0.0"
-  checksum: 10c0/5867e29e8f431bf7aecf5a244d1af5725f80a1086187dbc78f26d8433b5e96b8fe9361aeb10d1699ff483b9afec785a10916b9312fe9d734d1a7afd48226c954
   languageName: node
   linkType: hard
 
@@ -10919,19 +10210,6 @@ __metadata:
     "@pkgr/core": "npm:^0.1.0"
     tslib: "npm:^2.6.2"
   checksum: 10c0/c3d3aa8e284f3f84f2f868b960c9f49239b364e35f6d20825a448449a3e9c8f49fe36cdd5196b30615682f007830d46f2ea354003954c7336723cb821e4b6519
-  languageName: node
-  linkType: hard
-
-"table@npm:^6.8.1":
-  version: 6.8.1
-  resolution: "table@npm:6.8.1"
-  dependencies:
-    ajv: "npm:^8.0.1"
-    lodash.truncate: "npm:^4.4.2"
-    slice-ansi: "npm:^4.0.0"
-    string-width: "npm:^4.2.3"
-    strip-ansi: "npm:^6.0.1"
-  checksum: 10c0/591ed84b2438b01c9bc02248e2238e21e8bfb73654bc5acca0d469053eb39be3db2f57d600dcf08ac983b6f50f80842c44612c03877567c2afee3aec4a033e5f
   languageName: node
   linkType: hard
 
@@ -10956,7 +10234,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"terser-webpack-plugin@npm:^5.3.10, terser-webpack-plugin@npm:^5.3.9":
+"terser-webpack-plugin@npm:^5.3.10":
   version: 5.3.10
   resolution: "terser-webpack-plugin@npm:5.3.10"
   dependencies:
@@ -11007,20 +10285,6 @@ __metadata:
   version: 0.2.0
   resolution: "text-table@npm:0.2.0"
   checksum: 10c0/02805740c12851ea5982686810702e2f14369a5f4c5c40a836821e3eefc65ffeec3131ba324692a37608294b0fd8c1e55a2dd571ffed4909822787668ddbee5c
-  languageName: node
-  linkType: hard
-
-"thread-loader@npm:^4.0.2":
-  version: 4.0.2
-  resolution: "thread-loader@npm:4.0.2"
-  dependencies:
-    json-parse-better-errors: "npm:^1.0.2"
-    loader-runner: "npm:^4.1.0"
-    neo-async: "npm:^2.6.2"
-    schema-utils: "npm:^4.0.1"
-  peerDependencies:
-    webpack: ^5.0.0
-  checksum: 10c0/907eeb4606650ddada05bcf9f0181e51fe4a03357429315a2d501e8b39581d14391ebc4b6b62c68190fbfaf65b624556847a2d3c745293087713006da5922ae4
   languageName: node
   linkType: hard
 
@@ -11086,13 +10350,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"trim-newlines@npm:^4.0.2":
-  version: 4.1.1
-  resolution: "trim-newlines@npm:4.1.1"
-  checksum: 10c0/70e60e652305efd0dda1f2bce1a5edc9bb5834a2e00d05dfde178715ec48faa8264a2bc1a7efc593b7936d03f6d42c398616329eef44b7bd5070180a02056981
-  languageName: node
-  linkType: hard
-
 "tslib@npm:^2.0.3, tslib@npm:^2.6.2":
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
@@ -11127,13 +10384,6 @@ __metadata:
   version: 0.21.3
   resolution: "type-fest@npm:0.21.3"
   checksum: 10c0/902bd57bfa30d51d4779b641c2bc403cdf1371fb9c91d3c058b0133694fcfdb817aef07a47f40faf79039eecbaa39ee9d3c532deff244f3a19ce68cea71a61e8
-  languageName: node
-  linkType: hard
-
-"type-fest@npm:^1.0.1, type-fest@npm:^1.2.1, type-fest@npm:^1.2.2":
-  version: 1.4.0
-  resolution: "type-fest@npm:1.4.0"
-  checksum: 10c0/a3c0f4ee28ff6ddf800d769eafafcdeab32efa38763c1a1b8daeae681920f6e345d7920bf277245235561d8117dab765cb5f829c76b713b4c9de0998a5397141
   languageName: node
   linkType: hard
 
@@ -11194,10 +10444,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ua-parser-js@npm:^1.0.36":
-  version: 1.0.37
-  resolution: "ua-parser-js@npm:1.0.37"
-  checksum: 10c0/dac8cf82a55b2e097bd2286954e01454c4cfcf23c9d9b56961ce94bda3cec5a38ca536e6e84c20a4000a9d4b4a4abcbd98ec634ccebe21be36595ea3069126e4
+"ua-parser-js@npm:^1.0.39":
+  version: 1.0.39
+  resolution: "ua-parser-js@npm:1.0.39"
+  bin:
+    ua-parser-js: script/cli.js
+  checksum: 10c0/c6452b0c683000f10975cb0a7e74cb1119ea95d4522ae85f396fa53b0b17884358a24ffdd86a66030c6b2981bdc502109a618c79fdaa217ee9032c9e46fcc78a
   languageName: node
   linkType: hard
 
@@ -11303,13 +10555,6 @@ __metadata:
   dependencies:
     punycode: "npm:^2.1.0"
   checksum: 10c0/4ef57b45aa820d7ac6496e9208559986c665e49447cb072744c13b66925a362d96dd5a46c4530a6b8e203e5db5fe849369444440cb22ecfc26c679359e5dfa3c
-  languageName: node
-  linkType: hard
-
-"util-deprecate@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "util-deprecate@npm:1.0.2"
-  checksum: 10c0/41a5bdd214df2f6c3ecf8622745e4a366c4adced864bc3c833739791aeeeb1838119af7daed4ba36428114b5c67dcda034a79c882e97e43c03e66a4dd7389942
   languageName: node
   linkType: hard
 
@@ -11454,7 +10699,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.89.0, webpack@npm:^5.90.1":
+"webpack@npm:^5.90.1":
   version: 5.90.1
   resolution: "webpack@npm:5.90.1"
   dependencies:
@@ -11549,7 +10794,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"which@npm:^1.2.9, which@npm:^1.3.1":
+"which@npm:^1.2.9":
   version: 1.3.1
   resolution: "which@npm:1.3.1"
   dependencies:
@@ -11642,16 +10887,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"write-file-atomic@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "write-file-atomic@npm:5.0.1"
-  dependencies:
-    imurmurhash: "npm:^0.1.4"
-    signal-exit: "npm:^4.0.1"
-  checksum: 10c0/e8c850a8e3e74eeadadb8ad23c9d9d63e4e792bd10f4836ed74189ef6e996763959f1249c5650e232f3c77c11169d239cbfc8342fc70f3fe401407d23810505d
-  languageName: node
-  linkType: hard
-
 "xlsx@npm:^0.18.5":
   version: 0.18.5
   resolution: "xlsx@npm:0.18.5"
@@ -11734,13 +10969,6 @@ __metadata:
   version: 1.10.2
   resolution: "yaml@npm:1.10.2"
   checksum: 10c0/5c28b9eb7adc46544f28d9a8d20c5b3cb1215a886609a2fd41f51628d8aaa5878ccd628b755dbcd29f6bb4921bd04ffbc6dcc370689bb96e594e2f9813d2605f
-  languageName: node
-  linkType: hard
-
-"yargs-parser@npm:^20.2.9":
-  version: 20.2.9
-  resolution: "yargs-parser@npm:20.2.9"
-  checksum: 10c0/0685a8e58bbfb57fab6aefe03c6da904a59769bd803a722bb098bd5b0f29d274a1357762c7258fb487512811b8063fb5d2824a3415a0a4540598335b3b086c72
   languageName: node
   linkType: hard
 

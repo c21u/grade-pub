@@ -3,14 +3,14 @@ import propTypes from "prop-types";
 import { Button } from "@instructure/ui-buttons";
 import { Text } from "@instructure/ui-text";
 
-const GradeSchemeSelect = (props) => {
-  const schemeMap = {
-    1235: "Final",
-    1237: "Midterm",
-    Final: "1235",
-    Midterm: "1237",
-  };
+export const schemeMap = {
+  1235: "Final",
+  1237: "Midterm",
+  Final: "1235",
+  Midterm: "1237",
+};
 
+const GradeSchemeSelect = (props) => {
   const setGradingScheme = async (scheme) => {
     props.clickHandler(schemeMap[scheme]);
   };

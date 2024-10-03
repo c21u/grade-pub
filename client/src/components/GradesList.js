@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Responsive } from "@instructure/ui-responsive";
 import SortedTable from "./SortedTable.js";
 
-const GradesList = ({ canvasGrades, bannerGrades }) => {
+const GradesList = ({ canvasGrades, bannerGrades, gradeMode }) => {
   if (canvasGrades === null) {
     return null;
   }
@@ -18,10 +18,10 @@ const GradesList = ({ canvasGrades, bannerGrades }) => {
 
   const rows = canvasGrades.map((grade) => ({
     ...grade,
-    currentGrade: grade.currentGrade,
+    canvasGrade: gradeMode === "M" ? grade.currentGrade : grade.finalGrade,
     bannerGrade: bannerGradesByID
       ? bannerGradesByID[grade.gtID]
-        ? bannerGradesByID[grade.gtID].success
+        ? bannerGradesByID[grade.gtID].success === true
           ? bannerGradesByID[grade.gtID].grade
           : "?"
         : "-"
@@ -45,6 +45,7 @@ const GradesList = ({ canvasGrades, bannerGrades }) => {
 GradesList.propTypes = {
   canvasGrades: PropTypes.array,
   bannerGrades: PropTypes.array,
+  gradeMode: PropTypes.string,
 };
 
 export default GradesList;

@@ -1,31 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Button } from "@instructure/ui-buttons";
-import { Text } from "@instructure/ui-text";
-import { IconCompleteSolid } from "@instructure/ui-icons";
+import { Alert } from "@instructure/ui-alerts";
 
-const BannerButton = (props) => {
-  return props.published ? (
-    <Text>
-      <IconCompleteSolid color="success" /> Grades successfully published to
-      Banner.
-    </Text>
+const BannerButton = ({
+  dataReady,
+  exportRunning,
+  needsAttendanceDates,
+  clickHandler,
+  published,
+}) => {
+  return published ? (
+    <Alert variant="success">Grades successfully published to Banner.</Alert>
   ) : (
     <Button
-      disabled={!props.dataReady || props.exportRunning}
-      onClick={props.clickHandler}
+      disabled={!dataReady || needsAttendanceDates || exportRunning}
+      onClick={clickHandler}
     >
-      {props.dataReady
-        ? props.exportRunning
+      {dataReady
+        ? exportRunning
           ? "Exporting Grades..."
           : "Export Grades to Banner"
-        : "Preparing Grades for Export..."}
+        : needsAttendanceDates
+          ? "Attendance Dates Needed"
+          : "Preparing Grades for Export..."}
     </Button>
   );
 };
 BannerButton.propTypes = {
   clickHandler: PropTypes.func,
   dataReady: PropTypes.bool,
+  needsAttendanceDates: PropTypes.bool,
   exportRunning: PropTypes.bool,
   published: PropTypes.bool,
 };

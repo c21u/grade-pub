@@ -21,13 +21,13 @@ const SortedTable = (props) => {
       text: "Section",
     },
     {
-      id: "currentGrade",
+      id: "canvasGrade",
       text: "Canvas Grade",
       align: "end",
       renderCell: (grade) =>
         grade ? (
           grade == "loading" ? (
-            <Spinner size="x-small" />
+            <Spinner size="x-small" renderTitle="Loading Canvas Grade" />
           ) : (
             <Text>{grade}</Text>
           )
@@ -42,7 +42,9 @@ const SortedTable = (props) => {
       renderCell: (grade) => {
         switch (grade) {
           case null:
-            return <Spinner size="x-small" />;
+            return (
+              <Spinner size="x-small" renderTitle="Loading Banner Grade" />
+            );
           case "?":
             return <IconWarningSolid color="error" />;
           default:
@@ -99,7 +101,7 @@ const SortedTable = (props) => {
   });
 
   return (
-    <Table layout={props.layout}>
+    <Table layout={props.layout} caption="Grades Table">
       <Table.Head renderSortLabel="Sort by">
         {renderHeaderRow(direction)}
       </Table.Head>
@@ -120,6 +122,7 @@ const SortedTable = (props) => {
 SortedTable.propTypes = {
   rows: PropTypes.array,
   layout: PropTypes.string,
+  gradeMode: PropTypes.string,
 };
 
 export default SortedTable;

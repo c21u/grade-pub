@@ -145,7 +145,7 @@ router.post("/publish", async (req, res) => {
   }
   logger.info({ user: req.auth }, "Requested publication of grades to banner");
   try {
-    const result = await uploadGrades(req.auth, req.body);
+    const result = await uploadGrades(req.auth, req.body.grades, req.body.mode);
     return res.send(result);
   } catch (err) {
     logger.error(err);

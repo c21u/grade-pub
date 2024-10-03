@@ -1,23 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Warning from "./Warning.js";
+import { Alert } from "@instructure/ui-alerts";
 
 const PublisherErrors = ({ exportError, dataError }) => {
   return (
     <>
       {exportError ? (
-        <Warning color="error">
+        <Alert variant="error">
           There was a problem sending some grades to Banner. If the issue
           persists please contact{" "}
           <a href="mailto:canvas@gatech.edu">canvas@gatech.edu</a>.
-        </Warning>
+        </Alert>
       ) : null}
       {dataError ? (
-        <Warning color="error">
+        <Alert variant="error">
           There was a problem loading the grade data for this course, please
           refresh the page to try again. If the issue persists please contact{" "}
           <a href="mailto:canvas@gatech.edu">canvas@gatech.edu</a>.
-        </Warning>
+        </Alert>
       ) : null}
     </>
   );
