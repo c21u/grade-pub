@@ -186,10 +186,12 @@ const GradePublisher = (props) => {
         .fetch(`/api/isGradingOpen?term=${term}`, fetchOptions)
         .then(async (isGradingOpen) => {
           isGradingOpen = await isGradingOpen.json();
-          setGradingOpen(
-            isGradingOpen.success &&
-              isGradingOpen.payload.grades_allowed == "open",
-          );
+          return isGradingOpen.success
+            ? setGradingOpen({
+                final: isGradingOpen.payload.final_grades_allowed == "open",
+                midterm: isGradingOpen.payload.midterm_grades_allowed == "open",
+              })
+            : setDataError(true);
         })
         .catch((err) => setDataError(true));
     }
@@ -252,11 +254,13 @@ const GradePublisher = (props) => {
       body: JSON.stringify({ scheme }),
     });
     setCanvasGrades(
-      canvasGrades.map((datum) => ({
-        ...datum,
-        currentGrade: "loading",
-        finalGrade: "loading",
-      })),
+      canvasGrades
+        ? canvasGrades.map((datum) => ({
+            ...datum,
+            currentGrade: "loading",
+            finalGrade: "loading",
+          }))
+        : canvasGrades,
     );
     setSchemeUnset(null);
   };
@@ -321,6 +325,7 @@ const GradePublisher = (props) => {
             gradeScheme={gradeScheme}
             schemeUnset={schemeUnset}
             clickHandler={handleGradeSchemeSelected}
+            gradingOpen={gradingOpen}
           />
         ) : (
           <Spinner
@@ -359,7 +364,10 @@ const GradePublisher = (props) => {
       ) : null}
       <View as="div" textAlign="center">
         <PublisherErrors exportError={exportError} dataError={dataError} />
-        {gradingOpen && !dataError && !exportError ? (
+        {gradingOpen &&
+        (gradingOpen.final || gradingOpen.midterm) &&
+        !dataError &&
+        !exportError ? (
           <>
             {gradeMode === "F" && needsAttendanceDates() ? (
               <Button
@@ -386,21 +394,30 @@ const GradePublisher = (props) => {
             <LargeClassWarning />
           </>
         ) : null}
-        {gradingOpen && !dataError ? (
+        {gradingOpen &&
+        (gradingOpen.final || gradingOpen.midterm) &&
+        !dataError ? (
           <GradesList
             canvasGrades={canvasGrades}
             bannerGrades={bannerGrades}
             gradeMode={gradeMode}
           />
         ) : null}
-        {gradingOpen === false ? (
+        {gradingOpen &&
+        gradingOpen.final === false &&
+        gradingOpen.midterm === false ? (
           <Alert variant="warning">
             Grading is currently closed for this term in Banner
           </Alert>
         ) : (
           ""
         )}
-        {canvasGrades || schemeUnset || dataError || gradingOpen === false ? (
+        {canvasGrades ||
+        schemeUnset ||
+        dataError ||
+        (gradingOpen &&
+          gradingOpen.final === false &&
+          gradingOpen.midterm === false) ? (
           ""
         ) : (
           <View as="div">

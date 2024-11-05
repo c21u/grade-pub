@@ -1,7 +1,7 @@
 import React from "react";
 import propTypes from "prop-types";
 import { Button } from "@instructure/ui-buttons";
-import { Text } from "@instructure/ui-text";
+import { Alert } from "@instructure/ui-alerts";
 
 export const schemeMap = {
   1235: "Final",
@@ -10,17 +10,24 @@ export const schemeMap = {
   Midterm: "1237",
 };
 
-const GradeSchemeSelect = (props) => {
+const GradeSchemeSelect = ({
+  schemeUnset,
+  gradeScheme,
+  clickHandler,
+  gradingOpen,
+}) => {
   const setGradingScheme = async (scheme) => {
-    props.clickHandler(schemeMap[scheme]);
+    clickHandler(schemeMap[scheme]);
   };
-
-  return props.schemeUnset || !schemeMap[props.gradeScheme.id] ? (
+  if (!gradingOpen) {
+    return null;
+  }
+  return schemeUnset || !schemeMap[gradeScheme.id] ? (
     <>
-      <Text as="div">
+      <Alert variant="warning">
         This course currently has no grading scheme or is using a custom grading
         scheme.
-      </Text>
+      </Alert>
       <Button margin="medium" onClick={() => setGradingScheme("Midterm")}>
         Use Midterm Grading Scheme
       </Button>
@@ -30,20 +37,27 @@ const GradeSchemeSelect = (props) => {
     </>
   ) : (
     <>
-      <Text as="div">
-        This course is currently using the {schemeMap[props.gradeScheme.id]}{" "}
-        Grading Scheme
-      </Text>
+      {(gradingOpen.final && gradeScheme.id == schemeMap.Final) ||
+      (gradingOpen.midterm && gradeScheme.id == schemeMap.Midterm) ? (
+        <Alert variant="success">
+          This course is currently using the {schemeMap[gradeScheme.id]} Grading
+          Scheme
+        </Alert>
+      ) : (
+        <Alert variant="warning">
+          This course is currently using the {schemeMap[gradeScheme.id]} Grading
+          Scheme, which does not match the Banner grading period.
+        </Alert>
+      )}
       <Button
         margin="medium"
         onClick={() =>
           setGradingScheme(
-            schemeMap[props.gradeScheme.id] === "Final" ? "Midterm" : "Final",
+            schemeMap[gradeScheme.id] === "Final" ? "Midterm" : "Final",
           )
         }
       >
-        Switch to{" "}
-        {schemeMap[props.gradeScheme.id] === "Final" ? "Midterm" : "Final"}{" "}
+        Switch to {schemeMap[gradeScheme.id] === "Final" ? "Midterm" : "Final"}{" "}
         Grading Scheme
       </Button>
     </>
@@ -53,6 +67,7 @@ GradeSchemeSelect.propTypes = {
   schemeUnset: propTypes.bool,
   gradeScheme: propTypes.object,
   clickHandler: propTypes.func,
+  gradingOpen: propTypes.object,
 };
 
 export default GradeSchemeSelect;
