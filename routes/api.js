@@ -6,6 +6,7 @@ import canvasAPI from "../lib/canvas.js";
 import logger from "../lib/logger.js";
 import { uploadGrades, getGrades, isGradingOpen } from "../lib/banner.js";
 import { getGrademodes } from "../lib/buzzapi.js";
+import { namespace as ns } from "../config.js";
 
 router.use(jwtMiddleware);
 
@@ -182,6 +183,66 @@ router.get("/isGradingOpen", async (req, res) => {
   } catch (err) {
     logger.error(err);
     return res.status(500).send("Error getting Banner grade period status");
+  }
+});
+
+router.get("/attendanceDates", async (req, res) => {
+  if (!req.auth || !req.auth.roles.includes("Instructor")) {
+    return res
+      .status(403)
+      .send(
+        "You must be logged in as a course instructor to get attendance info!",
+      );
+  }
+  const canvas = canvasAPI.getCanvasContext(req);
+  try {
+    const dates = await canvas.api.get(
+      `users/${req.auth.custom_canvas_user_id}/custom_data/${req.auth.custom_lis_course_offering_sourcedid.replace("/", "_")}/attendance`,
+      { ns },
+    );
+    return res.send(dates.data);
+  } catch (err) {
+    if (err.message === "no data for scope") {
+      return res.send({});
+    }
+    logger.error(err);
+    return res.status(500).send("Error fetching attendance dates");
+  }
+});
+
+router.post("/attendanceDates", async (req, res) => {
+  if (!req.auth || !req.auth.roles.includes("Instructor")) {
+    return res
+      .status(403)
+      .send(
+        "You must be logged in as a course instructor to set attendance info!",
+      );
+  }
+  const canvas = canvasAPI.getCanvasContext(req);
+
+  const key = req.auth.custom_lis_course_offering_sourcedid.replace("/", "_");
+  try {
+    const body = {
+      ns,
+      data: {
+        [key]: {
+          attendance: req.body,
+        },
+      },
+    };
+    const result = await canvas.api.put(
+      `users/${req.auth.custom_canvas_user_id}/custom_data`,
+      null,
+      body,
+    );
+    logger.info({
+      url: `users/${req.auth.custom_canvas_user_id}/custom_data`,
+      result,
+    });
+    return res.send(result);
+  } catch (err) {
+    logger.error(err);
+    res.status(500).send("Error setting attendance dates");
   }
 });
 

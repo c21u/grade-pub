@@ -19,7 +19,7 @@ const GradePublisher = (props) => {
   const [schemeUnset, setSchemeUnset] = useState(null);
   const [dataError, setDataError] = useState(false);
   const [canvasGrades, setCanvasGrades] = useState(null);
-  const [gradeScheme, setGradeScheme] = useState({});
+  const [gradeScheme, setGradeScheme] = useState(null);
   const [sectionTitles, setSectionTitles] = useState({});
   const [exportRunning, setExportRunning] = useState(false);
   const [exportError, setExportError] = useState(false);
@@ -30,6 +30,7 @@ const GradePublisher = (props) => {
   const [gradeMode, setGradeMode] = useState(null);
   const [attendanceModalOpen, setAttendanceModalOpen] = useState(false);
   const [hasOverride, setHasOverride] = useState(false);
+  const [loadedAttendanceDates, setLoadedAttendanceDates] = useState(false);
 
   const { fetchOptions, filename, term } = props;
 
@@ -72,6 +73,7 @@ const GradePublisher = (props) => {
           try {
             checkResponseStatus(gradeResponse);
             setCanvasGrades((await gradeResponse.json()).data);
+            setLoadedAttendanceDates(false);
           } catch (err) {
             setDataError(true);
           }
@@ -79,6 +81,38 @@ const GradePublisher = (props) => {
         .catch(() => setDataError(true));
     }
   }, [fetchOptions, gradeScheme]);
+
+  useEffect(() => {
+    if (
+      fetchOptions &&
+      fetchOptions.headers &&
+      fetchOptions.headers.Authorization &&
+      canvasGrades &&
+      !loadedAttendanceDates
+    ) {
+      window
+        .fetch("/api/attendanceDates", fetchOptions)
+        .then(async (dateResponse) => {
+          try {
+            checkResponseStatus(dateResponse);
+            const dates = await dateResponse.json();
+            const updatedCanvasGrades = canvasGrades.map((grade) => {
+              if (needsAttendanceDate(grade)) {
+                grade.lastAttendanceDate = dates[grade.gtID];
+              } else {
+                delete grade.lastAttendanceDate;
+              }
+              return grade;
+            });
+            setLoadedAttendanceDates(true);
+            setCanvasGrades(updatedCanvasGrades);
+          } catch (err) {
+            setDataError(true);
+          }
+        })
+        .catch(() => setDataError(true));
+    }
+  }, [fetchOptions, canvasGrades, loadedAttendanceDates]);
 
   /**
    * Fetch grade scheme from Canvas
@@ -193,7 +227,7 @@ const GradePublisher = (props) => {
               })
             : setDataError(true);
         })
-        .catch((err) => setDataError(true));
+        .catch(() => setDataError(true));
     }
   }, [fetchOptions, gradingOpen, term]);
 
@@ -265,7 +299,16 @@ const GradePublisher = (props) => {
     setSchemeUnset(null);
   };
 
-  const updateAttendanceDates = (dates) => {
+  const persistAttendanceDates = async (dates) => {
+    return await window.fetch("/api/attendanceDates", {
+      ...fetchOptions,
+      method: "POST",
+      body: JSON.stringify(dates),
+    });
+  };
+
+  const updateAttendanceDates = async (dates) => {
+    await persistAttendanceDates(dates);
     setAttendanceModalOpen(false);
     const updatedCanvasGrades = canvasGrades.map((grade) => {
       if (needsAttendanceDate(grade)) {

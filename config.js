@@ -60,6 +60,11 @@ export const banner = {
   token: getEnvVarOrThrow("BANNER_GRADE_API_TOKEN"),
 };
 
+export const namespace = getEnvVarOrDefault(
+  "NAMESPACE",
+  "edu.gatech.eduapps.gradepubdev",
+);
+
 const config = {
   buzzAPI,
   canvasToken,
@@ -69,6 +74,7 @@ const config = {
   logLevel,
   passport,
   banner,
+  namespace,
 };
 
 export default config;
