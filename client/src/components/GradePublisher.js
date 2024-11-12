@@ -14,6 +14,11 @@ import PublisherErrors from "./PublisherErrors.js";
 import AttendanceModal from "./AttendanceModal.js";
 import { Button } from "@instructure/ui-buttons";
 import { Alert } from "@instructure/ui-alerts";
+import { FormFieldGroup } from "@instructure/ui-form-field";
+import { Checkbox } from "@instructure/ui-checkbox";
+import { ScreenReaderContent } from "@instructure/ui-a11y-content";
+import { Flex } from "@instructure/ui-flex";
+import { Heading } from "@instructure/ui-heading";
 
 const GradePublisher = (props) => {
   const [schemeUnset, setSchemeUnset] = useState(null);
@@ -31,6 +36,7 @@ const GradePublisher = (props) => {
   const [attendanceModalOpen, setAttendanceModalOpen] = useState(false);
   const [hasOverride, setHasOverride] = useState(false);
   const [loadedAttendanceDates, setLoadedAttendanceDates] = useState(false);
+  const [useLegacy, setUseLegacy] = useState(false);
 
   const { fetchOptions, filename, term } = props;
 
@@ -347,20 +353,48 @@ const GradePublisher = (props) => {
     }
   };
 
+  const LoadingSpinner = (props) => {
+    return canvasGrades ||
+      schemeUnset ||
+      dataError ||
+      (gradingOpen &&
+        gradingOpen.final === false &&
+        gradingOpen.midterm === false) ? null : (
+      <View as="div">
+        <Spinner renderTitle="Loading" size="x-small" margin="small" />
+      </View>
+    );
+  };
+
   return (
     <div>
+      <Flex>
+        <Flex.Item shouldGrow shouldShrink padding="none medium none none">
+          <Heading>Grade Publisher</Heading>
+        </Flex.Item>
+        <Flex.Item>
+          <FormFieldGroup
+            description={
+              <ScreenReaderContent>
+                Legacy functionality toggle
+              </ScreenReaderContent>
+            }
+          >
+            <Checkbox
+              label="Send directly to Banner"
+              variant="toggle"
+              checked={!useLegacy}
+              onChange={() => setUseLegacy(!useLegacy)}
+            />
+          </FormFieldGroup>
+        </Flex.Item>
+      </Flex>
+
       <Instructions />
       <Text>
-        An Excel file export of these grades for use with FGE is available:{" "}
-        <SheetButton
-          clickHandler={sheetHandler}
-          dataReady={
-            canvasGrades &&
-            canvasGrades[0] &&
-            canvasGrades[0].currentGrade !== null &&
-            !schemeUnset
-          }
-        />
+        If you need an Excel file export of these grades for use with FGE
+        instead of a direct export to Banner, turn off the &quot;Send directly
+        to Banner&quot; toggle at the top right of this page.
       </Text>
       <View as="div" padding="large">
         {schemeUnset !== null ? (
@@ -395,79 +429,87 @@ const GradePublisher = (props) => {
           </Alert>
         ) : null}
       </View>
-      {canvasGrades ? (
-        <AttendanceModal
-          open={attendanceModalOpen}
-          students={canvasGrades.filter((student) =>
-            needsAttendanceDate(student),
-          )}
-          onDismiss={() => setAttendanceModalOpen(false)}
-          onSubmit={updateAttendanceDates}
-        />
-      ) : null}
-      <View as="div" textAlign="center">
-        <PublisherErrors exportError={exportError} dataError={dataError} />
-        {gradingOpen &&
-        (gradingOpen.final || gradingOpen.midterm) &&
-        !dataError &&
-        !exportError ? (
-          <>
-            {gradeMode === "F" && needsAttendanceDates() ? (
-              <Button
-                margin="small"
-                onClick={() => {
-                  setAttendanceModalOpen(true);
-                }}
-              >
-                Edit Last Attendance Dates
-              </Button>
-            ) : null}
-            <BannerButton
-              clickHandler={bannerHandler}
+      {useLegacy ? (
+        <Flex justifyItems="center">
+          <Flex.Item align="center" textAlign="center">
+            <SheetButton
+              clickHandler={sheetHandler}
               dataReady={
                 canvasGrades &&
-                canvasGrades[0].currentGrade !== "loading" &&
-                !needsAttendanceDates(true) &&
+                canvasGrades[0] &&
+                canvasGrades[0].currentGrade !== null &&
                 !schemeUnset
               }
-              needsAttendanceDates={needsAttendanceDates(true)}
-              exportRunning={exportRunning}
-              published={published}
             />
-            <LargeClassWarning />
-          </>
-        ) : null}
-        {gradingOpen &&
-        (gradingOpen.final || gradingOpen.midterm) &&
-        !dataError ? (
-          <GradesList
-            canvasGrades={canvasGrades}
-            bannerGrades={bannerGrades}
-            gradeMode={gradeMode}
+            <LoadingSpinner />
+          </Flex.Item>
+        </Flex>
+      ) : (
+        <>
+          <AttendanceModal
+            open={attendanceModalOpen}
+            students={
+              canvasGrades
+                ? canvasGrades.filter((student) => needsAttendanceDate(student))
+                : []
+            }
+            onDismiss={() => setAttendanceModalOpen(false)}
+            onSubmit={updateAttendanceDates}
           />
-        ) : null}
-        {gradingOpen &&
-        gradingOpen.final === false &&
-        gradingOpen.midterm === false ? (
-          <Alert variant="warning">
-            Grading is currently closed for this term in Banner
-          </Alert>
-        ) : (
-          ""
-        )}
-        {canvasGrades ||
-        schemeUnset ||
-        dataError ||
-        (gradingOpen &&
-          gradingOpen.final === false &&
-          gradingOpen.midterm === false) ? (
-          ""
-        ) : (
-          <View as="div">
-            <Spinner renderTitle="Loading" size="x-small" margin="small" />
+          <View as="div" textAlign="center">
+            <PublisherErrors exportError={exportError} dataError={dataError} />
+            {gradingOpen &&
+            (gradingOpen.final || gradingOpen.midterm) &&
+            !dataError &&
+            !exportError ? (
+              <>
+                {gradeMode === "F" && needsAttendanceDates() ? (
+                  <Button
+                    margin="small"
+                    onClick={() => {
+                      setAttendanceModalOpen(true);
+                    }}
+                  >
+                    Edit Last Attendance Dates
+                  </Button>
+                ) : null}
+                <BannerButton
+                  clickHandler={bannerHandler}
+                  dataReady={
+                    canvasGrades &&
+                    canvasGrades[0].currentGrade !== "loading" &&
+                    !needsAttendanceDates(true) &&
+                    !schemeUnset
+                  }
+                  needsAttendanceDates={needsAttendanceDates(true)}
+                  exportRunning={exportRunning}
+                  published={published}
+                />
+                <LargeClassWarning />
+              </>
+            ) : null}
+            {gradingOpen &&
+            (gradingOpen.final || gradingOpen.midterm) &&
+            !dataError ? (
+              <GradesList
+                canvasGrades={canvasGrades}
+                bannerGrades={bannerGrades}
+                gradeMode={gradeMode}
+              />
+            ) : null}
+            {gradingOpen &&
+            gradingOpen.final === false &&
+            gradingOpen.midterm === false ? (
+              <Alert variant="warning">
+                Grading is currently closed for this term in Banner
+              </Alert>
+            ) : (
+              ""
+            )}
+            <LoadingSpinner />
           </View>
-        )}
-      </View>
+        </>
+      )}
     </div>
   );
 };

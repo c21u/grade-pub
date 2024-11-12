@@ -40,7 +40,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    canvasLTIFixHeight(50);
+    canvasLTIFixHeight(150);
   });
 
   const ProtectedRoute = ({ component: Component, ...rest }) => (

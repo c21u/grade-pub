@@ -34,9 +34,12 @@
   "dependencies": {
     "@instructure/canvas-theme": "^10.3.0",
     "@instructure/emotion": "^10.3.0",
+    "@instructure/ui-a11y-content": "^10.5.0",
     "@instructure/ui-alerts": "^10.3.0",
     "@instructure/ui-buttons": "^10.3.0",
+    "@instructure/ui-checkbox": "^10.5.0",
     "@instructure/ui-date-input": "^10.3.0",
+    "@instructure/ui-flex": "^10.5.0",
     "@instructure/ui-heading": "^10.3.0",
     "@instructure/ui-icons": "^10.3.0",
     "@instructure/ui-link": "^10.3.0",
