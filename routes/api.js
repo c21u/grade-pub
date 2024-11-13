@@ -202,7 +202,10 @@ router.get("/attendanceDates", async (req, res) => {
     );
     return res.send(dates.data);
   } catch (err) {
-    if (err.message === "no data for scope") {
+    if (
+      err.message === "The specified resource does not exist." ||
+      err.message === "no data for scope"
+    ) {
       return res.send({});
     }
     logger.error(err);
