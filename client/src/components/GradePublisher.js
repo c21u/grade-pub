@@ -423,6 +423,12 @@ const GradePublisher = (props) => {
             to procede.
           </Alert>
         ) : null}
+        {needsAttendanceDates(true) ? (
+          <Alert variant="warning">
+            A last attendance date is needed for students with an I or an F
+          </Alert>
+        ) : null}
+        ;
       </View>
       {useLegacy ? (
         <Flex justifyItems="center">
