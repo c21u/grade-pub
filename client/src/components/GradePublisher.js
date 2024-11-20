@@ -391,11 +391,6 @@ const GradePublisher = (props) => {
       </Flex>
 
       <Instructions />
-      <Text>
-        If you need an Excel file export of these grades for use with FGE
-        instead of a direct export to Banner, turn off the &quot;Send directly
-        to Banner&quot; toggle at the top right of this page.
-      </Text>
       <View as="div" padding="large">
         {schemeUnset !== null ? (
           <GradeSchemeSelect
