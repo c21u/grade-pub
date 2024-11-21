@@ -233,15 +233,16 @@ router.post("/attendanceDates", async (req, res) => {
         },
       },
     };
-    const result = await canvas.api.put(
-      `users/${req.auth.custom_canvas_user_id}/custom_data`,
-      null,
-      body,
+    const url = `users/${req.auth.custom_canvas_user_id}/custom_data`;
+    logger.debug({ url, body }, "about to PUT custom data");
+    const result = await canvas.api.put(url, null, body);
+    logger.debug(
+      {
+        url: `users/${req.auth.custom_canvas_user_id}/custom_data`,
+        result,
+      },
+      "Attendance data saved",
     );
-    logger.info({
-      url: `users/${req.auth.custom_canvas_user_id}/custom_data`,
-      result,
-    });
     return res.send(result);
   } catch (err) {
     logger.error(err);
