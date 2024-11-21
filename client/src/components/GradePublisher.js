@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { View } from "@instructure/ui-view";
 import { Spinner } from "@instructure/ui-spinner";
-import { Text } from "@instructure/ui-text";
 import { useBeforeunload } from "react-beforeunload";
 import spreadsheet from "../spreadsheet.js";
 import BannerButton from "./BannerButton.js";
@@ -381,9 +380,9 @@ const GradePublisher = (props) => {
             }
           >
             <Checkbox
-              label="Send directly to Banner"
+              label="Manual Export"
               variant="toggle"
-              checked={!useLegacy}
+              checked={useLegacy}
               onChange={() => setUseLegacy(!useLegacy)}
             />
           </FormFieldGroup>
@@ -428,7 +427,6 @@ const GradePublisher = (props) => {
             A last attendance date is needed for students with an I or an F
           </Alert>
         ) : null}
-        ;
       </View>
       {useLegacy ? (
         <Flex justifyItems="center">

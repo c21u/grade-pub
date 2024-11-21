@@ -8,6 +8,8 @@ import AttendanceDate from "./AttendanceDate.js";
 const AttendanceModal = ({ open, students, onSubmit, onDismiss }) => {
   const [dates, setDates] = useState({});
 
+  students.sort((a, b) => (a.name > b.name ? 1 : -1));
+
   useEffect(() => {
     students.forEach((student) =>
       updateDate(student.gtID, student.lastAttendanceDate),
