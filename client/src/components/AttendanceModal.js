@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Button } from "@instructure/ui-buttons";
 import { List } from "@instructure/ui-list";
 import { Modal } from "@instructure/ui-modal";
+import { Checkbox } from "@instructure/ui-checkbox";
+import { Flex } from "@instructure/ui-flex";
 import AttendanceDate from "./AttendanceDate.js";
 
 const AttendanceModal = ({ open, students, onSubmit, onDismiss }) => {
@@ -12,15 +14,21 @@ const AttendanceModal = ({ open, students, onSubmit, onDismiss }) => {
 
   useEffect(() => {
     students.forEach((student) =>
-      updateDate(student.gtID, student.lastAttendanceDate),
+      updateDate(
+        student.gtID,
+        student.lastAttendanceDate,
+        student.finalGrade === "I",
+      ),
     );
   }, [students]);
 
-  const updateDate = (id, date) => {
-    setDates((dates) => ({ ...dates, [id]: date || "" }));
+  const updateDate = (id, date, incomplete) => {
+    date = date || "";
+    incomplete = !!incomplete;
+    setDates((dates) => ({ ...dates, [id]: { date, incomplete } }));
   };
 
-  return (
+  return Object.keys(dates).length > 0 ? (
     <Modal
       as="form"
       open={open}
@@ -42,13 +50,37 @@ const AttendanceModal = ({ open, students, onSubmit, onDismiss }) => {
         <List isUnstyled>
           {students.map((student) => (
             <List.Item key={student.gtID} margin="small">
-              <AttendanceDate
-                name={student.name}
-                onChange={(e, value) => {
-                  updateDate(student.gtID, value);
-                }}
-                value={dates[student.gtID]}
-              />
+              <Flex>
+                <Flex.Item padding="small" shouldGrow>
+                  <AttendanceDate
+                    name={student.name}
+                    onChange={(e, value) => {
+                      updateDate(
+                        student.gtID,
+                        value,
+                        dates[student.gtID].incomplete,
+                      );
+                    }}
+                    value={dates[student.gtID].date}
+                  />
+                </Flex.Item>
+                <Flex.Item>
+                  <Checkbox
+                    label="Send as `I`"
+                    variant="toggle"
+                    checked={dates[student.gtID].incomplete}
+                    onChange={() => {
+                      updateDate(
+                        student.gtID,
+                        dates[student.gtID].date,
+                        !dates[student.gtID].incomplete,
+                      );
+                    }}
+                    inline={true}
+                    labelPlacement="top"
+                  />
+                </Flex.Item>
+              </Flex>
             </List.Item>
           ))}
         </List>
@@ -70,7 +102,7 @@ const AttendanceModal = ({ open, students, onSubmit, onDismiss }) => {
         </Button>
       </Modal.Footer>
     </Modal>
-  );
+  ) : null;
 };
 AttendanceModal.propTypes = {
   open: PropTypes.bool,

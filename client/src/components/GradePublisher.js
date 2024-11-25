@@ -103,7 +103,10 @@ const GradePublisher = (props) => {
             const dates = await dateResponse.json();
             const updatedCanvasGrades = canvasGrades.map((grade) => {
               if (needsAttendanceDate(grade)) {
-                grade.lastAttendanceDate = dates[grade.gtID];
+                grade.lastAttendanceDate = dates[grade.gtID].date;
+                grade.finalGrade = dates[grade.gtID].incomplete
+                  ? "I"
+                  : grade.finalGrade;
               } else {
                 delete grade.lastAttendanceDate;
               }
@@ -317,7 +320,10 @@ const GradePublisher = (props) => {
     setAttendanceModalOpen(false);
     const updatedCanvasGrades = canvasGrades.map((grade) => {
       if (needsAttendanceDate(grade)) {
-        grade.lastAttendanceDate = dates[grade.gtID];
+        grade.lastAttendanceDate = dates[grade.gtID].date;
+        grade.finalGrade = dates[grade.gtID].incomplete
+          ? "I"
+          : grade.finalGrade;
       } else {
         delete grade.lastAttendanceDate;
       }
