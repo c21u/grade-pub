@@ -19,11 +19,11 @@ const BannerButton = ({
     >
       {dataReady
         ? exportRunning
-          ? "Exporting Grades..."
-          : "Export Grades to Banner"
+          ? "Sending Grades..."
+          : "Send Grades to Banner"
         : needsAttendanceDates
           ? "Attendance Dates Needed"
-          : "Preparing Grades for Export..."}
+          : "Preparing Grades..."}
     </Button>
   );
 };

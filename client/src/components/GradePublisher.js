@@ -421,10 +421,15 @@ const GradePublisher = (props) => {
             You have not set a grading scheme for this course, select one above
             to procede.
           </Alert>
-        ) : null}
-        {needsAttendanceDates(true) ? (
+        ) : needsAttendanceDates(true) ? (
           <Alert variant="warning">
             A last attendance date is needed for students with an I or an F
+          </Alert>
+        ) : canvasGrades &&
+          canvasGrades[0] &&
+          canvasGrades[0].currentGrade !== "loading" ? (
+          <Alert variant="success">
+            Grades Ready To Submit! Click Send To Banner
           </Alert>
         ) : null}
       </View>

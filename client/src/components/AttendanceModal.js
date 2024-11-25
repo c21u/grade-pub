@@ -66,7 +66,7 @@ const AttendanceModal = ({ open, students, onSubmit, onDismiss }) => {
           color="primary"
           type="submit"
         >
-          Submit
+          Save
         </Button>
       </Modal.Footer>
     </Modal>
