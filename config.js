@@ -65,6 +65,10 @@ export const namespace = getEnvVarOrDefault(
   "edu.gatech.eduapps.gradepubdev",
 );
 
+export const alwaysSendCurrentGrade = getEnvVarOrNull(
+  "ALWAYS_SEND_CURRENT_GRADE",
+);
+
 const config = {
   buzzAPI,
   canvasToken,
@@ -75,6 +79,7 @@ const config = {
   passport,
   banner,
   namespace,
+  alwaysSendCurrentGrade,
 };
 
 export default config;

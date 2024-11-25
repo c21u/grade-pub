@@ -6,7 +6,7 @@ import canvasAPI from "../lib/canvas.js";
 import logger from "../lib/logger.js";
 import { uploadGrades, getGrades, isGradingOpen } from "../lib/banner.js";
 import { getGrademodes } from "../lib/buzzapi.js";
-import { namespace as ns } from "../config.js";
+import { namespace as ns, alwaysSendCurrentGrade } from "../config.js";
 
 router.use(jwtMiddleware);
 
@@ -68,7 +68,7 @@ router.get("/grades", async (req, res) => {
         gradeMode,
       };
     });
-    return res.send({ data });
+    return res.send({ data, config: { alwaysSendCurrentGrade } });
   } catch (err) {
     logger.error(err);
     return res.status(500).send(err);

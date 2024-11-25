@@ -1,6 +1,13 @@
 import spreadsheetInstructions from "./spreadsheetInstructions.js";
 
-export default async (title, grades, sectionTitles, gradeMode, filename) => {
+export default async (
+  title,
+  grades,
+  sectionTitles,
+  gradeMode,
+  filename,
+  alwaysSendCurrentGrade,
+) => {
   const sheet = [];
 
   // Add the "header" row to the sheet
@@ -33,7 +40,9 @@ export default async (title, grades, sectionTitles, gradeMode, filename) => {
       confidential,
       item.course,
       sectionTitles[item.sisSectionID],
-      gradeMode === "M" ? item.currentGrade : item.finalGrade,
+      alwaysSendCurrentGrade || gradeMode === "M"
+        ? item.currentGrade
+        : item.finalGrade,
       lastAttended,
       override,
       null,

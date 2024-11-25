@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import { View } from "@instructure/ui-view";
 import { Spinner } from "@instructure/ui-spinner";
@@ -36,6 +36,7 @@ const GradePublisher = (props) => {
   const [hasOverride, setHasOverride] = useState(false);
   const [loadedAttendanceDates, setLoadedAttendanceDates] = useState(false);
   const [useLegacy, setUseLegacy] = useState(false);
+  const [alwaysSendCurrentGrade, setAlwaysSendCurrentGrade] = useState(false);
 
   const { fetchOptions, filename, term } = props;
 
@@ -77,7 +78,11 @@ const GradePublisher = (props) => {
         .then(async (gradeResponse) => {
           try {
             checkResponseStatus(gradeResponse);
-            setCanvasGrades((await gradeResponse.json()).data);
+            const gradeResponseJson = await gradeResponse.json();
+            setCanvasGrades(gradeResponseJson.data);
+            setAlwaysSendCurrentGrade(
+              gradeResponseJson.config.alwaysSendCurrentGrade,
+            );
             setLoadedAttendanceDates(false);
           } catch (err) {
             setDataError(true);
@@ -107,6 +112,9 @@ const GradePublisher = (props) => {
                 grade.finalGrade = dates[grade.gtID].incomplete
                   ? "I"
                   : grade.finalGrade;
+                grade.currentGrade = dates[grade.gtID].incomplete
+                  ? "I"
+                  : grade.currentGrade;
               } else {
                 delete grade.lastAttendanceDate;
               }
@@ -120,7 +128,7 @@ const GradePublisher = (props) => {
         })
         .catch(() => setDataError(true));
     }
-  }, [fetchOptions, canvasGrades, loadedAttendanceDates]);
+  }, [fetchOptions, canvasGrades, loadedAttendanceDates, needsAttendanceDate]);
 
   /**
    * Fetch grade scheme from Canvas
@@ -258,6 +266,7 @@ const GradePublisher = (props) => {
       sectionTitles,
       gradeMode,
       filename,
+      alwaysSendCurrentGrade,
     );
   };
 
@@ -324,6 +333,9 @@ const GradePublisher = (props) => {
         grade.finalGrade = dates[grade.gtID].incomplete
           ? "I"
           : grade.finalGrade;
+        grade.currentGrade = dates[grade.gtID].incomplete
+          ? "I"
+          : grade.currentGrade;
       } else {
         delete grade.lastAttendanceDate;
       }
@@ -332,8 +344,13 @@ const GradePublisher = (props) => {
     setCanvasGrades(updatedCanvasGrades);
   };
 
-  const needsAttendanceDate = (student) =>
-    ["F", "I"].includes(student.finalGrade);
+  const needsAttendanceDate = useCallback(
+    (student) =>
+      ["F", "I"].includes(
+        alwaysSendCurrentGrade ? student.currentGrade : student.finalGrade,
+      ),
+    [alwaysSendCurrentGrade],
+  );
 
   const needsAttendanceDates = (strict) => {
     if (canvasGrades) {
@@ -505,6 +522,7 @@ const GradePublisher = (props) => {
                 canvasGrades={canvasGrades}
                 bannerGrades={bannerGrades}
                 gradeMode={gradeMode}
+                alwaysSendCurrentGrade={alwaysSendCurrentGrade}
               />
             ) : null}
             {gradingOpen &&
