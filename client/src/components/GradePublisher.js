@@ -56,10 +56,14 @@ const GradePublisher = (props) => {
             checkResponseStatus(sectionTitlesResponse);
             setSectionTitles(await sectionTitlesResponse.json());
           } catch (err) {
+            console.error(err);
             setDataError(true);
           }
         })
-        .catch(() => setDataError(true));
+        .catch((err) => {
+          console.error(err);
+          setDataError(true);
+        });
     }
   }, [fetchOptions]);
 
@@ -85,10 +89,14 @@ const GradePublisher = (props) => {
             );
             setLoadedAttendanceDates(false);
           } catch (err) {
+            console.error(err);
             setDataError(true);
           }
         })
-        .catch(() => setDataError(true));
+        .catch((err) => {
+          console.error(err);
+          setDataError(true);
+        });
     }
   }, [fetchOptions, gradeScheme]);
 
@@ -123,10 +131,14 @@ const GradePublisher = (props) => {
             setLoadedAttendanceDates(true);
             setCanvasGrades(updatedCanvasGrades);
           } catch (err) {
+            console.error(err);
             setDataError(true);
           }
         })
-        .catch(() => setDataError(true));
+        .catch((err) => {
+          console.error(err);
+          setDataError(true);
+        });
     }
   }, [fetchOptions, canvasGrades, loadedAttendanceDates, needsAttendanceDate]);
 
@@ -153,10 +165,14 @@ const GradePublisher = (props) => {
               setGradeMode(gs.id.toString() === schemeMap.Midterm ? "M" : "F");
             }
           } catch (err) {
+            console.error(err);
             setDataError(true);
           }
         })
-        .catch(() => setDataError(true));
+        .catch((err) => {
+          console.error(err);
+          setDataError(true);
+        });
     }
   }, [fetchOptions, schemeUnset]);
 
@@ -241,9 +257,13 @@ const GradePublisher = (props) => {
                 final: isGradingOpen.payload.final_grades_allowed == "open",
                 midterm: isGradingOpen.payload.midterm_grades_allowed == "open",
               })
-            : setDataError(true);
+            : (console.error("isGradingOpen has no `success` element"),
+              setDataError(true));
         })
-        .catch(() => setDataError(true));
+        .catch((err) => {
+          console.error(err);
+          setDataError(true);
+        });
     }
   }, [fetchOptions, gradingOpen, term]);
 
