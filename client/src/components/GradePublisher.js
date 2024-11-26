@@ -115,7 +115,7 @@ const GradePublisher = (props) => {
             checkResponseStatus(dateResponse);
             const dates = await dateResponse.json();
             const updatedCanvasGrades = canvasGrades.map((grade) => {
-              if (needsAttendanceDate(grade)) {
+              if (needsAttendanceDate(grade) && dates[grade.gtID]) {
                 grade.lastAttendanceDate = dates[grade.gtID].date;
                 grade.finalGrade = dates[grade.gtID].incomplete
                   ? "I"
