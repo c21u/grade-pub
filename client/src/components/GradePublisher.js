@@ -453,8 +453,8 @@ const GradePublisher = (props) => {
       {hasOverride ? (
         <Alert variant="warning">
           You either have hidden, unposted, or overridden gradebook entries that
-          will impact the Final Grade column in your export. This affects the
-          grade of at least one student in your course.
+          will impact the Final Grade. This affects the grade of at least one
+          student in the course.
         </Alert>
       ) : null}
 
@@ -472,7 +472,7 @@ const GradePublisher = (props) => {
           canvasGrades[0] &&
           canvasGrades[0].currentGrade !== "loading" ? (
           <Alert variant="success">
-            Grades Ready To Submit! Click Send To Banner
+            Grades Ready To Submit! Click Send Grades To Banner
           </Alert>
         ) : null}
       </View>
