@@ -470,7 +470,9 @@ const GradePublisher = (props) => {
           </Alert>
         ) : canvasGrades &&
           canvasGrades[0] &&
-          canvasGrades[0].currentGrade !== "loading" ? (
+          canvasGrades[0].currentGrade !== "loading" &&
+          gradingOpen &&
+          (gradingOpen.final || gradingOpen.midterm) ? (
           <Alert variant="success">
             Grades Ready To Submit! Click Send Grades To Banner
           </Alert>
