@@ -85,7 +85,8 @@ const GradePublisher = (props) => {
             const gradeResponseJson = await gradeResponse.json();
             setCanvasGrades(gradeResponseJson.data);
             setAlwaysSendCurrentGrade(
-              gradeResponseJson.config.alwaysSendCurrentGrade,
+              "true" ==
+                gradeResponseJson.config.alwaysSendCurrentGrade.toLowerCase(),
             );
             setLoadedAttendanceDates(false);
           } catch (err) {
@@ -202,7 +203,7 @@ const GradePublisher = (props) => {
     }
     if (canvasGrades && !bannerInitial) {
       try {
-        setBannerInitial({});
+        setBannerInitial([]);
         setBannerGrades(null);
         window
           .fetch("/api/bannerInitial", {
@@ -219,26 +220,34 @@ const GradePublisher = (props) => {
           .then(async (result) => {
             const initial = await result.json();
             setBannerInitial(initial);
-            setBannerGrades(
-              initial.map((grade) => {
-                return {
-                  success: true,
-                  gtid: grade.gtid,
-                  grade: grade.grade_code,
-                };
-              }),
-            );
           })
           .catch(() => {
-            setBannerInitial({});
+            setBannerInitial([]);
             setBannerGrades([]);
           });
       } catch (err) {
-        setBannerInitial({});
+        setBannerInitial([]);
         setBannerGrades([]);
       }
     }
-  }, [canvasGrades, hasOverride, bannerInitial, fetchOptions]);
+  }, [canvasGrades, hasOverride, bannerInitial, fetchOptions, gradeMode]);
+
+  useEffect(() => {
+    if (bannerInitial) {
+      setBannerGrades(
+        bannerInitial.map((grade) => {
+          return {
+            success: true,
+            gtid: grade.gtid,
+            grade:
+              gradeMode === "F"
+                ? grade.grade_code || "-"
+                : grade.grade_code_mid || "-",
+          };
+        }),
+      );
+    }
+  }, [gradeMode, bannerInitial]);
 
   useEffect(() => {
     if (
