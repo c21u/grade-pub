@@ -44,30 +44,32 @@ router.get("/grades", async (req, res) => {
     // ** override feature ** - checks if override_grade exists, and if so, sets final_grade and current_grade equal to override_grade
     // if there is override grade, override value is equal to "Y" and if not, null
     const gradeModes = await getGrademodes(realStudents);
-    const data = realStudents.map(({ user, section, grades }) => {
-      const gradeMode = gradeModes[user.sisId].gradeMode;
-      const overrideGrade = grades.overrideGrade;
-      const currentGrade = getGradeLetterForMode(
-        overrideGrade ? overrideGrade : grades.currentGrade,
-        gradeMode,
-      );
-      const finalGrade = getGradeLetterForMode(
-        grades.overrideGrade ? overrideGrade : grades.finalGrade,
-        gradeMode,
-      );
-      return {
-        name: user.sortableName,
-        currentGrade,
-        finalGrade,
-        unpostedFinalGrade: grades.unpostedFinalGrade,
-        unpostedCurrentGrade: grades.unpostedCurrentGrade,
-        sisSectionID: section.sisId,
-        gtID: user.sisId,
-        course: req.auth.custom_canvas_course_name,
-        override: overrideGrade ? "Y" : null,
-        gradeMode,
-      };
-    });
+    const data = realStudents
+      .map(({ user, section, grades }) => {
+        const gradeMode = gradeModes[user.sisId].gradeMode;
+        const overrideGrade = grades.overrideGrade;
+        const currentGrade = getGradeLetterForMode(
+          overrideGrade ? overrideGrade : grades.currentGrade,
+          gradeMode,
+        );
+        const finalGrade = getGradeLetterForMode(
+          grades.overrideGrade ? overrideGrade : grades.finalGrade,
+          gradeMode,
+        );
+        return {
+          name: user.sortableName,
+          currentGrade,
+          finalGrade,
+          unpostedFinalGrade: grades.unpostedFinalGrade,
+          unpostedCurrentGrade: grades.unpostedCurrentGrade,
+          sisSectionID: section.sisId,
+          gtID: user.sisId,
+          course: req.auth.custom_canvas_course_name,
+          override: overrideGrade ? "Y" : null,
+          gradeMode,
+        };
+      })
+      .filter((grade) => grade.sisSectionID);
     return res.send({ data, config: { alwaysSendCurrentGrade } });
   } catch (err) {
     logger.error(err);
