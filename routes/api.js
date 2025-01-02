@@ -205,13 +205,18 @@ router.get("/attendanceDates", async (req, res) => {
     return res.send(dates.data);
   } catch (err) {
     if (
-      err.message === "The specified resource does not exist." ||
-      err.message === "no data for scope"
+      [
+        "The specified resource does not exist.",
+        "no data for scope",
+        "invalid scope for hash",
+      ].includes(err.message)
     ) {
       return res.send({});
     }
     logger.error(err);
-    return res.status(500).send("Error fetching attendance dates");
+    return res
+      .status(500)
+      .send(`Error fetching attendance dates: ${err.message}`);
   }
 });
 
