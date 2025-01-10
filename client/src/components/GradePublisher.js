@@ -508,7 +508,14 @@ const GradePublisher = (props) => {
             open={attendanceModalOpen}
             students={
               canvasGrades
-                ? canvasGrades.filter((student) => needsAttendanceDate(student))
+                ? Object.values(
+                    canvasGrades
+                      .filter((student) => needsAttendanceDate(student))
+                      .reduce((acc, cur) => {
+                        acc[cur.gtID] ? null : (acc[cur.gtID] = cur);
+                        return acc;
+                      }, {}),
+                  )
                 : []
             }
             onDismiss={() => setAttendanceModalOpen(false)}
