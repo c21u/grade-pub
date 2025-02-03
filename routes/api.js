@@ -15,12 +15,12 @@ router.get("/test", (req, res) => {
 });
 
 router.get("/grades", async (req, res) => {
-  const getGradeLetterForMode = (grade, mode) => {
+  const getGradeLetterForMode = (grade, mode, score, passFailCutoff) => {
     switch (mode) {
       case "Audit":
         return "V";
       case "Pass / Fail":
-        return grade === "F" ? "U" : "S";
+        return grade === score < passFailCutoff ? "U" : "S";
       default:
         return grade;
     }
@@ -30,7 +30,7 @@ router.get("/grades", async (req, res) => {
 
   try {
     const query =
-      "query ($courseId: ID) { course(id: $courseId) { enrollmentsConnection(filter: {types: StudentEnrollment}) { nodes { user { sisId sortableName } grades { overrideGrade currentGrade finalGrade unpostedCurrentGrade unpostedFinalGrade } section { sisId } } } } }";
+      "query ($courseId: ID) { course(id: $courseId) { enrollmentsConnection(filter: {types: StudentEnrollment}) { nodes { user { sisId sortableName } grades { overrideGrade currentGrade finalGrade overrideScore currentScore finalScore unpostedCurrentGrade unpostedFinalGrade } section { sisId } } } } }";
     const variables = { courseId: canvas.courseID };
     const students = await canvas.rawReq.post("api/graphql", {
       query,
@@ -48,13 +48,18 @@ router.get("/grades", async (req, res) => {
       .map(({ user, section, grades }) => {
         const gradeMode = gradeModes[user.sisId].gradeMode;
         const overrideGrade = grades.overrideGrade;
+        const overrideScore = grades.overrideScore;
         const currentGrade = getGradeLetterForMode(
           overrideGrade ? overrideGrade : grades.currentGrade,
           gradeMode,
+          overrideScore ? overrideScore : grades.currentScore,
+          req.query.passFailCutoff,
         );
         const finalGrade = getGradeLetterForMode(
           grades.overrideGrade ? overrideGrade : grades.finalGrade,
           gradeMode,
+          overrideScore ? overrideScore : grades.finalScore,
+          req.query.passFailCutoff,
         );
         return {
           name: user.sortableName,
@@ -118,6 +123,19 @@ router.post("/gradeScheme", async (req, res) => {
     );
   } catch (err) {
     logger.error(err);
+    return res.status(500).send(err);
+  }
+});
+
+router.get("/availableGradeSchemes", async (req, res) => {
+  const canvas = canvasAPI.getCanvasContext(req);
+  try {
+    const schemes = await Promise.all([
+      canvas.api.get(`courses/${canvas.courseID}/grading_standards`),
+      canvas.api.get(`accounts/self/grading_standards`),
+    ]);
+    return res.send(schemes.flat());
+  } catch (err) {
     return res.status(500).send(err);
   }
 });

@@ -3,6 +3,14 @@ import PropTypes from "prop-types";
 import { View } from "@instructure/ui-view";
 import { Spinner } from "@instructure/ui-spinner";
 import { useBeforeunload } from "react-beforeunload";
+import { Button } from "@instructure/ui-buttons";
+import { Alert } from "@instructure/ui-alerts";
+import { FormFieldGroup } from "@instructure/ui-form-field";
+import { Checkbox } from "@instructure/ui-checkbox";
+import { ScreenReaderContent } from "@instructure/ui-a11y-content";
+import { Flex } from "@instructure/ui-flex";
+import { Heading } from "@instructure/ui-heading";
+
 import spreadsheet from "../spreadsheet.js";
 import BannerButton from "./BannerButton.js";
 import SheetButton from "./SheetButton.js";
@@ -11,13 +19,7 @@ import GradeSchemeSelect, { schemeMap } from "./GradeSchemeSelect.js";
 import Instructions from "./Instructions.js";
 import PublisherErrors from "./PublisherErrors.js";
 import AttendanceModal from "./AttendanceModal.js";
-import { Button } from "@instructure/ui-buttons";
-import { Alert } from "@instructure/ui-alerts";
-import { FormFieldGroup } from "@instructure/ui-form-field";
-import { Checkbox } from "@instructure/ui-checkbox";
-import { ScreenReaderContent } from "@instructure/ui-a11y-content";
-import { Flex } from "@instructure/ui-flex";
-import { Heading } from "@instructure/ui-heading";
+import PassFailCutoff from "./PassFailCutoff.js";
 
 const GradePublisher = (props) => {
   const [schemeUnset, setSchemeUnset] = useState(null);
@@ -37,6 +39,7 @@ const GradePublisher = (props) => {
   const [loadedAttendanceDates, setLoadedAttendanceDates] = useState(false);
   const [useLegacy, setUseLegacy] = useState(false);
   const [alwaysSendCurrentGrade, setAlwaysSendCurrentGrade] = useState(false);
+  const [passFailCutoff, setPassFailCutoff] = useState(null);
 
   const { fetchOptions, filename, term } = props;
 
@@ -75,10 +78,11 @@ const GradePublisher = (props) => {
       fetchOptions &&
       fetchOptions.headers &&
       fetchOptions.headers.Authorization &&
+      passFailCutoff &&
       gradeScheme
     ) {
       window
-        .fetch("/api/grades", fetchOptions)
+        .fetch(`/api/grades?passFailCutoff=${passFailCutoff}`, fetchOptions)
         .then(async (gradeResponse) => {
           try {
             checkResponseStatus(gradeResponse);
@@ -99,7 +103,7 @@ const GradePublisher = (props) => {
           setDataError(true);
         });
     }
-  }, [fetchOptions, gradeScheme]);
+  }, [fetchOptions, gradeScheme, passFailCutoff]);
 
   useEffect(() => {
     if (
@@ -440,7 +444,6 @@ const GradePublisher = (props) => {
           </FormFieldGroup>
         </Flex.Item>
       </Flex>
-
       <Instructions />
       <View as="div" padding="large">
         {schemeUnset !== null ? (
@@ -466,7 +469,17 @@ const GradePublisher = (props) => {
           student in the course.
         </Alert>
       ) : null}
-
+      {gradeScheme ? (
+        <PassFailCutoff
+          changeHandler={(cutoff) => {
+            setPassFailCutoff(cutoff);
+          }}
+          gradeSchemeFail={gradeScheme.grading_scheme.reduce(
+            (acc, cur) => (cur.name === "D" ? cur.calculated_value : acc),
+            60,
+          )}
+        />
+      ) : null}
       <View as="div" textAlign="center">
         {schemeUnset ? (
           <Alert variant="warning">
