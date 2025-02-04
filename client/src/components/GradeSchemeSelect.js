@@ -86,7 +86,13 @@ const GradeSchemeSelect = ({
 
   return (
     <View as="div" padding="large">
-      {schemeUnset ? (
+      {schemeUnset === null ? (
+        <Spinner
+          renderTitle="Refreshing grade scheme"
+          size="x-small"
+          margin="x-small"
+        />
+      ) : schemeUnset ? (
         <Alert variant="warning">
           This course currently has no grading scheme.
         </Alert>
