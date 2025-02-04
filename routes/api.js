@@ -118,7 +118,7 @@ router.post("/gradeScheme", async (req, res) => {
   try {
     return res.send(
       await canvas.api.put(`courses/${canvas.courseID}`, null, {
-        course: { grading_standard_id: parseInt(req.body.scheme, 10) },
+        course: { grading_standard_id: parseInt(req.body.scheme.id, 10) },
       }),
     );
   } catch (err) {

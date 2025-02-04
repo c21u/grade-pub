@@ -15,7 +15,7 @@ import spreadsheet from "../spreadsheet.js";
 import BannerButton from "./BannerButton.js";
 import SheetButton from "./SheetButton.js";
 import GradesList from "./GradesList.js";
-import GradeSchemeSelect, { schemeMap } from "./GradeSchemeSelect.js";
+import GradeSchemeSelect from "./GradeSchemeSelect.js";
 import Instructions from "./Instructions.js";
 import PublisherErrors from "./PublisherErrors.js";
 import AttendanceModal from "./AttendanceModal.js";
@@ -167,7 +167,8 @@ const GradePublisher = (props) => {
               const gs = await gradeSchemeResponse.json();
               setGradeScheme(gs);
               setSchemeUnset(false);
-              setGradeMode(gs.id.toString() === schemeMap.Midterm ? "M" : "F");
+              // FIXME
+              setGradeMode("F"); // gs.id.toString() === schemeMap.Midterm ? "M" : "F");
             }
           } catch (err) {
             console.error(err);
@@ -445,23 +446,12 @@ const GradePublisher = (props) => {
         </Flex.Item>
       </Flex>
       <Instructions />
-      <View as="div" padding="large">
-        {schemeUnset !== null ? (
-          <GradeSchemeSelect
-            gradeScheme={gradeScheme}
-            schemeUnset={schemeUnset}
-            clickHandler={handleGradeSchemeSelected}
-            gradingOpen={gradingOpen}
-          />
-        ) : (
-          <Spinner
-            renderTitle="Loading grade scheme"
-            size="x-small"
-            margin="small"
-          />
-        )}
-        <hr />
-      </View>
+      <GradeSchemeSelect
+        gradeScheme={gradeScheme}
+        schemeUnset={schemeUnset}
+        clickHandler={handleGradeSchemeSelected}
+        fetchOptions={fetchOptions}
+      />
       {hasOverride ? (
         <Alert variant="warning">
           You either have hidden, unposted, or overridden gradebook entries that
