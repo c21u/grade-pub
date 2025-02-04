@@ -79,10 +79,14 @@ const GradePublisher = (props) => {
       fetchOptions.headers &&
       fetchOptions.headers.Authorization &&
       passFailCutoff &&
+      gradeMode &&
       gradeScheme
     ) {
       window
-        .fetch(`/api/grades?passFailCutoff=${passFailCutoff}`, fetchOptions)
+        .fetch(
+          `/api/grades?passFailCutoff=${passFailCutoff}&mode=${gradeMode}`,
+          fetchOptions,
+        )
         .then(async (gradeResponse) => {
           try {
             checkResponseStatus(gradeResponse);
@@ -103,7 +107,7 @@ const GradePublisher = (props) => {
           setDataError(true);
         });
     }
-  }, [fetchOptions, gradeScheme, passFailCutoff]);
+  }, [fetchOptions, gradeScheme, passFailCutoff, gradeMode]);
 
   useEffect(() => {
     if (
@@ -166,9 +170,11 @@ const GradePublisher = (props) => {
             } else {
               const gs = await gradeSchemeResponse.json();
               setGradeScheme(gs);
+              setPassFailCutoff(
+                gs.grading_scheme.find(({ name }) => name === "D")
+                  .calculated_value,
+              );
               setSchemeUnset(false);
-              // FIXME
-              setGradeMode("F"); // gs.id.toString() === schemeMap.Midterm ? "M" : "F");
             }
           } catch (err) {
             console.error(err);
@@ -235,7 +241,7 @@ const GradePublisher = (props) => {
         setBannerGrades([]);
       }
     }
-  }, [canvasGrades, hasOverride, bannerInitial, fetchOptions, gradeMode]);
+  }, [canvasGrades, hasOverride, bannerInitial, fetchOptions]);
 
   useEffect(() => {
     if (bannerInitial) {
@@ -280,6 +286,11 @@ const GradePublisher = (props) => {
         });
     }
   }, [fetchOptions, gradingOpen, term]);
+
+  useEffect(() => {
+    if (gradingOpen?.final) setGradeMode("F");
+    if (gradingOpen?.midterm) setGradeMode("M");
+  }, [gradingOpen]);
 
   useBeforeunload(
     exportRunning
@@ -464,10 +475,10 @@ const GradePublisher = (props) => {
           changeHandler={(cutoff) => {
             setPassFailCutoff(cutoff);
           }}
-          gradeSchemeFail={gradeScheme.grading_scheme.reduce(
-            (acc, cur) => (cur.name === "D" ? cur.calculated_value : acc),
-            60,
-          )}
+          gradeSchemeFail={
+            gradeScheme.grading_scheme.find(({ name }) => name === "D")
+              ?.calculated_value || 60
+          }
         />
       ) : null}
       <View as="div" textAlign="center">
@@ -525,6 +536,20 @@ const GradePublisher = (props) => {
             onSubmit={updateAttendanceDates}
           />
           <View as="div" textAlign="center">
+            {gradingOpen?.final && gradingOpen?.midterm ? (
+              <View as="div" padding="large">
+                Banner appears to be accepting both midterm and final grades,
+                which would you like to send?
+                <Checkbox
+                  variant="toggle"
+                  label="Send grades as Final"
+                  checked={gradeMode === "F"}
+                  onChange={() => {
+                    gradeMode === "F" ? setGradeMode("M") : setGradeMode("F");
+                  }}
+                />
+              </View>
+            ) : null}
             <PublisherErrors exportError={exportError} dataError={dataError} />
             {gradingOpen &&
             (gradingOpen.final || gradingOpen.midterm) &&

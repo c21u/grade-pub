@@ -15,12 +15,19 @@ router.get("/test", (req, res) => {
 });
 
 router.get("/grades", async (req, res) => {
-  const getGradeLetterForMode = (grade, mode, score, passFailCutoff) => {
+  const getGradeLetterForMode = (
+    grade,
+    mode,
+    score,
+    passFailCutoff,
+    gradingMode,
+  ) => {
+    if (gradingMode === "M") return score < passFailCutoff ? "U" : "S";
     switch (mode) {
       case "Audit":
         return "V";
       case "Pass / Fail":
-        return grade === score < passFailCutoff ? "U" : "S";
+        return score < passFailCutoff ? "U" : "S";
       default:
         return grade;
     }
@@ -54,12 +61,14 @@ router.get("/grades", async (req, res) => {
           gradeMode,
           overrideScore ? overrideScore : grades.currentScore,
           req.query.passFailCutoff,
+          req.query.mode,
         );
         const finalGrade = getGradeLetterForMode(
           grades.overrideGrade ? overrideGrade : grades.finalGrade,
           gradeMode,
           overrideScore ? overrideScore : grades.finalScore,
           req.query.passFailCutoff,
+          req.query.mode,
         );
         return {
           name: user.sortableName,
