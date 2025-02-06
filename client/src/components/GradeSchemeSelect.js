@@ -30,7 +30,7 @@ const GradeSchemeSelect = ({
   };
 
   const handleHideOptions = () => {
-    const option = getOptionById(selectedOptionId).title;
+    const option = getOptionById(selectedOptionId)?.title;
     setIsShowingOptions(false);
     setHighlightedOptionId(null);
     setSelectedOptionId(selectedOptionId ? option : "");

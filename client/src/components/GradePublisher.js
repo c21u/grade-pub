@@ -349,16 +349,18 @@ const GradePublisher = (props) => {
       method: "POST",
       body: JSON.stringify({ scheme }),
     });
-    setCanvasGrades(
-      canvasGrades
-        ? canvasGrades.map((datum) => ({
-            ...datum,
-            currentGrade: "loading",
-            finalGrade: "loading",
-          }))
-        : canvasGrades,
-    );
+    showCanvasGradesLoading();
     setSchemeUnset(null);
+  };
+
+  const showCanvasGradesLoading = () => {
+    setCanvasGrades(
+      canvasGrades?.map((datum) => ({
+        ...datum,
+        currentGrade: "loading",
+        finalGrade: "loading",
+      })),
+    );
   };
 
   const persistAttendanceDates = async (dates) => {
@@ -545,6 +547,7 @@ const GradePublisher = (props) => {
                   label="Send grades as Final"
                   checked={gradeMode === "F"}
                   onChange={() => {
+                    showCanvasGradesLoading();
                     gradeMode === "F" ? setGradeMode("M") : setGradeMode("F");
                   }}
                 />
