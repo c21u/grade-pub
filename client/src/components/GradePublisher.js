@@ -172,7 +172,7 @@ const GradePublisher = (props) => {
               setGradeScheme(gs);
               setPassFailCutoff(
                 gs.grading_scheme.find(({ name }) => name === "D")
-                  .calculated_value,
+                  ?.calculated_value,
               );
               setSchemeUnset(false);
             }
