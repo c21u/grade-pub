@@ -30,7 +30,7 @@ const GradeSchemeSelect = ({
   };
 
   const handleHideOptions = () => {
-    const option = getOptionById(selectedOptionId)?.title;
+    const option = getOptionById(selectedOptionId)?.id;
     setIsShowingOptions(false);
     setHighlightedOptionId(null);
     setSelectedOptionId(selectedOptionId ? option : "");
@@ -69,6 +69,13 @@ const GradeSchemeSelect = ({
         .catch((err) => console.error(err));
     }
   }, [fetchOptions]);
+
+  useEffect(() => {
+    if (gradeScheme) {
+      setInputValue(gradeScheme.title);
+      setSelectedOptionId(gradeScheme.id);
+    }
+  }, [gradeScheme]);
 
   if ((schemeUnset === null && gradeScheme === null) || options.length === 0) {
     return (
@@ -111,30 +118,32 @@ const GradeSchemeSelect = ({
           by Banner.
         </Alert>
       )}
-      <Select
-        renderLabel="Grade Scheme"
-        assistiveText="Use arrow keys to navigate options."
-        inputValue={inputValue}
-        isShowingOptions={isShowingOptions}
-        onBlur={handleBlur}
-        onRequestShowOptions={handleShowOptions}
-        onRequestHideOptions={handleHideOptions}
-        onRequestHighlightOption={handleHighlightOption}
-        onRequestSelectOption={handleSelectOption}
-      >
-        {options.map((option) => {
-          return (
-            <Select.Option
-              id={option.id.toString()}
-              key={option.id.toString()}
-              isHighlighted={option.id.toString() === highlightedOptionId}
-              isSelected={option.id.toString() === selectedOptionId}
-            >
-              {option.title}
-            </Select.Option>
-          );
-        })}
-      </Select>
+      {options.length > 1 ? (
+        <Select
+          renderLabel="Grade Scheme"
+          assistiveText="Use arrow keys to navigate options."
+          inputValue={inputValue}
+          isShowingOptions={isShowingOptions}
+          onBlur={handleBlur}
+          onRequestShowOptions={handleShowOptions}
+          onRequestHideOptions={handleHideOptions}
+          onRequestHighlightOption={handleHighlightOption}
+          onRequestSelectOption={handleSelectOption}
+        >
+          {options.map((option) => {
+            return (
+              <Select.Option
+                id={option.id.toString()}
+                key={option.id.toString()}
+                isHighlighted={option.id.toString() === highlightedOptionId}
+                isSelected={option.id.toString() === selectedOptionId}
+              >
+                {option.title}
+              </Select.Option>
+            );
+          })}
+        </Select>
+      ) : null}
       <hr />
     </View>
   );
