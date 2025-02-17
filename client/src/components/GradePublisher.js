@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
-import { useResizeObserver } from "react-use-observer";
 import { View } from "@instructure/ui-view";
 import { Spinner } from "@instructure/ui-spinner";
 import { useBeforeunload } from "react-beforeunload";
@@ -11,6 +10,7 @@ import { Checkbox } from "@instructure/ui-checkbox";
 import { ScreenReaderContent } from "@instructure/ui-a11y-content";
 import { Flex } from "@instructure/ui-flex";
 import { Heading } from "@instructure/ui-heading";
+import { CanvasLTIAutoResizer } from "canvas-lti-auto-resizer";
 
 import spreadsheet from "../spreadsheet.js";
 import BannerButton from "./BannerButton.js";
@@ -41,7 +41,6 @@ const GradePublisher = (props) => {
   const [useLegacy, setUseLegacy] = useState(false);
   const [alwaysSendCurrentGrade, setAlwaysSendCurrentGrade] = useState(false);
   const [passFailCutoff, setPassFailCutoff] = useState(null);
-  const [ref, resizeObserverEntry] = useResizeObserver();
 
   const { fetchOptions, filename, term } = props;
 
@@ -294,16 +293,6 @@ const GradePublisher = (props) => {
     if (gradingOpen?.midterm) setGradeMode("M");
   }, [gradingOpen]);
 
-  useEffect(() => {
-    if (resizeObserverEntry.contentRect) {
-      const offset = resizeObserverEntry.contentRect.height + 150;
-      parent.postMessage(
-        `{"subject":"lti.frameResize", "height": ${offset}}`,
-        "*",
-      );
-    }
-  }, [resizeObserverEntry]);
-
   useBeforeunload(
     exportRunning
       ? () =>
@@ -448,7 +437,7 @@ const GradePublisher = (props) => {
   };
 
   return (
-    <div ref={ref}>
+    <CanvasLTIAutoResizer additional={150}>
       <Flex>
         <Flex.Item shouldGrow shouldShrink padding="none medium none none">
           <Heading>Grade Publisher</Heading>
@@ -619,7 +608,7 @@ const GradePublisher = (props) => {
           </View>
         </>
       )}
-    </div>
+    </CanvasLTIAutoResizer>
   );
 };
 GradePublisher.propTypes = {

@@ -4241,6 +4241,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"canvas-lti-auto-resizer@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "canvas-lti-auto-resizer@npm:1.0.1"
+  dependencies:
+    react-use-observer: "npm:^2.2.4"
+  peerDependencies:
+    react: ^18.2.0
+  checksum: 10c0/aa142b7d238284182b507dc1c4a7ed595d7c467916b851682d01f6b5bca1b4680fcc01cfc0d372ccb9f3268538be452fa56ddf763cfe1d2d29e7605194841a81
+  languageName: node
+  linkType: hard
+
 "cfb@npm:~1.2.1":
   version: 1.2.2
   resolution: "cfb@npm:1.2.2"
@@ -6131,6 +6142,7 @@ __metadata:
     bunyan-express-serializer: "npm:^1.0.0"
     buzzapi: "npm:^2.1.0"
     canvas-lms-api: "npm:^1.0.2"
+    canvas-lti-auto-resizer: "npm:^1.0.1"
     clean-webpack-plugin: "npm:^4.0.0"
     dotenv: "npm:^16.4.3"
     ejs: "npm:~3.1.9"
