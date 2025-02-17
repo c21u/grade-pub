@@ -7,7 +7,6 @@ import { InstUISettingsProvider } from "@instructure/emotion";
 import { jwtDecode } from "jwt-decode";
 import qs from "qs";
 import GradePublisher from "./components/GradePublisher.js";
-import canvasLTIFixHeight from "./canvasLTIFixHeight.js";
 
 const App = () => {
   const [fetchOptions, setFetchOptions] = useState({});
@@ -38,10 +37,6 @@ const App = () => {
       console.error(`updating context failed: ${err}`);
     }
   }, []);
-
-  useEffect(() => {
-    canvasLTIFixHeight(150);
-  });
 
   const ProtectedRoute = ({ component: Component, ...rest }) => (
     <Route

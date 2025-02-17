@@ -4,7 +4,6 @@ import { IconWarningSolid } from "@instructure/ui-icons";
 import { Spinner } from "@instructure/ui-spinner";
 import { Table } from "@instructure/ui-table";
 import { Text } from "@instructure/ui-text";
-import canvasLTIFixHeight from "../canvasLTIFixHeight.js";
 
 const SortedTable = (props) => {
   const headers = [
@@ -53,10 +52,6 @@ const SortedTable = (props) => {
       },
     },
   ];
-
-  useEffect(() => {
-    canvasLTIFixHeight(50);
-  });
 
   const [sortBy, setSortBy] = useState(headers[0].id);
   const [direction, setDirection] = useState("ascending");
