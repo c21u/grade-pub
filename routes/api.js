@@ -5,7 +5,7 @@ import jwtMiddleware from "../lib/jwt.js";
 import canvasAPI from "../lib/canvas.js";
 import logger from "../lib/logger.js";
 import { uploadGrades, getGrades, isGradingOpen } from "../lib/banner.js";
-import { getGrademodes } from "../lib/buzzapi.js";
+import { getGrademodes, isSectionGradable } from "../lib/buzzapi.js";
 import { namespace as ns, alwaysSendCurrentGrade } from "../config.js";
 
 router.use(jwtMiddleware);
@@ -51,6 +51,13 @@ router.get("/grades", async (req, res) => {
     // ** override feature ** - checks if override_grade exists, and if so, sets final_grade and current_grade equal to override_grade
     // if there is override grade, override value is equal to "Y" and if not, null
     const gradeModes = await getGrademodes(realStudents);
+    const gradable = {};
+    for (const sectionId of new Set(
+      realStudents.map(({ section }) => section.sisId),
+    ).values()) {
+      gradable[sectionId] = await isSectionGradable(sectionId);
+    }
+    logger.debug({ gradable });
     const data = realStudents
       .map(({ user, section, grades }) => {
         const gradeMode = gradeModes[user.sisId].gradeMode;
@@ -83,7 +90,7 @@ router.get("/grades", async (req, res) => {
           gradeMode,
         };
       })
-      .filter((grade) => grade.sisSectionID);
+      .filter((grade) => grade.sisSectionID && gradable[grade.sisSectionID]);
     return res.send({ data, config: { alwaysSendCurrentGrade } });
   } catch (err) {
     logger.error(err);
