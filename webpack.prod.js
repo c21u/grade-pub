@@ -1,7 +1,7 @@
-const merge = require("webpack-merge");
-const common = require("./webpack.common");
+import { merge } from "webpack-merge";
+import common from "./webpack.common.js";
 
-module.exports = merge(common, {
+export default merge(common, {
   mode: "production",
   optimization: {
     splitChunks: {
@@ -9,9 +9,9 @@ module.exports = merge(common, {
         commons: {
           test: /[\\/]node_modules[\\/]@instructure[\\/]/,
           name: "vendors~instructure",
-          chunks: "all"
-        }
-      }
-    }
-  }
+          chunks: "all",
+        },
+      },
+    },
+  },
 });

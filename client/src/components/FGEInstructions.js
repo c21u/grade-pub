@@ -3,53 +3,15 @@ import { Heading } from "@instructure/ui-heading";
 import { Link } from "@instructure/ui-link";
 import { Text } from "@instructure/ui-text";
 import { View } from "@instructure/ui-view";
-import { List } from "@instructure/ui-elements";
+import { List } from "@instructure/ui-list";
+import KBLink from "./KBLink.js";
 
-const Instructions = () => {
+const FGEInstructions = () => {
   return (
     <div>
       <Heading>Instructions</Heading>
       <View as="div" maxWidth="80%" margin="medium">
         <Heading level="h3">Step 1: Export your grades from Canvas</Heading>
-        <Text weight="bold">
-          In order to use the GT Grade Submission tool, you will first need to
-          enable and set a grading scheme in Canvas:{" "}
-        </Text>
-        <List itemSpacing="small" margin="small" as="ol">
-          <List.Item>
-            <Text>Open your Course in Canvas</Text>
-          </List.Item>
-          <List.Item>
-            <Text>
-              Select <Text weight="bold">&quot;Settings&quot;</Text> from the
-              course navigation menu on the left.
-            </Text>
-          </List.Item>
-          <List.Item>
-            <Text>
-              Under the <Text weight="bold">Course Details</Text> tab, select
-              the check box next to &quot;
-              <Text weight="bold">Enable Course Grading Scheme</Text>&quot;
-            </Text>
-          </List.Item>
-          <List.Item>
-            <Text>
-              Next click the <Text weight="bold">Grading Scheme</Text> drop down.
-            </Text>
-          </List.Item>
-          <List.Item>
-            <Text>
-              Select either &quot;<Text weight="bold">Midterm Grade</Text>
-              &quot; or &quot;<Text weight="bold">Final Grade</Text>&quot;
-            </Text>
-          </List.Item>
-          <List.Item>
-            <Text>
-              Click the &quot;
-              <Text weight="bold">Update Course Details</Text>&quot; button at the bottom of the page.
-            </Text>
-          </List.Item>
-        </List>
         <Text>
           Click the button below to export a Banner-ready spreadsheet of grades.
           You can use the same spreadsheet file to upload grades for multiple
@@ -73,17 +35,14 @@ const Instructions = () => {
                 target="_blank"
               >
                 https://fge.sis.gatech.edu/FacultySelfService
-              </Link>
-              {" "}(
+              </Link>{" "}
+              (
               <Text weight="bold" fontStyle="italic">
                 Requires
-                <Link
-                  href="https://gatech.service-now.com/continuity?id=kb_article_view&sysparm_article=KB0026837"
-                  target="_blank">
-                    {" "}VPN{" "}
-                </Link>
+                <KBLink kbid="KB0026837"> VPN </KBLink>
                 when accessed from off-campus
-              </Text>)
+              </Text>
+              )
             </Text>
           </List.Item>
           <List.Item>
@@ -127,4 +86,4 @@ const Instructions = () => {
   );
 };
 
-export default Instructions;
+export default FGEInstructions;

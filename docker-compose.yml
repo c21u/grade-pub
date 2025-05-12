@@ -1,8 +1,9 @@
-version: '3'
-
 services:
   web:
-    build: .
+    build:
+      context: .
+      args:
+        BUILD_FOR: dev
     command: bin/www
     environment:
       NODE_ENV: production
@@ -13,13 +14,16 @@ services:
       BUZZAPI_APP_ID: $BUZZAPI_APP_ID
       BUZZAPI_PASSWORD: $BUZZAPI_PASSWORD
       CANVAS_TOKEN: $CANVAS_TOKEN
+      BANNER_GRADE_API_URL: $BANNER_GRADE_API_URL
+      BANNER_GRADE_API_TOKEN: $BANNER_GRADE_API_TOKEN
+      LOG_LEVEL: $LOG_LEVEL
     labels:
       - "traefik.http.routers.whoami.rule=Host(`dev.127.0.0.1.nip.io`)"
       - "traefik.http.routers.whoami.tls=true"
     expose:
       - "3000"
   reverse-proxy:
-    image: traefik:v2.0
+    image: traefik:v3.2
     ports:
       - "80:80"
       - "443:443"
