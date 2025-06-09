@@ -65,6 +65,14 @@ export const namespace = getEnvVarOrDefault(
   "edu.gatech.eduapps.gradepubdev",
 );
 
+export const umami = {
+  url: getEnvVarOrDefault(
+    "UMAMI_URL",
+    "https://analytics.eduapps.gatech.edu/script.js",
+  ),
+  id: getEnvVarOrDefault("UMAMI_ID", ""),
+};
+
 export const alwaysSendCurrentGrade = getEnvVarOrNull(
   "ALWAYS_SEND_CURRENT_GRADE",
 );
@@ -79,6 +87,7 @@ const config = {
   passport,
   banner,
   namespace,
+  umami,
   alwaysSendCurrentGrade,
 };
 

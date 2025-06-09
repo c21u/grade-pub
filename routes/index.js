@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import qs from "qs";
 import jwtMiddleware from "../lib/jwt.js";
 import passport from "../lib/passport.js";
-import { passport as passportConf, jwtSecret } from "../config.js";
+import { passport as passportConf, jwtSecret, umami } from "../config.js";
 import logger from "../lib/logger.js";
 
 // Passport initialized here but actually used as passport.authenticate()
@@ -48,8 +48,8 @@ router.post(
 
 router.use(jwtMiddleware);
 
-router.get("/", (req, res, next) => {
-  res.sendFile("index.html", { root: "dist" });
+router.get("/", (req, res) => {
+  res.render("index", { umami });
 });
 
 export default router;

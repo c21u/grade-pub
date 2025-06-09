@@ -11,6 +11,7 @@ import { ScreenReaderContent } from "@instructure/ui-a11y-content";
 import { Flex } from "@instructure/ui-flex";
 import { Heading } from "@instructure/ui-heading";
 import { CanvasLTIAutoResizer } from "canvas-lti-auto-resizer";
+import useUmami from "@stuartf/useumami";
 
 import spreadsheet from "../spreadsheet.js";
 import BannerButton from "./BannerButton.js";
@@ -43,6 +44,8 @@ const GradePublisher = (props) => {
   const [passFailCutoff, setPassFailCutoff] = useState(null);
 
   const { fetchOptions, filename, term } = props;
+
+  const trackEvent = useUmami.default();
 
   /**
    * Fetch initial data
@@ -306,6 +309,7 @@ const GradePublisher = (props) => {
    **/
   const sheetHandler = async () => {
     await window.fetch("/api/sheet", fetchOptions);
+    trackEvent("spreadsheet export");
     spreadsheet(
       gradeScheme.title,
       canvasGrades,
@@ -317,6 +321,7 @@ const GradePublisher = (props) => {
   };
 
   const bannerHandler = async () => {
+    trackEvent("banner export");
     setExportRunning(true);
     setBannerGrades(null);
     try {
@@ -345,6 +350,7 @@ const GradePublisher = (props) => {
   };
 
   const handleGradeSchemeSelected = async (scheme) => {
+    trackEvent("grade scheme selected");
     await window.fetch("/api/gradeScheme", {
       ...fetchOptions,
       method: "POST",
