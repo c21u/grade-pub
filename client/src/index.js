@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import { theme } from "@instructure/canvas-theme";
 import { InstUISettingsProvider } from "@instructure/emotion";
-import { jwtDecode } from "jwt-decode";
-import qs from "qs";
 import GradePublisher from "./components/GradePublisher.js";
 
 const App = () => {
@@ -38,38 +35,8 @@ const App = () => {
     }
   }, []);
 
-  const ProtectedRoute = ({ component: Component, ...rest }) => (
-    <Route
-      {...rest}
-      render={(props) =>
-        !!fetchOptions ? (
-          <Component
-            {...props}
-            fetchOptions={fetchOptions}
-            filename={filename}
-            term={term}
-          />
-        ) : (
-          <Redirect to={{ pathname: "/default" }} />
-        )
-      }
-    />
-  );
-  ProtectedRoute.propTypes = {
-    component: PropTypes.func,
-  };
-
-  return (
-    <Router>
-      <div>
-        <Route path="/default" component={defaultRoute} />
-        <ProtectedRoute exact path="/" component={GradePublisher} />
-      </div>
-    </Router>
-  );
+  return <GradePublisher fetchOptions={fetchOptions} filename={filename} term={term} />
 };
-
-const defaultRoute = () => <h1>Default unprotected route</h1>;
 
 const root = createRoot(document.getElementById("lti_root"));
 root.render(
