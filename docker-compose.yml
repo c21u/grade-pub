@@ -4,24 +4,40 @@ services:
       context: .
       args:
         BUILD_FOR: dev
-    command: bin/www
     environment:
       NODE_ENV: production
-      VIRTUAL_HOST: dev.127.0.0.1.nip.io
       TRUST_PROXY: uniquelocal
       LTI_KEY: $LTI_KEY
-      LTI_SECRET: $LTI_SECRET
       BUZZAPI_APP_ID: $BUZZAPI_APP_ID
       BUZZAPI_PASSWORD: $BUZZAPI_PASSWORD
       CANVAS_TOKEN: $CANVAS_TOKEN
       BANNER_GRADE_API_URL: $BANNER_GRADE_API_URL
       BANNER_GRADE_API_TOKEN: $BANNER_GRADE_API_TOKEN
       LOG_LEVEL: $LOG_LEVEL
+      CLIENT_ID: $CLIENT_ID
     labels:
       - "traefik.http.routers.whoami.rule=Host(`dev.127.0.0.1.nip.io`)"
       - "traefik.http.routers.whoami.tls=true"
     expose:
       - "3000"
+  db:
+    image: postgres
+    volumes:
+    - postgres_data:/var/lib/postgresql/data/
+    environment:
+        POSTGRES_USER: gradepub
+        POSTGRES_PASSWORD: gradepub_access
+        POSTGRES_DB: gradepub
+    labels:
+      - "traefik.tcp.services.postgres.loadbalancer.server.port=5432"
+      - "traefik.tcp.routers.postgres.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.postgres.entrypoints=postgres"
+      - "traefik.tcp.routers.postgres.service=postgres"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gradepub -d gradepub"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   reverse-proxy:
     image: traefik:v3.2
     ports:
@@ -33,3 +49,5 @@ services:
       - $HOME/certs:/data/traefik
       - ./traefik:/etc/traefik
 
+volumes:
+  postgres_data:

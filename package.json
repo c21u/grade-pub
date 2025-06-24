@@ -8,17 +8,24 @@
     "build-prod": "yarn run build",
     "build-dev": "webpack --config webpack.dev.js",
     "dev:client": "webpack --watch --config webpack.dev.js",
-    "dev:server": "nodemon ./bin/www",
-    "lint": "precise-commits",
-    "start": "node ./bin/www",
+    "dev:server": "nodemon ./server.js",
+    "start": "node server.js",
     "start-dev": "run-p dev:*",
     "test": "NODE_ENV=test node --experimental-vm-modules $(yarn bin jest)",
     "prepare": "husky"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint && yarn test"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{html,json,yaml,yml}": [
+      "prettier --write"
+    ],
+    "*.{js,jsx}": [
+      "eslint --cache --fix"
+    ]
   },
   "dependencies": {
     "@instructure/canvas-theme": "^10.19.1",
@@ -51,22 +58,17 @@
     "dotenv": "^16.5.0",
     "ejs": "~3.1.10",
     "express": "~5.1.0",
-    "express-jwt": "^8.5.1",
     "http-errors": "~2.0.0",
-    "ims-lti": "^3.0.2",
-    "jsonwebtoken": "^9.0.2",
-    "jwt-decode": "^4.0.0",
+    "ltijs": "^5.9.7",
+    "ltijs-sequelize": "^2.4.4",
     "p-map": "^7.0.3",
     "parse-link-header": "^2.0.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
-    "passport-lti": "^0.0.7",
     "prop-types": "^15.8.1",
-    "qs": "^6.14.0",
     "react": "^18.2.0",
     "react-beforeunload": "^2.6.0",
     "react-dom": "^18.2.0",
-    "superagent": "^10.2.1",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
@@ -87,9 +89,9 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "husky": "^9.1.7",
     "jest": "^30.0.0",
+    "lint-staged": "^16.1.2",
     "nodemon": "^3.1.10",
     "npm-run-all": "^4.1.5",
-    "precise-commits": "^1.0.2",
     "prettier": "^3.5.3",
     "supertest": "^7.1.1",
     "webpack": "^5.99.9",

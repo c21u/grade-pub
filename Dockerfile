@@ -36,7 +36,6 @@ COPY --from=builder /app/dist dist
 COPY server.js .
 COPY config.js .
 
-COPY bin/ ./bin
 COPY lib ./lib
 COPY public ./public
 COPY routes ./routes
@@ -46,4 +45,4 @@ EXPOSE 3000
 USER node
 
 ENTRYPOINT [ "node", "--max_old_space_size=400" ]
-CMD [ "bin/www" ]
+CMD [ "server.js" ]
