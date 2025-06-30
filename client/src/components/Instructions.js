@@ -1,7 +1,7 @@
 import React from "react";
 import { Text } from "@instructure/ui-text";
 import { View } from "@instructure/ui-view";
-import { InlineList } from "@instructure/ui-list";
+import { List, InlineList } from "@instructure/ui-list";
 import { Link } from "@instructure/ui-link";
 import KBLink from "./KBLink.js";
 
@@ -23,34 +23,37 @@ const Instructions = () => {
         </Text>
       </View>
       <View as="div" maxWidth="80%" margin="medium">
-        <Text>
-          <Text weight="bold" as="div" size="large">
-            Instructions:
-          </Text>
-          <Link
-            href="https://gtvault-my.sharepoint.com/:w:/g/personal/spayne36_gatech_edu/ERI9cibreRRPiKljyfIzT38BqVTGX3luD_-Vw8DtqaXt6Q?e=KxxK19"
-            target="_blank"
-            display="block"
-          >
-            Enable GradePub
-          </Link>
-          <Link
-            href="https://gtvault-my.sharepoint.com/:w:/g/personal/spayne36_gatech_edu/ERI9cibreRRPiKljyfIzT38BqVTGX3luD_-Vw8DtqaXt6Q?e=KxxK19"
-            target="_blank"
-            display="block"
-          >
-            Manually Export Grades From Canvas To Banner (Enable GradePub
-            Prerequisite)
-          </Link>
-          <Link
-            href="https://gtvault-my.sharepoint.com/:w:/g/personal/spayne36_gatech_edu/ERI9cibreRRPiKljyfIzT38BqVTGX3luD_-Vw8DtqaXt6Q?e=KxxK19"
-            target="_blank"
-            display="block"
-          >
-            Send Grades From Canvas To Banner (New Tool - Enable GradePub
-            Prerequisite)
-          </Link>
+        <Text weight="bold" as="div" size="large">
+          Instructions:
         </Text>
+        <List isUnstyled>
+          <List.Item>
+            <Link
+            href="https://gtvault-my.sharepoint.com/:w:/g/personal/spayne36_gatech_edu/ERI9cibreRRPiKljyfIzT38BqVTGX3luD_-Vw8DtqaXt6Q?e=KxxK19"
+            target="_blank"
+          >
+              Enable GradePub
+            </Link>
+          </List.Item>
+          <List.Item>
+            <Link
+              href="https://gtvault-my.sharepoint.com/:w:/g/personal/spayne36_gatech_edu/ERI9cibreRRPiKljyfIzT38BqVTGX3luD_-Vw8DtqaXt6Q?e=KxxK19"
+              target="_blank"
+            >
+              Manually Export Grades From Canvas To Banner (Enable GradePub
+              Prerequisite)
+            </Link>
+          </List.Item>
+          <List.Item>
+            <Link
+              href="https://gtvault-my.sharepoint.com/:w:/g/personal/spayne36_gatech_edu/ERI9cibreRRPiKljyfIzT38BqVTGX3luD_-Vw8DtqaXt6Q?e=KxxK19"
+              target="_blank"
+            >
+              Send Grades From Canvas To Banner (New Tool - Enable GradePub
+              Prerequisite)
+            </Link>
+          </List.Item>
+        </List>
       </View>
       <View as="div" maxWidth="80%" margin="medium">
         <Text as="div" weight="bold" size="large">

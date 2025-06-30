@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "@instructure/ui-link";
 
-const KBLink = (props) => {
-  const href = `https://gatech.service-now.com/continuity?id=kb_article_view&sysparm_article=${props.kbid}`;
+const KBLink = ({kbid, display="auto", children}) => {
+  const href = `https://gatech.service-now.com/continuity?id=kb_article_view&sysparm_article=${kbid}`;
   return (
-    <Link href={href} target="_blank" display={props.display}>
-      {props.children}
+    <Link href={href} target="_blank" display={display}>
+      {children}
     </Link>
   );
 };
@@ -20,9 +20,6 @@ KBLink.propTypes = {
     "inline-flex",
   ]),
   children: PropTypes.node,
-};
-KBLink.defaultProps = {
-  display: "auto",
 };
 
 export default KBLink;
