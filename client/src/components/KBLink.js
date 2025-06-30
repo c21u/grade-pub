@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "@instructure/ui-link";
 
-const KBLink = ({kbid, display, children}) => {
+const KBLink = ({kbid, display="auto", children}) => {
   const href = `https://gatech.service-now.com/kb_view.do?sys_kb_id=${kbid}`;
   return (
     <Link href={href} target="_blank" display={display}>
@@ -20,9 +20,6 @@ KBLink.propTypes = {
     "inline-flex",
   ]),
   children: PropTypes.node,
-};
-KBLink.defaultProps = {
-  display: "auto",
 };
 
 export default KBLink;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Text } from "@instructure/ui-text";
 import { View } from "@instructure/ui-view";
-import { InlineList } from "@instructure/ui-list";
+import { List, InlineList } from "@instructure/ui-list";
 import { Link } from "@instructure/ui-link";
 import KBLink from "./KBLink.js";
 
@@ -23,25 +23,33 @@ const Instructions = () => {
         </Text>
       </View>
       <View as="div" maxWidth="80%" margin="medium">
-        <Text>
-          <Text weight="bold" as="div" size="large">
-            Instructions:
-          </Text>
-          <KBLink kbid="959292cdc3cb2a18d88cbe55e00131d6#Enable-GradePub">
-            Enable GradePub
-          </KBLink>
-          <KBLink kbid="959292cdc3cb2a18d88cbe55e00131d6#Pass-Fail">
-            Pass Fail Cutoff
-          </KBLink>
-          <KBLink kbid="959292cdc3cb2a18d88cbe55e00131d6#Export-Grades">
-            Manually Export Grades From Canvas To Banner (Enable GradePub
-            Prerequisite)
-          </KBLink>
-          <KBLink kbid="959292cdc3cb2a18d88cbe55e00131d6#Send-Grades">
-            Send Grades From Canvas To Banner (New Tool - Enable GradePub
-            Prerequisite)
-          </KBLink>
+        <Text weight="bold" as="div" size="large">
+          Instructions:
         </Text>
+        <List isUnstyled>
+          <List.Item>
+            <KBLink kbid="959292cdc3cb2a18d88cbe55e00131d6#Enable-GradePub">
+              Enable GradePub
+            </KBLink>
+          </List.Item>
+          <List.Item>
+            <KBLink kbid="959292cdc3cb2a18d88cbe55e00131d6#Pass-Fail">
+              Pass Fail Cutoff
+            </KBLink>
+          </List.Item>
+          <List.Item>
+            <KBLink kbid="959292cdc3cb2a18d88cbe55e00131d6#Export-Grades">
+              Manually Export Grades From Canvas To Banner (Enable GradePub
+              Prerequisite)
+            </KBLink>
+          </List.Item>
+          <List.Item>
+            <KBLink kbid="959292cdc3cb2a18d88cbe55e00131d6#Send-Grades">
+              Send Grades From Canvas To Banner (New Tool - Enable GradePub
+              Prerequisite)
+            </KBLink>
+          </List.Item>
+        </List>
       </View>
       <View as="div" maxWidth="80%" margin="medium">
         <Text as="div" weight="bold" size="large">
