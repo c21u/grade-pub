@@ -21,9 +21,11 @@ const App = () => {
     setFetchOptions(options);
     window
       .fetch("/api/context", options)
-      .then(({context}) => {
+      .then(async (response) => {
+        const context = (await response.json()).context;
+        console.log(context)
         setFilename(
-          `grades_${context.label.replace(/[^\w.]/g, "_")}_${context.title.replace(/[^\w.]/g, "_")}.xlsx`,
+          `grades_${context.context.label.replace(/[^\w.]/g, "_")}_${context.context.title.replace(/[^\w.]/g, "_")}.xlsx`,
         );
         setTerm(
           context.custom.lis_course_offering_sourcedid.slice(0, 6),
