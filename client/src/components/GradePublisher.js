@@ -98,7 +98,7 @@ const GradePublisher = (props) => {
             setCanvasGrades(gradeResponseJson.data);
             setAlwaysSendCurrentGrade(
               "true" ==
-                gradeResponseJson.config.alwaysSendCurrentGrade.toLowerCase(),
+                gradeResponseJson.config.alwaysSendCurrentGrade?.toLowerCase(),
             );
             setLoadedAttendanceDates(false);
           } catch (err) {
@@ -173,6 +173,7 @@ const GradePublisher = (props) => {
               setSchemeUnset(true);
             } else {
               const gs = await gradeSchemeResponse.json();
+              showCanvasGradesLoading();
               setGradeScheme(gs);
               setPassFailCutoff(
                 gs.grading_scheme.find(({ name }) => name === "D")
@@ -420,7 +421,7 @@ const GradePublisher = (props) => {
   };
 
   const LargeClassWarning = (props) => {
-    if (canvasGrades !== null && canvasGrades.length > 999) {
+    if (canvasGrades?.length > 999) {
       return (
         <Alert variant="warning">
           Exporting grades on large courses may take up to a minute.

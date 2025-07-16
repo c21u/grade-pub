@@ -23,7 +23,6 @@ const App = () => {
       .fetch("/api/context", options)
       .then(async (response) => {
         const context = (await response.json()).context;
-        console.log(context)
         setFilename(
           `grades_${context.context.label.replace(/[^\w.]/g, "_")}_${context.context.title.replace(/[^\w.]/g, "_")}.xlsx`,
         );

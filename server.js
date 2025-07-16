@@ -70,6 +70,11 @@ lti.app.use(express.urlencoded({ extended: false, limit: "10mb" }));
 lti.app.use(express.static(resolve(__dirname, "dist")));
 
 lti.app.use((req, res, next) => {
+  res.setHeader("Cross-origin-Embedder-Policy", "credentialless");
+  next();
+});
+
+lti.app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
