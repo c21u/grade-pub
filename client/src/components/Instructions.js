@@ -27,29 +27,20 @@ const Instructions = () => {
           <Text weight="bold" as="div" size="large">
             Instructions:
           </Text>
-          <Link
-            href="https://gtvault-my.sharepoint.com/:w:/g/personal/spayne36_gatech_edu/ERI9cibreRRPiKljyfIzT38BqVTGX3luD_-Vw8DtqaXt6Q?e=KxxK19"
-            target="_blank"
-            display="block"
-          >
+          <KBLink kbid="959292cdc3cb2a18d88cbe55e00131d6#Enable-GradePub">
             Enable GradePub
-          </Link>
-          <Link
-            href="https://gtvault-my.sharepoint.com/:w:/g/personal/spayne36_gatech_edu/ERI9cibreRRPiKljyfIzT38BqVTGX3luD_-Vw8DtqaXt6Q?e=KxxK19"
-            target="_blank"
-            display="block"
-          >
+          </KBLink>
+          <KBLink kbid="959292cdc3cb2a18d88cbe55e00131d6#Pass-Fail">
+            Pass Fail Cutoff
+          </KBLink>
+          <KBLink kbid="959292cdc3cb2a18d88cbe55e00131d6#Export-Grades">
             Manually Export Grades From Canvas To Banner (Enable GradePub
             Prerequisite)
-          </Link>
-          <Link
-            href="https://gtvault-my.sharepoint.com/:w:/g/personal/spayne36_gatech_edu/ERI9cibreRRPiKljyfIzT38BqVTGX3luD_-Vw8DtqaXt6Q?e=KxxK19"
-            target="_blank"
-            display="block"
-          >
+          </KBLink>
+          <KBLink kbid="959292cdc3cb2a18d88cbe55e00131d6#Send-Grades">
             Send Grades From Canvas To Banner (New Tool - Enable GradePub
             Prerequisite)
-          </Link>
+          </KBLink>
         </Text>
       </View>
       <View as="div" maxWidth="80%" margin="medium">
@@ -58,7 +49,7 @@ const Instructions = () => {
         </Text>
         <InlineList delimiter="pipe" margin="large 0">
           <InlineList.Item>
-            <KBLink kbid="KB0026837">VPN</KBLink>
+            <KBLink kbid="6e354bdf47cfded0593b4f58436d43ac">VPN</KBLink>
           </InlineList.Item>
 
           <InlineList.Item>
@@ -70,7 +61,7 @@ const Instructions = () => {
             </Link>
           </InlineList.Item>
           <InlineList.Item>
-            <KBLink kbid="KB0042717">Incomplete Section</KBLink>
+            <KBLink kbid="36ed28791bead610b2340dc5604bcba8">Incomplete Section</KBLink>
           </InlineList.Item>
           <InlineList.Item>
             <Link
@@ -81,7 +72,7 @@ const Instructions = () => {
             </Link>
           </InlineList.Item>
           <InlineList.Item>
-            <KBLink kbid="KB0026508">Canvas Grade Submission</KBLink>
+            <KBLink kbid="959292cdc3cb2a18d88cbe55e00131d6">Canvas Grade Submission</KBLink>
           </InlineList.Item>
           <InlineList.Item>
             <Link
