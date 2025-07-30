@@ -34,16 +34,24 @@ router.get("/grades", async (req, res) => {
   const canvas = canvasAPI.getCanvasContext(res.locals);
 
   try {
-    const query =
-      "query ($courseId: ID) { course(id: $courseId) { enrollmentsConnection(filter: {types: StudentEnrollment}) { nodes { user { sisId sortableName } grades { overrideGrade currentGrade finalGrade overrideScore currentScore finalScore unpostedCurrentGrade unpostedFinalGrade } section { sisId } } } } }";
-    const variables = { courseId: canvas.courseID };
-    const students = await canvas.rawReq.post("api/graphql", {
-      query,
-      variables,
-    });
+    const getCanvasStudents = async (cursor = null) => {
+      const query =
+        "query ($courseId: ID $cursor: String) { course(id: $courseId) { enrollmentsConnection(filter: {types: StudentEnrollment}, after: $cursor) { nodes { user { sisId sortableName } grades { overrideGrade currentGrade finalGrade overrideScore currentScore finalScore unpostedCurrentGrade unpostedFinalGrade } section { sisId } } pageInfo { endCursor hasNextPage } } } }";
+      const variables = { courseId: canvas.courseID, cursor };
+      const students = (await canvas.rawReq.post("api/graphql", {
+        query,
+        variables,
+      })).body.data.course.enrollmentsConnection;
+      if (students.pageInfo.hasNextPage) {
+        return students.nodes.concat(
+          await getCanvasStudents(students.pageInfo.endCursor));
+      }
+      return students.nodes;
+    }
 
+    const students = await getCanvasStudents();
     const realStudents =
-      students.data.course.enrollmentsConnection.nodes.filter(
+      students.filter(
         (s) => s.user.sisId,
       );
     // ** override feature ** - checks if override_grade exists, and if so, sets final_grade and current_grade equal to override_grade

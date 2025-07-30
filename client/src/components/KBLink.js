@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "@instructure/ui-link";
 
 const KBLink = ({kbid, display="auto", children}) => {
-  const href = `https://gatech.service-now.com/continuity?id=kb_article_view&sysparm_article=${kbid}`;
+  const href = `https://gatech.service-now.com/kb_view.do?sys_kb_id=${kbid}`;
   return (
     <Link href={href} target="_blank" display={display}>
       {children}
