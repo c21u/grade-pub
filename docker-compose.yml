@@ -11,13 +11,23 @@ services:
       BUZZAPI_APP_ID: $BUZZAPI_APP_ID
       BUZZAPI_PASSWORD: $BUZZAPI_PASSWORD
       CANVAS_TOKEN: $CANVAS_TOKEN
-      BANNER_GRADE_API_URL: $BANNER_GRADE_API_URL
+      BANNER_GRADE_API_URL: "http://banner:3000"
       BANNER_GRADE_API_TOKEN: $BANNER_GRADE_API_TOKEN
       LOG_LEVEL: $LOG_LEVEL
       CLIENT_ID: $CLIENT_ID
     labels:
-      - "traefik.http.routers.whoami.rule=Host(`dev.127.0.0.1.nip.io`)"
-      - "traefik.http.routers.whoami.tls=true"
+      - "traefik.http.routers.tool.rule=Host(`dev.127.0.0.1.nip.io`)"
+      - "traefik.http.routers.tool.tls=true"
+    expose:
+      - "3000"
+    depends_on:
+      db:
+        condition: service_healthy
+  banner:
+    image: fakebannerapi
+    labels:
+      - "traefik.http.routers.banner.rule=Host(`banner.127.0.0.1.nip.io`)"
+      - "traefik.http.routers.banner.tls=true"
     expose:
       - "3000"
   db:

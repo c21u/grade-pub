@@ -41,7 +41,8 @@ router.get("/grades", async (req, res) => {
       const students = (await canvas.rawReq.post("api/graphql", {
         query,
         variables,
-      })).body.data.course.enrollmentsConnection;
+      })).data.course.enrollmentsConnection;
+
       if (students.pageInfo.hasNextPage) {
         return students.nodes.concat(
           await getCanvasStudents(students.pageInfo.endCursor));
