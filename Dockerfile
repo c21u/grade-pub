@@ -15,7 +15,7 @@ RUN yarn install --immutable
 
 ARG BUILD_FOR="prod"
 
-COPY .eslintrc.cjs .
+COPY eslint.config.js .
 COPY webpack.common.js .
 COPY webpack.${BUILD_FOR}.js .
 COPY client client
@@ -37,7 +37,6 @@ COPY server.js .
 COPY config.js .
 
 COPY lib ./lib
-COPY public ./public
 COPY routes ./routes
 COPY views ./views
 

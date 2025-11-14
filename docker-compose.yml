@@ -14,10 +14,31 @@ services:
       BANNER_GRADE_API_URL: "http://banner:3000"
       BANNER_GRADE_API_TOKEN: $BANNER_GRADE_API_TOKEN
       LOG_LEVEL: $LOG_LEVEL
-      CLIENT_ID: $CLIENT_ID
+      CLIENT_ID: 20960000000000445
     labels:
       - "traefik.http.routers.tool.rule=Host(`dev.127.0.0.1.nip.io`)"
       - "traefik.http.routers.tool.tls=true"
+    develop:
+      watch:
+        - action: sync+restart
+          path: server.js
+          target: /app/server.js
+        - action: sync+restart
+          path: config.js
+          target: /app/config.js
+        - action: sync+restart
+          path: ./routes
+          target: /app/routes
+        - action: sync+restart
+          path: ./lib
+          target: /app/lib
+        - action: sync
+          path: ./views
+          target: /app/views
+        - action: rebuild
+          path: package.json
+        - action: rebuild
+          path: ./client
     expose:
       - "3000"
     depends_on:

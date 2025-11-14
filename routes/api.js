@@ -1,5 +1,4 @@
 import express from "express";
-// eslint-disable-next-line new-cap
 const router = express.Router();
 import canvasAPI from "../lib/canvas.js";
 import logger from "../lib/logger.js";
@@ -38,23 +37,23 @@ router.get("/grades", async (req, res) => {
       const query =
         "query ($courseId: ID $cursor: String) { course(id: $courseId) { enrollmentsConnection(filter: {types: StudentEnrollment}, after: $cursor) { nodes { user { sisId sortableName } grades { overrideGrade currentGrade finalGrade overrideScore currentScore finalScore unpostedCurrentGrade unpostedFinalGrade } section { sisId } } pageInfo { endCursor hasNextPage } } } }";
       const variables = { courseId: canvas.courseID, cursor };
-      const students = (await canvas.rawReq.post("api/graphql", {
-        query,
-        variables,
-      })).data.course.enrollmentsConnection;
+      const students = (
+        await canvas.rawReq.post("api/graphql", {
+          query,
+          variables,
+        })
+      ).data.course.enrollmentsConnection;
 
       if (students.pageInfo.hasNextPage) {
         return students.nodes.concat(
-          await getCanvasStudents(students.pageInfo.endCursor));
+          await getCanvasStudents(students.pageInfo.endCursor),
+        );
       }
       return students.nodes;
-    }
+    };
 
     const students = await getCanvasStudents();
-    const realStudents =
-      students.filter(
-        (s) => s.user.sisId,
-      );
+    const realStudents = students.filter((s) => s.user.sisId);
     // ** override feature ** - checks if override_grade exists, and if so, sets final_grade and current_grade equal to override_grade
     // if there is override grade, override value is equal to "Y" and if not, null
     const gradeModes = await getGrademodes(realStudents);
@@ -187,9 +186,16 @@ router.post("/publish", async (req, res) => {
       .status(403)
       .send("You must be logged in as a course instructor to publish grades!");
   }
-  logger.info({ context: res.locals }, "Requested publication of grades to banner");
+  logger.info(
+    { context: res.locals },
+    "Requested publication of grades to banner",
+  );
   try {
-    const result = await uploadGrades(res.locals, req.body.grades, req.body.mode);
+    const result = await uploadGrades(
+      res.locals,
+      req.body.grades,
+      req.body.mode,
+    );
     return res.send(result);
   } catch (err) {
     logger.error(err);
@@ -271,7 +277,10 @@ router.post("/attendanceDates", async (req, res) => {
   }
   const canvas = canvasAPI.getCanvasContext(res.locals);
 
-  const key = res.locals.context.custom.lis_course_offering_sourcedid.replace("/", "_");
+  const key = res.locals.context.custom.lis_course_offering_sourcedid.replace(
+    "/",
+    "_",
+  );
   try {
     const body = {
       ns,

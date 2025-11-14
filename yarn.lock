@@ -5013,9 +5013,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"canvas-lms-api@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "canvas-lms-api@npm:1.0.2"
+"canvas-lms-api@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "canvas-lms-api@npm:1.0.5"
   dependencies:
     delay: "npm:^6.0.0"
     lodash.merge: "npm:^4.6.2"
@@ -5023,7 +5023,7 @@ __metadata:
     node-fetch: "npm:^3.3.1"
     parse-link-header: "npm:^2.0.0"
     qs: "npm:^6.11.2"
-  checksum: 10c0/b5d170075aa556cd6725dff48b3337ecdc34aca4af67868a9d0226ac1fa8480c0accc24825849c504f3072c3b7538f94cd2736e54c0bf7ea6072074792d5fc57
+  checksum: 10c0/c52337aa9b4564774a3803ecdd65fb729bba6de4be0f291e1ae4eb59c8285da748aa1c3847c753ba8fef84d4cf82f5740739ac42410a621404987994f3b78ba4
   languageName: node
   linkType: hard
 
@@ -7117,7 +7117,7 @@ __metadata:
     bunyan: "npm:^1.8.15"
     bunyan-express-serializer: "npm:^1.0.0"
     buzzapi: "npm:^2.1.2"
-    canvas-lms-api: "npm:^1.0.2"
+    canvas-lms-api: "npm:^1.0.5"
     canvas-lti-auto-resizer: "npm:^1.0.2"
     dotenv: "npm:^16.5.0"
     ejs: "npm:~3.1.10"
