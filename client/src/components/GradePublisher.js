@@ -483,6 +483,7 @@ const GradePublisher = (props) => {
       {gradeScheme ? (
         <PassFailCutoff
           changeHandler={(cutoff) => {
+            showCanvasGradesLoading();
             setPassFailCutoff(cutoff);
           }}
           gradeSchemeFail={
