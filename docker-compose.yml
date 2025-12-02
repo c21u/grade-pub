@@ -45,7 +45,7 @@ services:
       db:
         condition: service_healthy
   banner:
-    image: fakebannerapi
+    image: public.ecr.aws/b2s1o1u4/eduapps/fakebannerapi:latest
     labels:
       - "traefik.http.routers.banner.rule=Host(`banner.127.0.0.1.nip.io`)"
       - "traefik.http.routers.banner.tls=true"
