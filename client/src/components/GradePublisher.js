@@ -520,7 +520,7 @@ const GradePublisher = (props) => {
               dataReady={
                 canvasGrades &&
                 canvasGrades[0] &&
-                canvasGrades[0].currentGrade !== null &&
+                canvasGrades[0].currentGrade !== "loading" &&
                 !schemeUnset
               }
             />
