@@ -35,14 +35,10 @@ router.get("/grades", async (req, res) => {
   try {
     const getCanvasStudents = async (cursor = null) => {
       const query =
-        "query ($courseId: ID $cursor: String) { course(id: $courseId) { enrollmentsConnection(filter: {types: StudentEnrollment}, after: $cursor) { nodes { user { sisId sortableName } grades { overrideGrade currentGrade finalGrade overrideScore currentScore finalScore unpostedCurrentGrade unpostedFinalGrade } section { sisId } } pageInfo { endCursor hasNextPage } } } }";
+        "query ($courseId: ID $cursor: String) { course(id: $courseId) { enrollmentsConnection(filter: {types: StudentEnrollment}, first: 100 after: $cursor) { nodes { user { sisId sortableName } grades { overrideGrade currentGrade finalGrade overrideScore currentScore finalScore unpostedCurrentGrade unpostedFinalGrade } section { sisId } } pageInfo { endCursor hasNextPage } } } }";
       const variables = { courseId: canvas.courseID, cursor };
-      const students = (
-        await canvas.rawReq.post("api/graphql", {
-          query,
-          variables,
-        })
-      ).data.course.enrollmentsConnection;
+      const students = (await canvas.api.graphql(query, variables)).data.course
+        .enrollmentsConnection;
 
       if (students.pageInfo.hasNextPage) {
         return students.nodes.concat(
@@ -64,6 +60,9 @@ router.get("/grades", async (req, res) => {
       gradable[sectionId] = await isSectionGradable(sectionId);
     }
     logger.debug({ gradable });
+    if (Object.values(gradable).filter((g) => g).length === 0) {
+      logger.warn({ courseId: canvas.courseID }, "No gradable sections found!");
+    }
     const data = realStudents
       .map(({ user, section, grades }) => {
         const gradeMode = gradeModes[user.sisId].gradeMode;
