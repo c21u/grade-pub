@@ -580,7 +580,7 @@ const GradePublisher = (props) => {
                   clickHandler={bannerHandler}
                   dataReady={
                     canvasGrades &&
-                    canvasGrades[0].currentGrade !== "loading" &&
+                    canvasGrades[0]?.currentGrade !== "loading" &&
                     !needsAttendanceDates(true) &&
                     !schemeUnset
                   }
