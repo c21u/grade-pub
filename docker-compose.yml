@@ -13,7 +13,7 @@ services:
       CANVAS_TOKEN: $CANVAS_TOKEN
       BANNER_GRADE_API_URL: "http://banner:3000"
       BANNER_GRADE_API_TOKEN: $BANNER_GRADE_API_TOKEN
-      LOG_LEVEL: $LOG_LEVEL
+      LOG_LEVEL: ${LOG_LEVEL:-debug}
       CLIENT_ID: 20960000000000445
     labels:
       - "traefik.http.routers.tool.rule=Host(`dev.127.0.0.1.nip.io`)"

@@ -447,7 +447,7 @@ const GradePublisher = (props) => {
     <CanvasLTIAutoResizer additional={150}>
       <Flex>
         <Flex.Item shouldGrow shouldShrink padding="none medium none none">
-          <Heading>Grade Publisher</Heading>
+          <Heading>GradePub</Heading>
         </Flex.Item>
         <Flex.Item>
           <FormFieldGroup

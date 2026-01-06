@@ -26,7 +26,7 @@ const Instructions = () => {
         <Text>
           If you experience any issues with GradePub, please reach out to the
           Digital Learning Team at{" "}
-          <Link href="mailto:canvas@gatech.edu" target="_blank" />.
+          <Link href="mailto:canvas@gatech.edu" target="_blank">canvas@gatech.edu</Link>.
         </Text>
       </View>
 
