@@ -8,6 +8,7 @@ const App = () => {
   const [fetchOptions, setFetchOptions] = useState({});
   const [filename, setFilename] = useState("");
   const [term, setTerm] = useState();
+  const [isInstructor, setIsInstructor] = useState();
 
   useEffect(() => {
     const ltik = new URLSearchParams(window.location.search).get("ltik");
@@ -17,7 +18,7 @@ const App = () => {
         Authorization: `Bearer ${ltik}`,
         "Content-Type": "application/json",
       },
-    }
+    };
     setFetchOptions(options);
     window
       .fetch("/api/context", options)
@@ -26,8 +27,11 @@ const App = () => {
         setFilename(
           `grades_${context.context.label.replace(/[^\w.]/g, "_")}_${context.context.title.replace(/[^\w.]/g, "_")}.xlsx`,
         );
-        setTerm(
-          context.custom.lis_course_offering_sourcedid.slice(0, 6),
+        setTerm(context.custom.lis_course_offering_sourcedid.slice(0, 6));
+        setIsInstructor(
+          context.roles.includes(
+            "http://purl.imsglobal.org/vocab/lis/v2/membership#Instructor",
+          ),
         );
       })
       .catch((err) => console.error(`Error fetching context: ${err}`));
@@ -38,6 +42,7 @@ const App = () => {
       fetchOptions={fetchOptions}
       filename={filename}
       term={term}
+      isInstructor={isInstructor}
     />
   );
 };

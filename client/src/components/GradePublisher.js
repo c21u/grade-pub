@@ -43,7 +43,7 @@ const GradePublisher = (props) => {
   const [alwaysSendCurrentGrade, setAlwaysSendCurrentGrade] = useState(false);
   const [passFailCutoff, setPassFailCutoff] = useState(null);
 
-  const { fetchOptions, filename, term } = props;
+  const { fetchOptions, filename, term, isInstructor } = props;
 
   const trackEvent = useUmami.default();
 
@@ -493,24 +493,30 @@ const GradePublisher = (props) => {
         />
       ) : null}
       <View as="div" textAlign="center">
-        {schemeUnset ? (
-          <Alert variant="warning">
-            You have not set a grading scheme for this course, select one above
-            to procede.
+        {isInstructor ? (
+          schemeUnset ? (
+            <Alert variant="warning">
+              You have not set a grading scheme for this course, select one
+              above to procede.
+            </Alert>
+          ) : needsAttendanceDates(true) ? (
+            <Alert variant="warning">
+              A last attendance date is needed for students with an I or an F
+            </Alert>
+          ) : canvasGrades &&
+            canvasGrades[0] &&
+            canvasGrades[0].currentGrade !== "loading" &&
+            gradingOpen &&
+            (gradingOpen.final || gradingOpen.midterm) ? (
+            <Alert variant="success">
+              Grades Ready To Submit! Click Send Grades To Banner
+            </Alert>
+          ) : null
+        ) : (
+          <Alert variant="error">
+            Only the course Instructor can Send Grades To Banner
           </Alert>
-        ) : needsAttendanceDates(true) ? (
-          <Alert variant="warning">
-            A last attendance date is needed for students with an I or an F
-          </Alert>
-        ) : canvasGrades &&
-          canvasGrades[0] &&
-          canvasGrades[0].currentGrade !== "loading" &&
-          gradingOpen &&
-          (gradingOpen.final || gradingOpen.midterm) ? (
-          <Alert variant="success">
-            Grades Ready To Submit! Click Send Grades To Banner
-          </Alert>
-        ) : null}
+        )}
       </View>
       {useLegacy ? (
         <Flex justifyItems="center">
