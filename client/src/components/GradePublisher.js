@@ -496,8 +496,7 @@ const GradePublisher = (props) => {
         {isInstructor ? (
           schemeUnset ? (
             <Alert variant="warning">
-              You have not set a grading scheme for this course, select one
-              above to procede.
+              Please select a grading scheme from the dropdown above to proceed.
             </Alert>
           ) : needsAttendanceDates(true) ? (
             <Alert variant="warning">
