@@ -1,94 +1,65 @@
 import React from "react";
 import { Text } from "@instructure/ui-text";
 import { View } from "@instructure/ui-view";
-import { List, InlineList } from "@instructure/ui-list";
+import { InlineList } from "@instructure/ui-list";
 import { Link } from "@instructure/ui-link";
 import KBLink from "./KBLink.js";
+import RegistrarLink from "./RegistrarLink.js";
 
 const Instructions = () => {
   return (
     <View>
       <View as="div" maxWidth="80%" margin="medium">
         <Text>
-          <Text weight="bold">GradePub</Text> will allow you to{" "}
-          <Text weight="bold">manually export grades</Text> or{" "}
-          <Text weight="bold">directly send grades to Banner</Text>.
+          GradePub allows you to manually export grades or directly send grades
+          to Banner.
         </Text>
       </View>
       <View as="div" maxWidth="80%" margin="medium">
         <Text>
-          Enable <Text weight="bold">GradePub</Text> and select the{" "}
-          <Text weight="bold">Grading Scheme (Midterm/Final)</Text> to get
-          started!
+          For more information and step-by-step instructions, please refer to
+          the <KBLink kbid="KB0026508">Canvas Grade Submission</KBLink>{" "}
+          knowledge article.
         </Text>
       </View>
       <View as="div" maxWidth="80%" margin="medium">
-        <Text weight="bold" as="div" size="large">
-          Instructions:
+        <Text>
+          If you experience any issues with GradePub, please reach out to the
+          Digital Learning Team at{" "}
+          <Link href="mailto:canvas@gatech.edu" target="_blank">canvas@gatech.edu</Link>.
         </Text>
-        <List isUnstyled>
-          <List.Item>
-            <KBLink kbid="959292cdc3cb2a18d88cbe55e00131d6#Enable-GradePub">
-              Enable GradePub
-            </KBLink>
-          </List.Item>
-          <List.Item>
-            <KBLink kbid="959292cdc3cb2a18d88cbe55e00131d6#Pass-Fail">
-              Pass Fail Cutoff
-            </KBLink>
-          </List.Item>
-          <List.Item>
-            <KBLink kbid="959292cdc3cb2a18d88cbe55e00131d6#Export-Grades">
-              Manually Export Grades From Canvas To Banner (Enable GradePub
-              Prerequisite)
-            </KBLink>
-          </List.Item>
-          <List.Item>
-            <KBLink kbid="959292cdc3cb2a18d88cbe55e00131d6#Send-Grades">
-              Send Grades From Canvas To Banner (New Tool - Enable GradePub
-              Prerequisite)
-            </KBLink>
-          </List.Item>
-        </List>
       </View>
+
       <View as="div" maxWidth="80%" margin="medium">
         <Text as="div" weight="bold" size="large">
           Additional Resources:
         </Text>
         <InlineList delimiter="pipe" margin="large 0">
           <InlineList.Item>
-            <KBLink kbid="6e354bdf47cfded0593b4f58436d43ac">VPN</KBLink>
+            <KBLink kbid="KB0026837">Georgia Tech's VPN</KBLink>
           </InlineList.Item>
 
           <InlineList.Item>
             <Link
-              href="https://registrar.gatech.edu/faculty-and-staff/grading-and-grade-entry"
+              href="https://fge.sis.gatech.edu/FacultySelfService"
               target="_blank"
             >
-              Grading and Grade Entry
+              Faculty Grade Entry - FGE (Requires VPN)
             </Link>
           </InlineList.Item>
+
           <InlineList.Item>
-            <KBLink kbid="36ed28791bead610b2340dc5604bcba8">Incomplete Section</KBLink>
+            <RegistrarLink rid="grade-entry-faq">Grade Entry FAQ</RegistrarLink>
           </InlineList.Item>
+
           <InlineList.Item>
-            <Link
-              href="https://registrar.gatech.edu/info/importing-grades"
-              target="_blank"
-            >
-              Importing Grades
-            </Link>
+            <RegistrarLink rid="incomplete-grades">
+              Incomplete Grades
+            </RegistrarLink>
           </InlineList.Item>
+
           <InlineList.Item>
-            <KBLink kbid="959292cdc3cb2a18d88cbe55e00131d6">Canvas Grade Submission</KBLink>
-          </InlineList.Item>
-          <InlineList.Item>
-            <Link
-              href="https://community.canvaslms.com/t5/Instructor-Guide/How-do-I-override-a-student-s-final-grade-in-the-Gradebook/ta-p/946"
-              target="_blank"
-            >
-              Grade Override
-            </Link>
+            <RegistrarLink rid="grade-changes">Grade Changes</RegistrarLink>
           </InlineList.Item>
         </InlineList>
       </View>

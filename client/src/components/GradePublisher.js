@@ -43,7 +43,7 @@ const GradePublisher = (props) => {
   const [alwaysSendCurrentGrade, setAlwaysSendCurrentGrade] = useState(false);
   const [passFailCutoff, setPassFailCutoff] = useState(null);
 
-  const { fetchOptions, filename, term } = props;
+  const { fetchOptions, filename, term, isInstructor } = props;
 
   const trackEvent = useUmami.default();
 
@@ -98,7 +98,7 @@ const GradePublisher = (props) => {
             setCanvasGrades(gradeResponseJson.data);
             setAlwaysSendCurrentGrade(
               "true" ==
-                gradeResponseJson.config.alwaysSendCurrentGrade.toLowerCase(),
+                gradeResponseJson.config.alwaysSendCurrentGrade?.toLowerCase(),
             );
             setLoadedAttendanceDates(false);
           } catch (err) {
@@ -173,6 +173,7 @@ const GradePublisher = (props) => {
               setSchemeUnset(true);
             } else {
               const gs = await gradeSchemeResponse.json();
+              showCanvasGradesLoading();
               setGradeScheme(gs);
               setPassFailCutoff(
                 gs.grading_scheme.find(({ name }) => name === "D")
@@ -420,7 +421,7 @@ const GradePublisher = (props) => {
   };
 
   const LargeClassWarning = (props) => {
-    if (canvasGrades !== null && canvasGrades.length > 999) {
+    if (canvasGrades?.length > 999) {
       return (
         <Alert variant="warning">
           Exporting grades on large courses may take up to a minute.
@@ -446,7 +447,7 @@ const GradePublisher = (props) => {
     <CanvasLTIAutoResizer additional={150}>
       <Flex>
         <Flex.Item shouldGrow shouldShrink padding="none medium none none">
-          <Heading>Grade Publisher</Heading>
+          <Heading>GradePub</Heading>
         </Flex.Item>
         <Flex.Item>
           <FormFieldGroup
@@ -482,6 +483,7 @@ const GradePublisher = (props) => {
       {gradeScheme ? (
         <PassFailCutoff
           changeHandler={(cutoff) => {
+            showCanvasGradesLoading();
             setPassFailCutoff(cutoff);
           }}
           gradeSchemeFail={
@@ -491,24 +493,29 @@ const GradePublisher = (props) => {
         />
       ) : null}
       <View as="div" textAlign="center">
-        {schemeUnset ? (
-          <Alert variant="warning">
-            You have not set a grading scheme for this course, select one above
-            to procede.
+        {isInstructor ? (
+          schemeUnset ? (
+            <Alert variant="warning">
+              Please select a grading scheme from the dropdown above to proceed.
+            </Alert>
+          ) : needsAttendanceDates(true) ? (
+            <Alert variant="warning">
+              A last attendance date is needed for students with an I or an F
+            </Alert>
+          ) : canvasGrades &&
+            canvasGrades[0] &&
+            canvasGrades[0].currentGrade !== "loading" &&
+            gradingOpen &&
+            (gradingOpen.final || gradingOpen.midterm) ? (
+            <Alert variant="success">
+              Grades Ready To Submit! Click Send Grades To Banner
+            </Alert>
+          ) : null
+        ) : (
+          <Alert variant="error">
+            Only the course Instructor can Send Grades To Banner
           </Alert>
-        ) : needsAttendanceDates(true) ? (
-          <Alert variant="warning">
-            A last attendance date is needed for students with an I or an F
-          </Alert>
-        ) : canvasGrades &&
-          canvasGrades[0] &&
-          canvasGrades[0].currentGrade !== "loading" &&
-          gradingOpen &&
-          (gradingOpen.final || gradingOpen.midterm) ? (
-          <Alert variant="success">
-            Grades Ready To Submit! Click Send Grades To Banner
-          </Alert>
-        ) : null}
+        )}
       </View>
       {useLegacy ? (
         <Flex justifyItems="center">

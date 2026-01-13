@@ -15,7 +15,7 @@ RUN yarn install --immutable
 
 ARG BUILD_FOR="prod"
 
-COPY .eslintrc.cjs .
+COPY eslint.config.js .
 COPY webpack.common.js .
 COPY webpack.${BUILD_FOR}.js .
 COPY client client
@@ -28,6 +28,7 @@ WORKDIR /app
 
 COPY package.json yarn.lock .yarnrc.yml ./
 COPY .yarn ./.yarn
+COPY patches patches
 
 RUN yarn workspaces focus --all --production
 
@@ -36,9 +37,7 @@ COPY --from=builder /app/dist dist
 COPY server.js .
 COPY config.js .
 
-COPY bin/ ./bin
 COPY lib ./lib
-COPY public ./public
 COPY routes ./routes
 COPY views ./views
 
@@ -46,4 +45,4 @@ EXPOSE 3000
 USER node
 
 ENTRYPOINT [ "node", "--max_old_space_size=400" ]
-CMD [ "bin/www" ]
+CMD [ "server.js" ]

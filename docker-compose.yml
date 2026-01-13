@@ -4,24 +4,71 @@ services:
       context: .
       args:
         BUILD_FOR: dev
-    command: bin/www
     environment:
       NODE_ENV: production
-      VIRTUAL_HOST: dev.127.0.0.1.nip.io
       TRUST_PROXY: uniquelocal
       LTI_KEY: $LTI_KEY
-      LTI_SECRET: $LTI_SECRET
       BUZZAPI_APP_ID: $BUZZAPI_APP_ID
       BUZZAPI_PASSWORD: $BUZZAPI_PASSWORD
       CANVAS_TOKEN: $CANVAS_TOKEN
-      BANNER_GRADE_API_URL: $BANNER_GRADE_API_URL
+      BANNER_GRADE_API_URL: "http://banner:3000"
       BANNER_GRADE_API_TOKEN: $BANNER_GRADE_API_TOKEN
-      LOG_LEVEL: $LOG_LEVEL
+      LOG_LEVEL: ${LOG_LEVEL:-debug}
+      CLIENT_ID: 20960000000000445
     labels:
-      - "traefik.http.routers.whoami.rule=Host(`dev.127.0.0.1.nip.io`)"
-      - "traefik.http.routers.whoami.tls=true"
+      - "traefik.http.routers.tool.rule=Host(`dev.127.0.0.1.nip.io`)"
+      - "traefik.http.routers.tool.tls=true"
+    develop:
+      watch:
+        - action: sync+restart
+          path: server.js
+          target: /app/server.js
+        - action: sync+restart
+          path: config.js
+          target: /app/config.js
+        - action: sync+restart
+          path: ./routes
+          target: /app/routes
+        - action: sync+restart
+          path: ./lib
+          target: /app/lib
+        - action: sync
+          path: ./views
+          target: /app/views
+        - action: rebuild
+          path: package.json
+        - action: rebuild
+          path: ./client
     expose:
       - "3000"
+    depends_on:
+      db:
+        condition: service_healthy
+  banner:
+    image: public.ecr.aws/b2s1o1u4/eduapps/fakebannerapi:latest
+    labels:
+      - "traefik.http.routers.banner.rule=Host(`banner.127.0.0.1.nip.io`)"
+      - "traefik.http.routers.banner.tls=true"
+    expose:
+      - "3000"
+  db:
+    image: postgres
+    volumes:
+    - postgres_data:/var/lib/postgresql/data/
+    environment:
+        POSTGRES_USER: gradepub
+        POSTGRES_PASSWORD: gradepub_access
+        POSTGRES_DB: gradepub
+    labels:
+      - "traefik.tcp.services.postgres.loadbalancer.server.port=5432"
+      - "traefik.tcp.routers.postgres.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.postgres.entrypoints=postgres"
+      - "traefik.tcp.routers.postgres.service=postgres"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gradepub -d gradepub"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   reverse-proxy:
     image: traefik:v3.2
     ports:
@@ -33,3 +80,5 @@ services:
       - $HOME/certs:/data/traefik
       - ./traefik:/etc/traefik
 
+volumes:
+  postgres_data:

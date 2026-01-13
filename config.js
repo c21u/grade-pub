@@ -30,30 +30,35 @@ export const buzzAPI = {
 };
 
 export const canvasToken = getEnvVarOrThrow("CANVAS_TOKEN");
-export const jwtSecret = getEnvVarOrDefault("JWT_SECRET", "secret");
+
 export const lti = {
   key: getEnvVarOrThrow("LTI_KEY"),
-  secret: getEnvVarOrThrow("LTI_SECRET"),
+  platformConfig: {
+    name: getEnvVarOrDefault("LTI_PLATFORM_NAME", "GATECH"),
+    url: getEnvVarOrDefault("LTI_URL", "https://canvas.test.instructure.com"),
+    clientId: getEnvVarOrThrow("CLIENT_ID"),
+    authenticationEndpoint: getEnvVarOrDefault(
+      "LTI_AUTHN_ENDPOINT",
+      "https://sso.test.canvaslms.com/api/lti/authorize_redirect",
+    ),
+    accesstokenEndpoint: getEnvVarOrDefault(
+      "LTI_TOKEN_ENDPOINT",
+      "https://sso.test.canvaslms.com/login/oauth2/token",
+    ),
+    authConfig: {
+      method: "JWK_SET",
+      key: getEnvVarOrDefault(
+        "LTI_KEYS_URL",
+        "https://sso.test.canvaslms.com/api/lti/security/jwks",
+      ),
+    },
+  },
 };
+
 export const trustProxy = getEnvVarOrDefault("TRUST_PROXY", "loopback");
 
 const defaultLogLevel = process.env.NODE_ENV === "test" ? "error" : "info";
 export const logLevel = getEnvVarOrDefault("LOG_LEVEL", defaultLogLevel);
-
-if (process.env.NODE_ENV === "test") {
-  console.warn(`Fake auth strategy enabled!`);
-}
-export const passport = {
-  strategy: process.env.NODE_ENV === "test" ? "fake" : "lti",
-  ...(process.env.NODE_ENV === "test"
-    ? {
-        fakeStrategyCredentials: {
-          username: getEnvVarOrDefault("FAKE_USERNAME"),
-          password: getEnvVarOrDefault("FAKE_PASSWORD"),
-        },
-      }
-    : null),
-};
 
 export const banner = {
   url: getEnvVarOrThrow("BANNER_GRADE_API_URL"),
@@ -73,6 +78,14 @@ export const umami = {
   id: getEnvVarOrDefault("UMAMI_ID", ""),
 };
 
+export const db = {
+  host: getEnvVarOrDefault("DB_HOST", "db"),
+  port: getEnvVarOrDefault("DB_PORT", 5432),
+  user: getEnvVarOrDefault("DB_USER", "gradepub"),
+  database: getEnvVarOrDefault("DB_NAME", "gradepub"),
+  password: getEnvVarOrDefault("DB_PASS", "gradepub_access"),
+};
+
 export const alwaysSendCurrentGrade = getEnvVarOrNull(
   "ALWAYS_SEND_CURRENT_GRADE",
 );
@@ -80,14 +93,13 @@ export const alwaysSendCurrentGrade = getEnvVarOrNull(
 const config = {
   buzzAPI,
   canvasToken,
-  jwtSecret,
   lti,
   trustProxy,
   logLevel,
-  passport,
   banner,
   namespace,
   umami,
+  db,
   alwaysSendCurrentGrade,
 };
 

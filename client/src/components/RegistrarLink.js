@@ -2,16 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "@instructure/ui-link";
 
-const KBLink = ({kbid, display="auto", children}) => {
-  const href = `https://gatech.service-now.com/home?id=kb_article_view&sysparm_article=${kbid}`;
+const RegistrarLink = ({rid, display="auto", children}) => {
+  const href = `https://registrar.gatech.edu/info/${rid}`;
   return (
     <Link href={href} target="_blank" display={display}>
       {children}
     </Link>
   );
 };
-KBLink.propTypes = {
-  kbid: PropTypes.string,
+RegistrarLink.propTypes = {
+  rid: PropTypes.string,
   display: PropTypes.oneOf([
     "auto",
     "block",
@@ -22,4 +22,4 @@ KBLink.propTypes = {
   children: PropTypes.node,
 };
 
-export default KBLink;
+export default RegistrarLink;

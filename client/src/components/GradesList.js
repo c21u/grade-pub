@@ -21,7 +21,7 @@ const GradesList = ({
       }, {})
     : null;
 
-  const rows = canvasGrades.map((grade) => ({
+  const rows = canvasGrades?.map((grade) => ({
     ...grade,
     canvasGrade:
       alwaysSendCurrentGrade || gradeMode === "M"

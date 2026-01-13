@@ -1,17 +1,15 @@
 import express from "express";
-// eslint-disable-next-line new-cap
 const router = express.Router();
-import jwtMiddleware from "../lib/jwt.js";
 import canvasAPI from "../lib/canvas.js";
 import logger from "../lib/logger.js";
 import { uploadGrades, getGrades, isGradingOpen } from "../lib/banner.js";
 import { getGrademodes, isSectionGradable } from "../lib/buzzapi.js";
 import { namespace as ns, alwaysSendCurrentGrade } from "../config.js";
+import { isInstructor } from "../lib/util.js";
 
-router.use(jwtMiddleware);
-
-router.get("/test", (req, res) => {
-  res.send({ message: "testing works!" });
+router.get("/context", async (req, res) => {
+  logger.debug(res.locals);
+  return res.send(res.locals);
 });
 
 router.get("/grades", async (req, res) => {
@@ -32,30 +30,26 @@ router.get("/grades", async (req, res) => {
         return grade;
     }
   };
-  const canvas = canvasAPI.getCanvasContext(req);
-  // getCanvasContext is imported from lib/canvas
+  const canvas = canvasAPI.getCanvasContext(res.locals);
 
   try {
     const getCanvasStudents = async (cursor = null) => {
       const query =
-        "query ($courseId: ID $cursor: String) { course(id: $courseId) { enrollmentsConnection(filter: {types: StudentEnrollment}, after: $cursor) { nodes { user { sisId sortableName } grades { overrideGrade currentGrade finalGrade overrideScore currentScore finalScore unpostedCurrentGrade unpostedFinalGrade } section { sisId } } pageInfo { endCursor hasNextPage } } } }";
+        "query ($courseId: ID $cursor: String) { course(id: $courseId) { enrollmentsConnection(filter: {types: StudentEnrollment}, first: 100 after: $cursor) { nodes { user { sisId sortableName } grades { overrideGrade currentGrade finalGrade overrideScore currentScore finalScore unpostedCurrentGrade unpostedFinalGrade } section { sisId } } pageInfo { endCursor hasNextPage } } } }";
       const variables = { courseId: canvas.courseID, cursor };
-      const students = (await canvas.rawReq.post("api/graphql", {
-        query,
-        variables,
-      })).body.data.course.enrollmentsConnection;
+      const students = (await canvas.api.graphql(query, variables)).data.course
+        .enrollmentsConnection;
+
       if (students.pageInfo.hasNextPage) {
         return students.nodes.concat(
-          await getCanvasStudents(students.pageInfo.endCursor));
+          await getCanvasStudents(students.pageInfo.endCursor),
+        );
       }
       return students.nodes;
-    }
+    };
 
     const students = await getCanvasStudents();
-    const realStudents =
-      students.filter(
-        (s) => s.user.sisId,
-      );
+    const realStudents = students.filter((s) => s.user.sisId);
     // ** override feature ** - checks if override_grade exists, and if so, sets final_grade and current_grade equal to override_grade
     // if there is override grade, override value is equal to "Y" and if not, null
     const gradeModes = await getGrademodes(realStudents);
@@ -66,6 +60,9 @@ router.get("/grades", async (req, res) => {
       gradable[sectionId] = await isSectionGradable(sectionId);
     }
     logger.debug({ gradable });
+    if (Object.values(gradable).filter((g) => g).length === 0) {
+      logger.warn({ courseId: canvas.courseID }, "No gradable sections found!");
+    }
     const data = realStudents
       .map(({ user, section, grades }) => {
         const gradeMode = gradeModes[user.sisId].gradeMode;
@@ -93,7 +90,7 @@ router.get("/grades", async (req, res) => {
           unpostedCurrentGrade: grades.unpostedCurrentGrade,
           sisSectionID: section.sisId,
           gtID: user.sisId,
-          course: req.auth.custom_canvas_course_name,
+          course: res.locals.context.custom.canvas_course_name,
           override: overrideGrade ? "Y" : null,
           gradeMode,
         };
@@ -107,7 +104,7 @@ router.get("/grades", async (req, res) => {
 });
 
 router.get("/gradeScheme", async (req, res) => {
-  const canvas = canvasAPI.getCanvasContext(req);
+  const canvas = canvasAPI.getCanvasContext(res.locals);
 
   try {
     const course = await canvas.api.get(`courses/${canvas.courseID}`);
@@ -137,7 +134,7 @@ router.get("/gradeScheme", async (req, res) => {
 });
 
 router.post("/gradeScheme", async (req, res) => {
-  const canvas = canvasAPI.getCanvasContext(req);
+  const canvas = canvasAPI.getCanvasContext(res.locals);
 
   try {
     return res.send(
@@ -152,7 +149,7 @@ router.post("/gradeScheme", async (req, res) => {
 });
 
 router.get("/availableGradeSchemes", async (req, res) => {
-  const canvas = canvasAPI.getCanvasContext(req);
+  const canvas = canvasAPI.getCanvasContext(res.locals);
   try {
     const schemes = await Promise.all([
       canvas.api.get(`courses/${canvas.courseID}/grading_standards`),
@@ -165,7 +162,7 @@ router.get("/availableGradeSchemes", async (req, res) => {
 });
 
 router.get("/sectionTitles", async (req, res) => {
-  const canvas = canvasAPI.getCanvasContext(req);
+  const canvas = canvasAPI.getCanvasContext(res.locals);
 
   try {
     const sections = await canvas.api.get(
@@ -183,14 +180,21 @@ router.get("/sectionTitles", async (req, res) => {
 });
 
 router.post("/publish", async (req, res) => {
-  if (!req.auth || !req.auth.roles.includes("Instructor")) {
+  if (!isInstructor(res.locals)) {
     return res
       .status(403)
       .send("You must be logged in as a course instructor to publish grades!");
   }
-  logger.info({ user: req.auth }, "Requested publication of grades to banner");
+  logger.info(
+    { context: res.locals },
+    "Requested publication of grades to banner",
+  );
   try {
-    const result = await uploadGrades(req.auth, req.body.grades, req.body.mode);
+    const result = await uploadGrades(
+      res.locals,
+      req.body.grades,
+      req.body.mode,
+    );
     return res.send(result);
   } catch (err) {
     logger.error(err);
@@ -199,12 +203,12 @@ router.post("/publish", async (req, res) => {
 });
 
 router.get("/sheet", async (req, res) => {
-  logger.info({ user: req.auth }, "User requested spreadsheet export");
+  logger.info({ context: res.locals }, "User requested spreadsheet export");
   return res.send();
 });
 
 router.post("/bannerInitial", async (req, res) => {
-  if (!req.auth || !req.auth.roles.includes("Instructor")) {
+  if (!isInstructor(res.locals)) {
     return res
       .status(403)
       .send(
@@ -231,17 +235,17 @@ router.get("/isGradingOpen", async (req, res) => {
 });
 
 router.get("/attendanceDates", async (req, res) => {
-  if (!req.auth || !req.auth.roles.includes("Instructor")) {
+  if (!isInstructor(res.locals)) {
     return res
       .status(403)
       .send(
         "You must be logged in as a course instructor to get attendance info!",
       );
   }
-  const canvas = canvasAPI.getCanvasContext(req);
+  const canvas = canvasAPI.getCanvasContext(res.locals);
   try {
     const dates = await canvas.api.get(
-      `users/${req.auth.custom_canvas_user_id}/custom_data/${req.auth.custom_lis_course_offering_sourcedid.replace("/", "_")}/attendance`,
+      `users/${res.locals.context.custom.canvas_user_id}/custom_data/${res.locals.context.custom.lis_course_offering_sourcedid.replace("/", "_")}/attendance`,
       { ns },
     );
     return res.send(dates.data);
@@ -263,16 +267,19 @@ router.get("/attendanceDates", async (req, res) => {
 });
 
 router.post("/attendanceDates", async (req, res) => {
-  if (!req.auth || !req.auth.roles.includes("Instructor")) {
+  if (!isInstructor(res.locals)) {
     return res
       .status(403)
       .send(
         "You must be logged in as a course instructor to set attendance info!",
       );
   }
-  const canvas = canvasAPI.getCanvasContext(req);
+  const canvas = canvasAPI.getCanvasContext(res.locals);
 
-  const key = req.auth.custom_lis_course_offering_sourcedid.replace("/", "_");
+  const key = res.locals.context.custom.lis_course_offering_sourcedid.replace(
+    "/",
+    "_",
+  );
   try {
     const body = {
       ns,
@@ -282,12 +289,12 @@ router.post("/attendanceDates", async (req, res) => {
         },
       },
     };
-    const url = `users/${req.auth.custom_canvas_user_id}/custom_data`;
+    const url = `users/${res.locals.context.custom.canvas_user_id}/custom_data`;
     logger.debug({ url, body }, "about to PUT custom data");
     const result = await canvas.api.put(url, null, body);
     logger.debug(
       {
-        url: `users/${req.auth.custom_canvas_user_id}/custom_data`,
+        url: `users/${res.locals.context.custom.canvas_user_id}/custom_data`,
         result,
       },
       "Attendance data saved",
